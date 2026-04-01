@@ -1,9 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { supabase } from "../lib/supabase";
 
 export default function Page() {
   const [giftPack, setGiftPack] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const baseTotal = 69.8;
   const total = useMemo(() => (giftPack ? baseTotal + 5 : baseTotal), [giftPack]);
@@ -60,6 +62,47 @@ export default function Page() {
       a: "Da, uz proizvod dobijate garanciju u trajanju od 3 godine.",
     },
   ];
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoading(true);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const order = {
+      product_name: "Makita aku makaze",
+      full_name: String(formData.get("ime") || ""),
+      phone: String(formData.get("telefon") || ""),
+      address_place: String(formData.get("adresa") || ""),
+      postal_code: String(formData.get("postanski") || ""),
+      gift_pack: giftPack,
+      shipping: 9.9,
+      product_price: 59.9,
+      total: Number(total.toFixed(2)),
+      status: "novo",
+      source: "makaze-landing",
+    };
+
+    if (!order.full_name || !order.phone || !order.address_place || !order.postal_code) {
+      alert("Molimo popunite sva polja.");
+      setLoading(false);
+      return;
+    }
+
+    const { error } = await supabase.from("orders").insert(order);
+
+    if (error) {
+      alert("Greška pri slanju narudžbe. Pokušajte ponovo.");
+      setLoading(false);
+      return;
+    }
+
+    alert("Narudžba uspješno poslana!");
+    form.reset();
+    setGiftPack(false);
+    setLoading(false);
+  }
 
   return (
     <div className="min-h-screen bg-neutral-100 pb-24">
@@ -264,7 +307,7 @@ export default function Page() {
               Brza dostava na kućnu adresu • 3 godine garancije
             </p>
 
-            <form className="mt-4 space-y-3">
+            <form onSubmit={handleSubmit} className="mt-4 space-y-3">
               <input
                 name="ime"
                 placeholder="Ime i prezime"
@@ -324,9 +367,10 @@ export default function Page() {
 
               <button
                 type="submit"
-                className="w-full rounded-2xl bg-yellow-400 p-4 text-lg font-black uppercase tracking-wide text-black shadow-lg"
+                disabled={loading}
+                className="w-full rounded-2xl bg-yellow-400 p-4 text-lg font-black uppercase tracking-wide text-black shadow-lg disabled:opacity-70"
               >
-                Naruči odmah
+                {loading ? "Šalje se..." : "Naruči odmah"}
               </button>
             </form>
           </section>
