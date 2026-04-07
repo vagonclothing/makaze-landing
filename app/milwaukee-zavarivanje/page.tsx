@@ -3,6 +3,12 @@
 import { useMemo, useState } from "react";
 import { supabase } from "../../lib/supabase";
 
+declare global {
+  interface Window {
+    fbq?: (...args: any[]) => void;
+  }
+}
+
 export default function Page() {
   const [giftPack, setGiftPack] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -104,6 +110,14 @@ export default function Page() {
       alert("Greška pri slanju narudžbe. Pokušajte ponovo.");
       setLoading(false);
       return;
+    }
+
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "Lead", {
+        content_name: order.product_name,
+        value: order.total,
+        currency: "BAM",
+      });
     }
 
     alert("Narudžba uspješno poslana!");
