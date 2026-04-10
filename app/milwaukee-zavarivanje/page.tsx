@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { supabase } from "../../lib/supabase";
 
 declare global {
@@ -12,6 +12,22 @@ declare global {
 export default function Page() {
   const [giftPack, setGiftPack] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
+
+    if (window.location.hash) {
+      window.history.replaceState(
+        null,
+        "",
+        window.location.pathname + window.location.search
+      );
+    }
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const baseTotal = 79.9;
   const total = useMemo(() => (giftPack ? baseTotal + 5 : baseTotal), [giftPack]);
@@ -124,6 +140,10 @@ export default function Page() {
     form.reset();
     setGiftPack(false);
     setLoading(false);
+
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 50);
   }
 
   return (
