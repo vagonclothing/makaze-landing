@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { supabase } from "../../lib/supabase";
 
 declare global {
@@ -12,6 +12,47 @@ declare global {
 export default function Page() {
   const [giftPack, setGiftPack] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [pageReady, setPageReady] = useState(false);
+
+  useEffect(() => {
+    const forceTop = () => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+
+    if (window.location.hash) {
+      window.history.replaceState(
+        null,
+        "",
+        window.location.pathname + window.location.search
+      );
+    }
+
+    forceTop();
+
+    const t1 = setTimeout(forceTop, 50);
+    const t2 = setTimeout(forceTop, 150);
+    const t3 = setTimeout(() => {
+      forceTop();
+      setPageReady(true);
+    }, 300);
+    const t4 = setTimeout(forceTop, 700);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      clearTimeout(t4);
+    };
+  }, []);
+
+  const scrollToOrder = () => {
+    const el = document.getElementById("narudzba");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   const baseTotal = 189.9;
   const total = useMemo(() => (giftPack ? baseTotal + 5 : baseTotal), [giftPack]);
@@ -124,10 +165,18 @@ export default function Page() {
     form.reset();
     setGiftPack(false);
     setLoading(false);
+
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 50);
   }
 
   return (
-    <div className="min-h-screen bg-neutral-100 pb-24 text-black">
+    <div
+      className={`min-h-screen bg-neutral-100 pb-10 text-black transition-opacity duration-200 ${
+        pageReady ? "opacity-100" : "opacity-0"
+      }`}
+    >
       <div className="mx-auto max-w-md bg-white shadow-2xl">
         <section className="bg-gradient-to-b from-green-800 via-green-700 to-green-600 px-4 pb-5 pt-4 text-white">
           <div className="mb-3 flex justify-center">
@@ -172,12 +221,13 @@ export default function Page() {
             </div>
           </div>
 
-          <a
-            href="#narudzba"
-            className="mt-4 block rounded-2xl bg-yellow-400 px-5 py-4 text-center text-base font-black uppercase tracking-wide text-black shadow-xl"
+          <button
+            type="button"
+            onClick={scrollToOrder}
+            className="mt-4 block w-full rounded-2xl bg-yellow-400 px-5 py-4 text-center text-base font-black uppercase tracking-wide text-black shadow-xl"
           >
             Naruči odmah
-          </a>
+          </button>
         </section>
 
         <main className="px-4 py-5">
@@ -386,10 +436,6 @@ export default function Page() {
             </form>
           </section>
         </main>
-      </div>
-
-      <div className="fixed bottom-0 left-0 right-0 z-50 bg-yellow-400 p-4 text-center text-lg font-black text-black shadow-[0_-8px_25px_rgba(0,0,0,0.15)]">
-        NARUČI ODMAH - {total.toFixed(2)} KM
       </div>
     </div>
   );
