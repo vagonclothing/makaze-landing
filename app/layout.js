@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <script
+<script
   dangerouslySetInnerHTML={{
     __html: `
       if ('scrollRestoration' in history) {
