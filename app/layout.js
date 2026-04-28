@@ -22,6 +22,29 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <script
+  dangerouslySetInnerHTML={{
+    __html: `
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+
+      window.addEventListener('pageshow', function () {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      });
+
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          window.scrollTo(0, 0);
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+        }, 10);
+      });
+    `,
+  }}
+/>
       <head>
         <script
           dangerouslySetInnerHTML={{
