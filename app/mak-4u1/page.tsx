@@ -15,11 +15,15 @@ export default function Page() {
   const [pageReady, setPageReady] = useState(false);
 
   useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+
     const forceTop = () => {
       window.scrollTo(0, 0);
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
     };
+
+    document.body.style.overflow = "hidden";
 
     if (window.location.hash) {
       window.history.replaceState(
@@ -36,14 +40,16 @@ export default function Page() {
     const t3 = setTimeout(() => {
       forceTop();
       setPageReady(true);
-    }, 300);
-    const t4 = setTimeout(forceTop, 700);
+      document.body.style.overflow = originalOverflow || "auto";
+    }, 450);
+    const t4 = setTimeout(forceTop, 900);
 
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
       clearTimeout(t4);
+      document.body.style.overflow = originalOverflow;
     };
   }, []);
 
@@ -371,21 +377,25 @@ export default function Page() {
             <form onSubmit={handleSubmit} className="mt-4 space-y-3">
               <input
                 name="ime"
+                autoComplete="off"
                 placeholder="Ime i prezime"
                 className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500"
               />
               <input
                 name="telefon"
+                autoComplete="off"
                 placeholder="Broj telefona"
                 className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500"
               />
               <input
                 name="adresa"
+                autoComplete="off"
                 placeholder="Adresa i mjesto"
                 className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500"
               />
               <input
                 name="postanski"
+                autoComplete="off"
                 placeholder="Poštanski broj"
                 className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500"
               />
