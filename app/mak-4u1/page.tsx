@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { supabase } from "../../lib/supabase";
 
 declare global {
@@ -12,52 +12,10 @@ declare global {
 export default function Page() {
   const [giftPack, setGiftPack] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [pageReady, setPageReady] = useState(false);
-
-  useEffect(() => {
-    const originalOverflow = document.body.style.overflow;
-
-    const forceTop = () => {
-      window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-    };
-
-    document.body.style.overflow = "hidden";
-
-    if (window.location.hash) {
-      window.history.replaceState(
-        null,
-        "",
-        window.location.pathname + window.location.search
-      );
-    }
-
-    forceTop();
-
-    const t1 = setTimeout(forceTop, 50);
-    const t2 = setTimeout(forceTop, 150);
-    const t3 = setTimeout(() => {
-      forceTop();
-      setPageReady(true);
-      document.body.style.overflow = originalOverflow || "auto";
-    }, 450);
-    const t4 = setTimeout(forceTop, 900);
-
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-      clearTimeout(t4);
-      document.body.style.overflow = originalOverflow;
-    };
-  }, []);
+  const orderRef = useRef<HTMLElement | null>(null);
 
   const scrollToOrder = () => {
-    const el = document.getElementById("narudzba");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    orderRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const baseTotal = 189.9;
@@ -171,18 +129,10 @@ export default function Page() {
     form.reset();
     setGiftPack(false);
     setLoading(false);
-
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-    }, 50);
   }
 
   return (
-    <div
-      className={`min-h-screen bg-neutral-100 pb-10 text-black transition-opacity duration-200 ${
-        pageReady ? "opacity-100" : "opacity-0"
-      }`}
-    >
+    <div className="min-h-screen bg-neutral-100 pb-10 text-black">
       <div className="mx-auto max-w-md bg-white shadow-2xl">
         <section className="bg-gradient-to-b from-green-800 via-green-700 to-green-600 px-4 pb-5 pt-4 text-white">
           <div className="mb-3 flex justify-center">
@@ -365,7 +315,7 @@ export default function Page() {
           </section>
 
           <section
-            id="narudzba"
+            ref={orderRef}
             className="mt-5 rounded-3xl bg-gradient-to-b from-green-700 to-green-600 p-5 text-white shadow-2xl"
           >
             <div className="mb-3 rounded-2xl bg-yellow-400 px-4 py-3 text-center text-sm font-black uppercase tracking-wide text-black shadow-lg">
