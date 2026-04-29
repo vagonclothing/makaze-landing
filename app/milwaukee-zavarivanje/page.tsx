@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { supabase } from "../../lib/supabase";
 
 declare global {
@@ -12,42 +12,10 @@ declare global {
 export default function Page() {
   const [giftPack, setGiftPack] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const forceTop = () => {
-      window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-    };
-
-    forceTop();
-
-    if (window.location.hash) {
-      window.history.replaceState(
-        null,
-        "",
-        window.location.pathname + window.location.search
-      );
-    }
-
-    const t1 = setTimeout(forceTop, 50);
-    const t2 = setTimeout(forceTop, 150);
-    const t3 = setTimeout(forceTop, 350);
-    const t4 = setTimeout(forceTop, 700);
-
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-      clearTimeout(t4);
-    };
-  }, []);
+  const orderRef = useRef<HTMLElement | null>(null);
 
   const scrollToOrder = () => {
-    const el = document.getElementById("narudzba");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    orderRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const baseTotal = 79.9;
@@ -56,9 +24,9 @@ export default function Page() {
   const features = [
     "Velika snaga – 500A za ozbiljne poslove",
     "Inverter tehnologija – stabilan luk i ušteda energije",
-    "Kompaktan i lagan – lako prenosiv i praktičan",
-    "Jednostavno korištenje – za amatere i profesionalce",
-    "Niska potrošnja struje – ekonomičan rad",
+    "Kompaktan i lagan – lako prenosiv",
+    "Jednostavno korištenje",
+    "Niska potrošnja struje",
     "Radi sa svim vrstama elektroda",
     "Ugrađen ventilator za hlađenje",
   ];
@@ -73,11 +41,11 @@ export default function Page() {
   ];
 
   const testimonials = [
-    "Nevjerovatno jak aparat! Lagano sam zavarivao sve što mi je trebalo kod kuće. Preporučujem svima.",
-    "Radio sam s više aparata, ali ovaj Milwaukee 500A mi je favorit. Stabilan, snažan i lagan.",
-    "Savršen za radionicu! Imao sam sumnje, ali sad mi je žao što ga nisam ranije kupio.",
+    "Nevjerovatno jak aparat! Lagano sam zavarivao sve što mi je trebalo kod kuće.",
+    "Radio sam s više aparata, ali ovaj Milwaukee 500A mi je favorit.",
+    "Savršen za radionicu! Sad mi je žao što ga nisam ranije kupio.",
     "S ovim aparatom čak i ja koji nisam profesionalac mogu raditi kao pravi majstor!",
-    "Garancija 3 godine me odmah uvjerila – i nisam se prevario. Radi kao sat!",
+    "Garancija 3 godine me odmah uvjerila – i nisam se prevario.",
   ];
 
   const audience = [
@@ -98,19 +66,15 @@ export default function Page() {
     },
     {
       q: "Koliko je aparat težak?",
-      a: "Zahvaljujući inverter tehnologiji, vrlo je lagan i lako prenosiv, manje od 5 kg.",
+      a: "Zahvaljujući inverter tehnologiji, vrlo je lagan i lako prenosiv.",
     },
     {
       q: "Je li dobar za profesionalnu upotrebu?",
-      a: "Da. Snaga, stabilnost luka i pouzdan rad čine ga odličnim izborom i za profesionalce.",
+      a: "Da. Snaga, stabilnost luka i pouzdan rad čine ga odličnim izborom.",
     },
     {
       q: "Kako funkcioniše garancija?",
       a: "Uređaj ima 3 godine garancije na tvorničke kvarove.",
-    },
-    {
-      q: "Dolazi li zaštitna oprema?",
-      a: "Da, u paketu dobijate osnovnu zaštitnu masku.",
     },
   ];
 
@@ -149,7 +113,7 @@ export default function Page() {
       return;
     }
 
-    if (typeof window !== "undefined" && window.fbq) {
+    if (window.fbq) {
       window.fbq("track", "Lead", {
         content_name: order.product_name,
         value: order.total,
@@ -161,10 +125,6 @@ export default function Page() {
     form.reset();
     setGiftPack(false);
     setLoading(false);
-
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-    }, 50);
   }
 
   return (
@@ -225,11 +185,11 @@ export default function Page() {
         <main className="px-4 py-5">
           <section className="rounded-3xl border border-red-200 bg-red-50 p-4">
             <h2 className="text-base font-black text-red-700">
-              ❌ Ne propustite priliku da uzmete alat koji štedi vrijeme i novac
+              ❌ Ne propustite alat koji štedi vrijeme i novac
             </h2>
             <p className="mt-2 text-sm leading-6 text-neutral-700">
-              Milwaukee inverter aparat 500A pruža ozbiljnu snagu, stabilan luk i pouzdan rad
-              za kućne radionice, hobi majstore i profesionalce.
+              Milwaukee inverter aparat 500A pruža ozbiljnu snagu, stabilan luk i pouzdan rad za
+              kućne radionice, hobi majstore i profesionalce.
             </p>
           </section>
 
@@ -273,27 +233,13 @@ export default function Page() {
             />
             <div className="mt-4 rounded-2xl bg-neutral-50 p-4">
               <p className="text-sm leading-6 text-neutral-700">
-                "Radim kao varioc preko 15 godina i koristio sam razne aparate. Milwaukee 500A me
+                “Radim kao varioc preko 15 godina i koristio sam razne aparate. Milwaukee 500A me
                 iskreno iznenadio – stabilan luk, čisto zavarivanje i dovoljno snage za ozbiljne
-                poslove. Lagan je za nošenje i radi bez problema cijeli dan."
+                poslove.”
               </p>
               <p className="mt-2 text-sm font-black text-red-700">
                 — Zoran V., profesionalni varioc
               </p>
-            </div>
-          </section>
-
-          <section className="mt-5 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-red-100">
-            <h2 className="text-xl font-black">💬 Iskustva korisnika</h2>
-            <div className="mt-4 space-y-3">
-              {testimonials.map((item, index) => (
-                <div
-                  key={index}
-                  className="rounded-2xl border border-neutral-200 bg-neutral-50 p-4"
-                >
-                  <p className="text-sm leading-6 text-neutral-700">“{item}”</p>
-                </div>
-              ))}
             </div>
           </section>
 
@@ -306,6 +252,20 @@ export default function Page() {
                   className="rounded-2xl bg-red-50 p-3 text-sm font-semibold text-neutral-800"
                 >
                   ✅ {item}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="mt-5 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-red-100">
+            <h2 className="text-xl font-black">💬 Iskustva korisnika</h2>
+            <div className="mt-4 space-y-3">
+              {testimonials.map((item, index) => (
+                <div
+                  key={index}
+                  className="rounded-2xl border border-neutral-200 bg-neutral-50 p-4"
+                >
+                  <p className="text-sm leading-6 text-neutral-700">“{item}”</p>
                 </div>
               ))}
             </div>
@@ -333,7 +293,7 @@ export default function Page() {
           </section>
 
           <section
-            id="narudzba"
+            ref={orderRef}
             className="mt-5 rounded-3xl bg-gradient-to-b from-red-700 to-red-600 p-5 text-white shadow-2xl"
           >
             <div className="mb-3 rounded-2xl bg-yellow-400 px-4 py-3 text-center text-sm font-black uppercase tracking-wide text-black shadow-lg">
@@ -343,34 +303,13 @@ export default function Page() {
             <h2 className="text-center text-2xl font-black">🛒 Naručite odmah</h2>
 
             <form onSubmit={handleSubmit} className="mt-4 space-y-3">
-              <input
-                name="ime"
-                placeholder="Ime i prezime"
-                className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500"
-              />
-              <input
-                name="telefon"
-                placeholder="Broj telefona"
-                className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500"
-              />
-              <input
-                name="adresa"
-                placeholder="Adresa i mjesto"
-                className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500"
-              />
-              <input
-                name="postanski"
-                placeholder="Poštanski broj"
-                className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500"
-              />
+              <input name="ime" autoComplete="off" placeholder="Ime i prezime" className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500" />
+              <input name="telefon" autoComplete="off" placeholder="Broj telefona" className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500" />
+              <input name="adresa" autoComplete="off" placeholder="Adresa i mjesto" className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500" />
+              <input name="postanski" autoComplete="off" placeholder="Poštanski broj" className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500" />
 
               <label className="flex gap-3 rounded-2xl border border-yellow-300 bg-yellow-100 p-3 text-black">
-                <input
-                  type="checkbox"
-                  checked={giftPack}
-                  onChange={(e) => setGiftPack(e.target.checked)}
-                  className="mt-1"
-                />
+                <input type="checkbox" checked={giftPack} onChange={(e) => setGiftPack(e.target.checked)} className="mt-1" />
                 <div>
                   <div className="font-bold">Želim poklon paket</div>
                   <div className="text-xs">+5,00 KM (vrijednost do 50,00 KM)</div>
@@ -400,11 +339,7 @@ export default function Page() {
                 </div>
               </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full rounded-2xl bg-yellow-400 p-4 text-lg font-black uppercase tracking-wide text-black shadow-lg disabled:opacity-70"
-              >
+              <button type="submit" disabled={loading} className="w-full rounded-2xl bg-yellow-400 p-4 text-lg font-black uppercase tracking-wide text-black shadow-lg disabled:opacity-70">
                 {loading ? "Šalje se..." : "Naruči odmah"}
               </button>
             </form>
