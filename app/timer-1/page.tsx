@@ -18,8 +18,52 @@ export default function Page() {
     orderRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const baseTotal = 79.9;
+  const baseTotal = 69.9;
   const total = useMemo(() => (giftPack ? baseTotal + 5 : baseTotal), [giftPack]);
+
+  const benefits = [
+    "Siječe i najdeblju travu bez zapinjanja",
+    "2 baterije – radiš bez prekida",
+    "Sve dobiješ u jednom paketu",
+    "Gratis rukavice i zaštitne naočale",
+    "Uredi dvorište za par minuta",
+  ];
+
+  const packageItems = [
+    "Aku trimer visoke snage",
+    "2 jake baterije",
+    "2 metalna noža",
+    "20 plastičnih noževa",
+    "Cirkular za jače rezanje",
+    "Gratis rukavice",
+    "Gratis zaštitne naočale",
+    "3 godine garancije",
+  ];
+
+  const testimonials = [
+    "Uzeo sam zbog seta – nisam morao ništa dodatno kupovati. Radi odlično.",
+    "Iskreno, nisam očekivao ovu snagu. Reže sve bez problema.",
+    "Najbolja stvar što nema kablova – samo uzmem i završim posao za čas.",
+  ];
+
+  const faqs = [
+    {
+      q: "Šta dolazi u setu?",
+      a: "Dobijate aku trimer, 2 baterije, 2 metalna noža, 20 plastičnih noževa, cirkular, gratis rukavice i zaštitne naočale.",
+    },
+    {
+      q: "Da li radi bez kabla?",
+      a: "Da. Radi na baterije, bez kablova, benzina i komplikacija.",
+    },
+    {
+      q: "Može li sjeći gustu travu?",
+      a: "Da. Metalni noževi prolaze kroz gustu travu i zapuštene dijelove dvorišta.",
+    },
+    {
+      q: "Ima li garanciju?",
+      a: "Da, set dolazi sa garancijom od 3 godine.",
+    },
+  ];
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -29,17 +73,17 @@ export default function Page() {
     const formData = new FormData(form);
 
     const order = {
-      product_name: "Milwaukee aparat za zavarivanje inverter 500A",
+      product_name: "Makita aku trimer set",
       full_name: String(formData.get("ime") || ""),
       phone: String(formData.get("telefon") || ""),
       address_place: String(formData.get("adresa") || ""),
       postal_code: String(formData.get("postanski") || ""),
       gift_pack: giftPack,
       shipping: 10,
-      product_price: 69.9,
+      product_price: 59.9,
       total: Number(total.toFixed(2)),
       status: "novo",
-      source: "milwaukee-zavarivanje",
+      source: "trimer",
     };
 
     if (!order.full_name || !order.phone || !order.address_place || !order.postal_code) {
@@ -51,7 +95,7 @@ export default function Page() {
     const { error } = await supabase.from("orders").insert(order);
 
     if (error) {
-      alert("Greška pri slanju narudžbe.");
+      alert("Greška pri slanju narudžbe. Pokušajte ponovo.");
       setLoading(false);
       return;
     }
@@ -71,77 +115,180 @@ export default function Page() {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-100 text-black">
+    <div className="min-h-screen bg-neutral-100 pb-10 text-black">
       <div className="mx-auto max-w-md bg-white shadow-2xl">
-
-        {/* HERO */}
-        <section className="bg-gradient-to-b from-red-800 via-red-700 to-red-600 px-4 pb-5 pt-4 text-white">
-          <h1 className="text-center text-2xl font-black">
-            MILWAUKEE APARAT ZA ZAVARIVANJE 500A
-          </h1>
-
-          <div className="mt-4">
-            <img
-              src="https://i.imgur.com/ckMdLH1.png"
-              className="w-full rounded-2xl"
-            />
+        <section className="bg-gradient-to-b from-green-800 via-green-700 to-green-600 px-4 pb-5 pt-4 text-white">
+          <div className="mb-3 flex justify-center">
+            <img src="https://i.imgur.com/zBco9y4.png" alt="Logo" className="h-10 w-auto object-contain" />
           </div>
 
-          <div className="mt-4 text-center">
-            <div className="line-through">250,00 KM</div>
-            <div className="text-2xl font-black">69,90 KM</div>
+          <div className="rounded-2xl bg-yellow-400 px-4 py-3 text-center text-sm font-black uppercase tracking-wide text-black shadow-lg">
+            ✅ 3 GODINE GARANCIJE
+          </div>
+
+          <h1 className="mt-4 text-center text-2xl font-black leading-tight">
+            🔥 RIJEŠI ZARASLO DVORIŠTE ZA 10 MINUTA
+          </h1>
+
+          <p className="mt-2 text-center text-sm font-semibold text-green-50">
+            Bez kablova, bez muke i bez skupih alata
+          </p>
+
+          <div className="mt-4 rounded-3xl bg-white p-3 shadow-2xl">
+            <img src="https://i.imgur.com/AQ7TANg.jpeg" alt="Makita aku trimer set" className="w-full rounded-2xl object-cover" />
+          </div>
+
+          <div className="mt-4 grid grid-cols-2 gap-3">
+            <div className="rounded-2xl bg-red-600 p-3 text-center shadow-lg">
+              <div className="text-[11px] font-bold uppercase tracking-wide text-red-100">Redovna cijena</div>
+              <div className="mt-1 text-xl font-black line-through">199,00 KM</div>
+            </div>
+
+            <div className="rounded-2xl bg-yellow-400 p-3 text-center text-black shadow-lg ring-2 ring-white/40">
+              <div className="text-[11px] font-bold uppercase tracking-wide">Akcija</div>
+              <div className="mt-1 text-2xl font-black">59,90 KM</div>
+            </div>
           </div>
 
           <button
+            type="button"
             onClick={scrollToOrder}
-            className="mt-4 w-full rounded-2xl bg-yellow-400 p-4 font-black text-black"
+            className="mt-4 block w-full rounded-2xl bg-yellow-400 px-5 py-4 text-center text-base font-black uppercase tracking-wide text-black shadow-xl"
           >
             Naruči odmah
           </button>
         </section>
 
-        {/* CONTENT */}
-        <main className="p-4 space-y-4">
-          <div className="bg-red-50 p-4 rounded-2xl">
-            Profesionalni aparat za sve vrste zavarivanja.
-          </div>
-        </main>
+        <main className="px-4 py-5">
+          <section className="rounded-3xl border border-red-200 bg-red-50 p-4">
+            <h2 className="text-base font-black text-red-700">❌ Poznato ti je ovo?</h2>
+            <p className="mt-2 text-sm leading-6 text-neutral-700">
+              Trava naraste za par dana, stari trimer slabo siječe, kablovi smetaju, benzin smrdi,
+              a posao traje satima. Na kraju izgubiš živce… i opet nisi zadovoljan.
+            </p>
+          </section>
 
-        {/* ORDER */}
-        <section
-          ref={orderRef}
-          className="p-4 bg-red-600 text-white rounded-t-3xl"
-        >
-          <h2 className="text-center text-xl font-black">Naruči odmah</h2>
-
-          <form onSubmit={handleSubmit} className="space-y-3 mt-4">
-            <input name="ime" placeholder="Ime i prezime" className="w-full p-4 rounded-xl text-black" />
-            <input name="telefon" placeholder="Telefon" className="w-full p-4 rounded-xl text-black" />
-            <input name="adresa" placeholder="Adresa" className="w-full p-4 rounded-xl text-black" />
-            <input name="postanski" placeholder="Poštanski broj" className="w-full p-4 rounded-xl text-black" />
-
-            <label className="flex gap-2 bg-yellow-100 p-3 rounded-xl text-black">
-              <input
-                type="checkbox"
-                checked={giftPack}
-                onChange={(e) => setGiftPack(e.target.checked)}
-              />
-              Poklon paket +5 KM
-            </label>
-
-            <div className="bg-white text-black p-4 rounded-xl">
-              Ukupno: <b>{total.toFixed(2)} KM</b>
+          <section className="mt-5 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-green-100">
+            <div className="mb-3 rounded-2xl bg-yellow-100 px-4 py-3 text-center text-sm font-black text-black ring-1 ring-yellow-300">
+              🔒 GARANCIJA 3 GODINE
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-yellow-400 p-4 rounded-xl font-black text-black"
-            >
-              {loading ? "Šalje se..." : "Naruči"}
-            </button>
-          </form>
-        </section>
+            <h2 className="text-xl font-black">✅ Zašto ljudi uzimaju ovaj set?</h2>
+            <div className="mt-4 space-y-3">
+              {benefits.map((item) => (
+                <div key={item} className="rounded-2xl border border-green-200 bg-green-50 p-3 text-sm font-semibold text-neutral-800">
+                  ⚡ {item}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="mt-5 rounded-3xl border border-green-200 bg-green-50 p-5">
+            <h2 className="text-xl font-black">💡 Rješenje koje stvarno radi</h2>
+            <p className="mt-3 text-sm leading-6 text-neutral-700">
+              Makita Aku Trimer set je napravljen da riješi sve te probleme odmah. Bez kablova.
+              Bez benzina. Bez komplikacije. Samo uzmeš u ruke i kreneš.
+            </p>
+          </section>
+
+          <section className="mt-5 rounded-3xl border border-green-200 bg-white p-5 shadow-sm">
+            <h2 className="text-xl font-black">📦 Šta dobijaš u setu?</h2>
+            <div className="mt-4 space-y-2">
+              {packageItems.map((item) => (
+                <div key={item} className="rounded-2xl bg-green-50 p-3 text-sm font-semibold text-neutral-800 shadow-sm">
+                  ✔ {item}
+                </div>
+              ))}
+            </div>
+            <p className="mt-4 text-sm font-black text-green-700">
+              👉 Sve u jednom – spreman za rad odmah
+            </p>
+          </section>
+
+          <section className="mt-5 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-green-100">
+            <h2 className="text-xl font-black">⭐ Šta kažu ljudi?</h2>
+            <div className="mt-4 space-y-3">
+              {testimonials.map((item, index) => (
+                <div key={index} className="rounded-2xl border border-neutral-200 bg-neutral-50 p-4">
+                  <p className="text-sm leading-6 text-neutral-700">“{item}”</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="mt-5 rounded-3xl border border-yellow-300 bg-yellow-100 p-4 text-center shadow-sm">
+            <div className="text-sm font-black text-neutral-900">🛡️ 3 GODINE GARANCIJE – BEZ RIZIKA</div>
+            <div className="mt-1 text-xs font-semibold text-neutral-700">
+              Kupuješ potpuno sigurno. Ako nešto ne bude kako treba – pokriven si.
+            </div>
+          </section>
+
+          <section className="mt-5 rounded-3xl border border-green-200 bg-white p-5 shadow-sm">
+            <h2 className="text-xl font-black">❓ Najčešća pitanja</h2>
+            <div className="mt-4 space-y-3">
+              {faqs.map((item) => (
+                <div key={item.q} className="rounded-2xl border border-green-100 bg-green-50 p-4">
+                  <h3 className="text-sm font-black text-green-800">{item.q}</h3>
+                  <p className="mt-2 text-sm leading-6 text-neutral-700">{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section
+            ref={orderRef}
+            className="mt-5 rounded-3xl bg-gradient-to-b from-green-700 to-green-600 p-5 text-white shadow-2xl"
+          >
+            <div className="mb-3 rounded-2xl bg-yellow-400 px-4 py-3 text-center text-sm font-black uppercase tracking-wide text-black shadow-lg">
+              ✅ GARANCIJA 3 GODINE
+            </div>
+
+            <h2 className="text-center text-2xl font-black">📝 Ostavi podatke i osiguraj svoj set</h2>
+            <p className="mt-2 text-center text-sm text-green-100">Jednostavno, brzo i bez komplikacija</p>
+
+            <form onSubmit={handleSubmit} className="mt-4 space-y-3">
+              <input name="ime" autoComplete="off" placeholder="Ime i prezime" className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500" />
+              <input name="telefon" autoComplete="off" placeholder="Broj telefona" className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500" />
+              <input name="adresa" autoComplete="off" placeholder="Adresa i mjesto" className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500" />
+              <input name="postanski" autoComplete="off" placeholder="Poštanski broj" className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500" />
+
+              <label className="flex gap-3 rounded-2xl border border-yellow-300 bg-yellow-100 p-3 text-black">
+                <input type="checkbox" checked={giftPack} onChange={(e) => setGiftPack(e.target.checked)} className="mt-1" />
+                <div>
+                  <div className="font-bold">Želim poklon paket</div>
+                  <div className="text-xs">+5,00 KM (vrijednost do 50,00 KM)</div>
+                </div>
+              </label>
+
+              <div className="rounded-2xl border-2 border-green-500 bg-white p-4 text-black">
+                <div className="flex justify-between text-sm">
+                  <span>Makita Aku Trimer set</span>
+                  <span>59,90 KM</span>
+                </div>
+                <div className="mt-1 flex justify-between text-sm">
+                  <span>Dostava</span>
+                  <span>10,00 KM</span>
+                </div>
+                {giftPack && (
+                  <div className="mt-1 flex justify-between text-sm text-green-700">
+                    <span>Poklon paket</span>
+                    <span>5,00 KM</span>
+                  </div>
+                )}
+                <div className="mt-3 border-t pt-3">
+                  <div className="flex justify-between text-lg font-black">
+                    <span>Ukupno</span>
+                    <span>{total.toFixed(2)} KM</span>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" disabled={loading} className="w-full rounded-2xl bg-yellow-400 p-4 text-lg font-black uppercase tracking-wide text-black shadow-lg disabled:opacity-70">
+                {loading ? "Šalje se..." : "Naruči odmah"}
+              </button>
+            </form>
+          </section>
+        </main>
       </div>
     </div>
   );
