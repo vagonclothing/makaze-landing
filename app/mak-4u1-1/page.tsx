@@ -9,10 +9,6 @@ declare global {
   }
 }
 
-const ACCENT = "#C8FF00";
-const ACCENT_DIM = "rgba(200,255,0,0.10)";
-const ACCENT_BORDER = "rgba(200,255,0,0.28)";
-
 export default function Page() {
   const [giftPack, setGiftPack] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -26,42 +22,37 @@ export default function Page() {
   const total = useMemo(() => (giftPack ? baseTotal + 5 : baseTotal), [giftPack]);
 
   const tools = [
-    { icon: "🔩", name: "Udarni odvijač", desc: "180 Nm – vijci za sekundu" },
-    { icon: "⚙️", name: "Kutna brusilica", desc: "Disk 115mm – reže i brusi" },
-    { icon: "🪨", name: "SDS bušilica", desc: "Beton, cigla, kamen" },
-    { icon: "🔧", name: "Bušilica", desc: "Drvo, metal, plastika" },
-  ];
-
-  const included = [
-    "4× baterija 128V Li-Ion",
-    "Brzi punjač u kompletu",
-    "Tvrdi kofer za transport",
+    { icon: "🔩", name: "Aku udarni odvijač", desc: "180 Nm – vijci bez napora" },
+    { icon: "⚙️", name: "Aku kutna brusilica", desc: "Disk 115mm – reže i brusi" },
+    { icon: "🪨", name: "Aku SDS bušilica", desc: "Beton, cigla i kamen" },
+    { icon: "🔧", name: "Aku bušilica", desc: "Drvo, metal, plastika" },
   ];
 
   const benefits = [
-    "Radi svugdje – nema kabla, nema produžnog",
-    "4 alata u jednom koferu – uvijek spreman",
-    "Baterije traju dugo, punjač puni brzo",
-    "SDS bušilica bori se s betonom i kamenom",
+    "Radi svugdje – bez kabla i produžnog voda",
+    "Sva 4 alata u jednom čvrstom koferu",
+    "4 baterije – radiš bez prekida",
+    "SDS bušilica probija beton i ciglu",
+    "Brzi punjač – kratko čekaš, dugo radiš",
     "Tvrdi kofer štiti alat na gradilištu i u autu",
-    "3 godine garancije – Makita standard",
+    "3 godine garancije na sve alate u setu",
   ];
 
   const testimonials = [
-    { text: "Koristim na gradilištu svaki dan. Baterije traju, kofer je masivan. Pravo rješenje.", author: "Nermin B.", city: "Sarajevo" },
-    { text: "Radio kompletnu renovaciju stana ovim setom. Vrijednost za novac je odlična.", author: "Emir T.", city: "Tuzla" },
-    { text: "SDS bušilica je fenomenalna za beton. Ništa joj ne može. Sretan kupac.", author: "Zoran K.", city: "Banja Luka" },
-    { text: "Dosta mi je kablova svuda. Ove baterije traju, nema stajanja na poslu.", author: "Branko M.", city: "Mostar" },
-    { text: "3 godine garancije je ono što me odlučilo. Pravi alat, ne igračka.", author: "Adis H.", city: "Zenica" },
-    { text: "Poklonio ocu za rođendan. Prezadovoljan je, naziva svaki dan da hvali.", author: "Damir Š.", city: "Bihać" },
+    { text: "Koristim na gradilištu svaki dan. Baterije traju, kofer je čvrst. Solidna stvar.", author: "Nermin B.", city: "Sarajevo" },
+    { text: "Radio kompletnu renovaciju stana ovim setom. Za tu cijenu – odlično.", author: "Emir T.", city: "Tuzla" },
+    { text: "SDS bušilica je odlična za beton. Ništa joj ne može. Zadovoljan sam.", author: "Zoran K.", city: "Banja Luka" },
+    { text: "Dosta mi je kablova svuda po radionici. Ove baterije traju kako treba.", author: "Branko M.", city: "Mostar" },
+    { text: "Garancija 3 godine je bila presudna. Pravi alat, ne igračka.", author: "Adis H.", city: "Zenica" },
+    { text: "Poklonio ocu za rođendan. Veoma zadovoljan, svaki dan ga koristi.", author: "Damir Š.", city: "Bihać" },
   ];
 
   const faqs = [
     { q: "Šta je sve u setu?", a: "Aku udarni odvijač, aku kutna brusilica, aku SDS bušilica, aku bušilica, 4 baterije 128V, brzi punjač i tvrdi kofer." },
-    { q: "Može li SDS bušilica bušiti beton?", a: "Da. SDS bušilica ima udarne i rotacijske funkcije i namijenjena je upravo za beton, ciglu i kamen." },
-    { q: "Koliko traje baterija?", a: "Baterije 128V Li-Ion dizajnirane su za duže korištenje. Uz brzi punjač uvijek si spreman nastaviti rad." },
+    { q: "Može li SDS bušilica bušiti beton?", a: "Da. SDS bušilica ima udarnu i rotacijsku funkciju i namijenjena je za beton, ciglu i kamen." },
+    { q: "Koliko traje baterija?", a: "Baterije 128V Li-Ion dizajnirane su za duže korištenje. Sa brzim punjačem uvijek si spreman za rad." },
     { q: "Kakva je garancija?", a: "Na sve alate u setu dolazi 3 godine garancije – Makita standard kvalitete." },
-    { q: "Kako se plaća?", a: "Plaćanje je pouzećem – platiš tek kada preuzmeš paket na kućnu adresu." },
+    { q: "Kako se plaća?", a: "Plaćanje je pouzećem – platiš tek kada preuzmeš paket na svojoj adresi." },
   ];
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -116,303 +107,202 @@ export default function Page() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap');
 
-        .fd { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; }
-        .fb { font-family: 'DM Sans', sans-serif; }
-
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(22px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes pulseLime {
-          0%,100% { box-shadow: 0 0 0 0 rgba(200,255,0,0.45); }
-          60%      { box-shadow: 0 0 0 10px rgba(200,255,0,0); }
-        }
-
-        .a1 { animation: fadeUp .5s .05s ease both; }
-        .a2 { animation: fadeUp .5s .15s ease both; }
-        .a3 { animation: fadeUp .5s .25s ease both; }
-        .a4 { animation: fadeUp .5s .35s ease both; }
-        .a5 { animation: fadeUp .5s .45s ease both; }
-
-        .pulse { animation: pulseLime 2.2s infinite; }
-
-        .hero-glow {
-          background: radial-gradient(ellipse 90% 55% at 50% 105%, rgba(200,255,0,0.14) 0%, transparent 70%);
-          pointer-events: none;
-        }
-
-        .tool-card {
-          background: linear-gradient(145deg, #181818, #111);
-          border: 1px solid rgba(255,255,255,0.07);
-          transition: border-color .2s, transform .2s;
-        }
-        .tool-card:hover {
-          border-color: rgba(200,255,0,0.38);
-          transform: translateY(-2px);
-        }
+        .fd { font-family: 'Oswald', sans-serif; }
+        .fb { font-family: 'Source Sans 3', sans-serif; }
 
         .inp {
-          background: #121212;
-          border: 1.5px solid rgba(255,255,255,0.10);
-          color: #fff;
-          font-family: 'DM Sans', sans-serif;
+          font-family: 'Source Sans 3', sans-serif;
+          font-size: 16px;
+          background: #fff;
+          border: 2px solid #ddd;
+          color: #1a1a1a;
           transition: border-color .2s;
         }
-        .inp::placeholder { color: rgba(255,255,255,0.28); }
-        .inp:focus { outline: none; border-color: #C8FF00; }
+        .inp::placeholder { color: #aaa; }
+        .inp:focus { outline: none; border-color: #F5A800; }
 
-        .lime-btn {
-          background: #C8FF00;
-          color: #080808;
-          transition: transform .15s, box-shadow .15s;
-          font-family: 'Bebas Neue', sans-serif;
-          letter-spacing: .06em;
+        .order-btn {
+          background: #F5A800;
+          color: #1C1200;
+          font-family: 'Oswald', sans-serif;
+          font-size: 22px;
+          letter-spacing: .05em;
+          transition: background .15s, transform .15s;
         }
-        .lime-btn:hover:not(:disabled) {
-          transform: translateY(-2px);
-          box-shadow: 0 10px 28px rgba(200,255,0,0.38);
+        .order-btn:hover:not(:disabled) {
+          background: #e09a00;
+          transform: translateY(-1px);
         }
-        .lime-btn:active { transform: translateY(0); }
+        .order-btn:disabled { opacity: .65; }
 
-        .section-line {
-          height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(200,255,0,0.25), transparent);
+        .tool-card {
+          background: #fff;
+          border: 2px solid #eee;
+          transition: border-color .2s;
         }
-
-        .warranty-num {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: clamp(120px, 38vw, 180px);
-          line-height: 1;
-          color: #C8FF00;
-          opacity: .08;
-          user-select: none;
-        }
+        .tool-card:hover { border-color: #F5A800; }
       `}</style>
 
-      <div className="fb min-h-screen pb-16" style={{ background: "#080808", color: "#fff" }}>
-        <div className="mx-auto max-w-md overflow-hidden">
+      <div className="fb min-h-screen pb-16" style={{ background: "#F4F1EB", color: "#1a1a1a" }}>
+        <div className="mx-auto max-w-md overflow-hidden bg-white shadow-lg">
 
           {/* ── HERO ── */}
-          <section className="relative overflow-hidden px-5 pb-8 pt-6">
-            <div className="hero-glow absolute inset-0" />
-
-            {/* Badge */}
-            <div className="a1 relative z-10 flex justify-center mb-4">
-              <span
-                className="fd rounded-full px-4 py-2 text-sm tracking-widest"
-                style={{ background: ACCENT_DIM, border: `1px solid ${ACCENT_BORDER}`, color: ACCENT }}
-              >
-                🔧 PROFESIONALNI AKU SET · 4 ALATA
-              </span>
+          <section style={{ background: "#1C1200" }}>
+            {/* Top label */}
+            <div
+              className="fd py-3 text-center text-sm tracking-widest"
+              style={{ background: "#F5A800", color: "#1C1200", fontSize: "13px" }}
+            >
+              🔧 PROFESIONALNI AKU SET · 4 ALATA · 3 GOD. GARANCIJA
             </div>
 
-            {/* Headline */}
-            <div className="a2 relative z-10 text-center">
+            <div className="px-5 pb-7 pt-5">
               <h1
-                className="fd leading-none"
-                style={{ fontSize: "clamp(56px, 18vw, 80px)", color: "#fff" }}
+                className="fd text-center leading-tight text-white"
+                style={{ fontSize: "38px" }}
               >
-                MAKITA
+                MAKITA AKU SET 4U1
               </h1>
-              <h1
-                className="fd leading-none"
-                style={{ fontSize: "clamp(56px, 18vw, 80px)", color: ACCENT }}
+              <p
+                className="mt-2 text-center text-base font-semibold"
+                style={{ color: "#F5A800" }}
               >
-                4U1
-              </h1>
-              <p className="mt-2 text-sm font-medium" style={{ color: "rgba(255,255,255,0.45)" }}>
                 Udarni odvijač · Brusilica · SDS Bušilica · Bušilica
               </p>
-            </div>
 
-            {/* Image */}
-            <div className="a3 relative z-10 mt-5">
-              <div
-                className="relative overflow-hidden rounded-3xl"
-                style={{
-                  background: "#111",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  boxShadow: "0 0 60px rgba(200,255,0,0.07)",
-                }}
-              >
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
-                  style={{ background: "linear-gradient(0deg, rgba(8,8,8,0.6) 0%, transparent 100%)" }}
-                />
+              {/* Image */}
+              <div className="mt-4 overflow-hidden rounded-2xl" style={{ border: "3px solid #F5A800" }}>
                 <img
                   src="https://i.imgur.com/zq6UeUi.jpeg"
                   alt="Makita aku set 4u1"
                   className="w-full object-cover"
                 />
               </div>
-            </div>
 
-            {/* Price cards */}
-            <div className="a4 relative z-10 mt-5 grid grid-cols-2 gap-3">
-              <div
-                className="rounded-2xl p-4"
-                style={{ background: "#111", border: "1px solid rgba(255,255,255,0.07)" }}
-              >
+              {/* Price block */}
+              <div className="mt-5 grid grid-cols-2 gap-3">
                 <div
-                  className="text-[11px] font-bold uppercase tracking-widest"
-                  style={{ color: "rgba(255,255,255,0.35)" }}
+                  className="rounded-xl p-4 text-center"
+                  style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)" }}
                 >
-                  Vrijednost
+                  <div className="text-xs font-bold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.45)" }}>
+                    Vrijednost seta
+                  </div>
+                  <div
+                    className="fd mt-1 text-3xl line-through"
+                    style={{ color: "rgba(255,255,255,0.3)", fontSize: "28px" }}
+                  >
+                    300,00 KM
+                  </div>
                 </div>
+
                 <div
-                  className="fd mt-1 text-3xl line-through"
-                  style={{ color: "rgba(255,255,255,0.3)" }}
+                  className="rounded-xl p-4 text-center"
+                  style={{ background: "#F5A800" }}
                 >
-                  300,00
-                </div>
-                <div className="text-xs" style={{ color: "rgba(255,255,255,0.28)" }}>
-                  4 alata odvojeno
+                  <div className="text-xs font-bold uppercase tracking-wider text-yellow-900">
+                    Vaša cijena
+                  </div>
+                  <div className="fd mt-1 text-white" style={{ fontSize: "30px", color: "#1C1200" }}>
+                    179,90 KM
+                  </div>
+                  <div className="text-xs font-bold" style={{ color: "#1C1200" }}>
+                    + 3 god. garancija
+                  </div>
                 </div>
               </div>
 
-              <div
-                className="rounded-2xl p-4"
-                style={{
-                  background: "linear-gradient(135deg, #182000, #0f1700)",
-                  border: `1.5px solid ${ACCENT_BORDER}`,
-                }}
-              >
-                <div
-                  className="text-[11px] font-bold uppercase tracking-widest"
-                  style={{ color: ACCENT }}
-                >
-                  Cijena seta
-                </div>
-                <div className="fd mt-1 text-3xl" style={{ color: ACCENT }}>
-                  179,90
-                </div>
-                <div className="text-xs font-bold" style={{ color: ACCENT }}>
-                  KM · 3 god. garancija
-                </div>
-              </div>
-            </div>
-
-            {/* CTA */}
-            <div className="a5 relative z-10 mt-4">
               <button
                 type="button"
                 onClick={scrollToOrder}
-                className="lime-btn pulse w-full rounded-2xl py-5 text-2xl"
+                className="order-btn mt-4 w-full rounded-xl py-4 font-bold"
               >
-                NARUČI SET ODMAH →
+                NARUČI SET ODMAH
               </button>
-              <p
-                className="mt-2 text-center text-xs"
-                style={{ color: "rgba(255,255,255,0.3)" }}
-              >
+              <p className="mt-2 text-center text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>
                 Plaćanje pouzećem · Dostava na kućnu adresu
               </p>
             </div>
           </section>
 
-          <div className="section-line" />
-
           {/* ── ŠTA JE U SETU ── */}
-          <section className="px-5 py-7" style={{ background: "#0a0a0a" }}>
-            <div className="fd mb-5 text-3xl text-white">ŠTA JE U SETU</div>
+          <section className="px-5 py-6" style={{ background: "#fff" }}>
+            <h2 className="fd mb-4 text-2xl" style={{ color: "#1C1200" }}>
+              📦 ŠTA JE SVE U SETU
+            </h2>
 
             <div className="grid grid-cols-2 gap-3">
               {tools.map((t) => (
-                <div key={t.name} className="tool-card rounded-2xl p-4">
+                <div key={t.name} className="tool-card rounded-xl p-4">
                   <div className="text-3xl">{t.icon}</div>
-                  <div className="mt-2 text-sm font-bold text-white">{t.name}</div>
-                  <div
-                    className="mt-0.5 text-xs"
-                    style={{ color: "rgba(255,255,255,0.4)" }}
-                  >
-                    {t.desc}
-                  </div>
+                  <div className="mt-2 font-bold text-base" style={{ color: "#1C1200" }}>{t.name}</div>
+                  <div className="mt-0.5 text-sm" style={{ color: "#777" }}>{t.desc}</div>
                 </div>
               ))}
             </div>
 
             <div
-              className="mt-3 rounded-2xl p-4"
-              style={{ background: "#121212", border: "1px solid rgba(255,255,255,0.07)" }}
+              className="mt-4 rounded-xl p-4"
+              style={{ background: "#FFF8E6", border: "2px solid #F5A800" }}
             >
-              <div
-                className="mb-3 text-xs font-bold uppercase tracking-widest"
-                style={{ color: ACCENT }}
-              >
-                + Uključeno u set
+              <div className="fd mb-3 text-base" style={{ color: "#1C1200" }}>
+                + UKLJUČENO U SET:
               </div>
-              {included.map((item) => (
+              {["4× baterija 128V Li-Ion", "Brzi punjač", "Tvrdi kofer za transport"].map((item) => (
                 <div key={item} className="flex items-center gap-3 py-1.5">
-                  <div
-                    className="h-1.5 w-1.5 flex-shrink-0 rounded-full"
-                    style={{ background: ACCENT }}
-                  />
-                  <span className="text-sm font-medium text-white">{item}</span>
+                  <span className="text-lg">✅</span>
+                  <span className="text-base font-semibold" style={{ color: "#1C1200" }}>{item}</span>
                 </div>
               ))}
             </div>
           </section>
-
-          <div className="section-line" />
 
           {/* ── GARANCIJA ── */}
           <section
-            className="relative overflow-hidden px-5 py-8 text-center"
-            style={{
-              background: "linear-gradient(135deg, #0d0d0d, #0c1700)",
-              border: "none",
-            }}
+            className="px-5 py-6 text-center"
+            style={{ background: "#1C1200" }}
           >
             <div
-              className="warranty-num absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none"
-              aria-hidden
+              className="fd text-white"
+              style={{ fontSize: "64px", lineHeight: 1, opacity: 0.12 }}
             >
-              3
+              3 GOD.
             </div>
-            <div className="relative z-10">
-              <div className="fd text-6xl text-white">3 GODINE</div>
-              <div className="fd mt-1 text-4xl" style={{ color: ACCENT }}>
+            <div className="-mt-10 relative z-10">
+              <div className="fd text-white" style={{ fontSize: "42px" }}>
+                3 GODINE
+              </div>
+              <div className="fd" style={{ fontSize: "28px", color: "#F5A800" }}>
                 GARANCIJE
               </div>
-              <p
-                className="mx-auto mt-3 max-w-xs text-sm leading-relaxed"
-                style={{ color: "rgba(255,255,255,0.45)" }}
-              >
-                Na sve alate u setu. Makita standard kvalitete – kupuješ bez rizika.
+              <p className="mt-3 text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+                Na sve alate u setu. Kupuješ bez rizika – Makita stoji iza svakog alata.
               </p>
               <div
-                className="mx-auto mt-4 inline-block rounded-full px-5 py-2 text-xs font-bold uppercase tracking-widest"
-                style={{ background: ACCENT_DIM, border: `1px solid ${ACCENT_BORDER}`, color: ACCENT }}
+                className="fd mx-auto mt-4 inline-block rounded-full px-6 py-2 text-base"
+                style={{ background: "#F5A800", color: "#1C1200" }}
               >
-                🛡️ Zaštita kupca
+                🛡️ ZAŠTITA KUPCA
               </div>
             </div>
           </section>
 
-          <div className="section-line" />
-
           {/* ── ZAŠTO OVAJ SET ── */}
-          <section className="px-5 py-7" style={{ background: "#0a0a0a" }}>
-            <div className="fd mb-5 text-3xl text-white">ZAŠTO OVAJ SET</div>
+          <section className="px-5 py-6" style={{ background: "#fff" }}>
+            <h2 className="fd mb-4 text-2xl" style={{ color: "#1C1200" }}>
+              ✅ ZAŠTO OVAJ SET
+            </h2>
             <div className="space-y-2">
               {benefits.map((item, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-3 rounded-2xl px-4 py-3.5"
-                  style={{
-                    background: "#111",
-                    border: "1px solid rgba(255,255,255,0.06)",
-                  }}
+                  className="flex items-start gap-3 rounded-xl px-4 py-3"
+                  style={{ background: "#F9F9F9", border: "1.5px solid #eee" }}
                 >
-                  <span
-                    className="fd flex-shrink-0 text-xl"
-                    style={{ color: ACCENT }}
-                  >
-                    0{i + 1}
-                  </span>
-                  <span className="text-sm font-semibold leading-snug text-white">
+                  <span className="mt-0.5 text-lg flex-shrink-0">✅</span>
+                  <span className="text-base font-semibold leading-snug" style={{ color: "#1a1a1a" }}>
                     {item}
                   </span>
                 </div>
@@ -420,110 +310,76 @@ export default function Page() {
             </div>
           </section>
 
-          <div className="section-line" />
-
           {/* ── EXPERT ── */}
-          <section className="px-5 py-7" style={{ background: "#0d0d0d" }}>
+          <section className="px-5 py-6" style={{ background: "#FFF8E6" }}>
             <div
-              className="rounded-3xl p-5"
-              style={{
-                background: "linear-gradient(145deg, #161616, #0f0f0f)",
-                border: "1px solid rgba(255,255,255,0.08)",
-              }}
+              className="rounded-2xl p-5"
+              style={{ background: "#fff", border: "2px solid #F5A800" }}
             >
-              <div className="fd mb-3 text-xl text-white">👷 MIŠLJENJE MAJSTORA</div>
-              <p
-                className="text-sm leading-relaxed"
-                style={{ color: "rgba(255,255,255,0.6)", fontStyle: "italic" }}
-              >
-                "Aku alati su budućnost radionice i gradilišta. Makita baterije su pouzdane, a kada u jednom koferu dobiješ četiri alata – to je stvarna ušteda i sloboda. Preporučujem svakom ko ozbiljno radi."
+              <h2 className="fd mb-3 text-xl" style={{ color: "#1C1200" }}>
+                👷 MIŠLJENJE MAJSTORA
+              </h2>
+              <p className="text-base leading-relaxed" style={{ color: "#444", fontStyle: "italic" }}>
+                "Aku alati su budućnost svake radionice. Makita baterije su pouzdane, a kada u jednom koferu dobiješ četiri alata – to je prava ušteda. Preporučujem svakom ko ozbiljno radi."
               </p>
-              <div className="mt-4 flex items-center gap-3">
-                <div className="h-px flex-1" style={{ background: ACCENT_BORDER }} />
-                <span
-                  className="text-xs font-bold"
-                  style={{ color: ACCENT }}
-                >
-                  Haris Begić, majstor opće gradnje
-                </span>
+              <div className="mt-3 font-bold text-base" style={{ color: "#F5A800" }}>
+                — Haris Begić, majstor opće gradnje
               </div>
             </div>
           </section>
 
-          <div className="section-line" />
-
           {/* ── TESTIMONIALS ── */}
-          <section className="px-5 py-7" style={{ background: "#0a0a0a" }}>
-            <div className="fd mb-5 text-3xl text-white">KUPCI KAŽU</div>
+          <section className="px-5 py-6" style={{ background: "#fff" }}>
+            <h2 className="fd mb-4 text-2xl" style={{ color: "#1C1200" }}>
+              💬 KUPCI KAŽU
+            </h2>
             <div className="space-y-3">
               {testimonials.map((t, i) => (
                 <div
                   key={i}
-                  className="rounded-2xl p-4"
-                  style={{
-                    background: "#111",
-                    border: "1px solid rgba(255,255,255,0.06)",
-                  }}
+                  className="rounded-xl p-4"
+                  style={{ background: "#F9F9F9", border: "1.5px solid #eee" }}
                 >
-                  <p
-                    className="text-sm leading-relaxed"
-                    style={{ color: "rgba(255,255,255,0.65)" }}
-                  >
+                  <p className="text-base leading-relaxed" style={{ color: "#444" }}>
                     "{t.text}"
                   </p>
-                  <div className="mt-2 text-xs font-bold" style={{ color: ACCENT }}>
-                    {t.author} · {t.city}
+                  <div className="mt-2 font-bold text-sm" style={{ color: "#F5A800" }}>
+                    — {t.author}, {t.city}
                   </div>
                 </div>
               ))}
             </div>
           </section>
 
-          <div className="section-line" />
-
           {/* ── URGENCY ── */}
           <section
             className="px-5 py-5 text-center"
-            style={{
-              background: "linear-gradient(135deg, #1a0000, #100000)",
-              borderTop: "1px solid rgba(255,70,70,0.12)",
-              borderBottom: "1px solid rgba(255,70,70,0.12)",
-            }}
+            style={{ background: "#C0392B" }}
           >
-            <div
-              className="fd text-2xl"
-              style={{ color: "#FF5252" }}
-            >
+            <div className="fd text-white" style={{ fontSize: "22px" }}>
               ⏳ OGRANIČENE ZALIHE
             </div>
-            <p
-              className="mt-1 text-xs"
-              style={{ color: "rgba(255,255,255,0.4)" }}
-            >
+            <p className="mt-1 text-sm font-semibold" style={{ color: "rgba(255,255,255,0.8)" }}>
               179,90 KM za kompletan set je trenutna akcijska cijena.
             </p>
           </section>
 
-          <div className="section-line" />
-
           {/* ── FAQ ── */}
-          <section className="px-5 py-7" style={{ background: "#0a0a0a" }}>
-            <div className="fd mb-5 text-3xl text-white">PITANJA</div>
+          <section className="px-5 py-6" style={{ background: "#fff" }}>
+            <h2 className="fd mb-4 text-2xl" style={{ color: "#1C1200" }}>
+              ❓ ČESTO POSTAVLJANA PITANJA
+            </h2>
             <div className="space-y-3">
               {faqs.map((item) => (
                 <div
                   key={item.q}
-                  className="rounded-2xl p-4"
-                  style={{
-                    background: "#111",
-                    border: "1px solid rgba(255,255,255,0.06)",
-                  }}
+                  className="rounded-xl p-4"
+                  style={{ background: "#F9F9F9", border: "1.5px solid #eee" }}
                 >
-                  <div className="text-sm font-bold text-white">{item.q}</div>
-                  <p
-                    className="mt-2 text-sm leading-relaxed"
-                    style={{ color: "rgba(255,255,255,0.5)" }}
-                  >
+                  <div className="font-bold text-base" style={{ color: "#1C1200" }}>
+                    {item.q}
+                  </div>
+                  <p className="mt-2 text-base leading-relaxed" style={{ color: "#555" }}>
                     {item.a}
                   </p>
                 </div>
@@ -531,37 +387,33 @@ export default function Page() {
             </div>
           </section>
 
-          <div className="section-line" />
-
           {/* ── ORDER FORM ── */}
           <section
             ref={orderRef}
-            className="px-5 py-8"
-            style={{
-              background: "linear-gradient(180deg, #0a0a0a 0%, #0c1800 100%)",
-            }}
+            className="px-5 py-7"
+            style={{ background: "#1C1200" }}
           >
-            <div className="mb-6 text-center">
-              <span
-                className="fd inline-block rounded-full px-5 py-2 text-sm tracking-widest"
-                style={{
-                  background: ACCENT_DIM,
-                  border: `1px solid ${ACCENT_BORDER}`,
-                  color: ACCENT,
-                }}
-              >
-                MAKITA AKU SET 4U1
-              </span>
-              <h2 className="fd mt-3 text-4xl text-white">NARUČI ODMAH</h2>
-              <p
-                className="mt-1 text-sm"
-                style={{ color: "rgba(255,255,255,0.35)" }}
-              >
-                Plaćanje pouzećem · Dostava na adresu
-              </p>
+            <div
+              className="fd mb-1 rounded-xl py-3 text-center text-base tracking-wider"
+              style={{ background: "#F5A800", color: "#1C1200" }}
+            >
+              🔧 MAKITA AKU SET 4U1
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-3">
+            <h2
+              className="fd mt-4 text-center text-white"
+              style={{ fontSize: "34px" }}
+            >
+              NARUČI ODMAH
+            </h2>
+            <p
+              className="mt-1 text-center text-base"
+              style={{ color: "rgba(255,255,255,0.5)" }}
+            >
+              Plaćanje pouzećem · Dostava na adresu
+            </p>
+
+            <form onSubmit={handleSubmit} className="mt-5 space-y-3">
               {[
                 { name: "ime", placeholder: "Ime i prezime" },
                 { name: "telefon", placeholder: "Broj telefona" },
@@ -573,44 +425,44 @@ export default function Page() {
                   name={field.name}
                   autoComplete="off"
                   placeholder={field.placeholder}
-                  className="inp w-full rounded-2xl p-4 text-sm"
+                  className="inp w-full rounded-xl p-4"
                 />
               ))}
 
               <label
-                className="flex cursor-pointer gap-3 rounded-2xl p-4"
+                className="flex cursor-pointer items-start gap-3 rounded-xl p-4"
                 style={{
-                  background: "#111",
-                  border: `1.5px solid ${giftPack ? ACCENT_BORDER : "rgba(255,255,255,0.08)"}`,
-                  transition: "border-color .2s",
+                  background: giftPack ? "#FFF8E6" : "rgba(255,255,255,0.07)",
+                  border: `2px solid ${giftPack ? "#F5A800" : "rgba(255,255,255,0.15)"}`,
+                  transition: "all .2s",
                 }}
               >
                 <input
                   type="checkbox"
                   checked={giftPack}
                   onChange={(e) => setGiftPack(e.target.checked)}
-                  className="mt-0.5 accent-lime-400"
+                  className="mt-1 h-5 w-5 accent-amber-500"
                 />
                 <div>
-                  <div className="text-sm font-bold text-white">
+                  <div
+                    className="text-base font-bold"
+                    style={{ color: giftPack ? "#1C1200" : "#fff" }}
+                  >
                     Poklon pakovanje
                   </div>
                   <div
-                    className="text-xs"
-                    style={{ color: "rgba(255,255,255,0.38)" }}
+                    className="text-sm"
+                    style={{ color: giftPack ? "#7a5c00" : "rgba(255,255,255,0.45)" }}
                   >
                     + 5,00 KM
                   </div>
                 </div>
               </label>
 
-              {/* Summary */}
+              {/* Price summary */}
               <div
-                className="rounded-2xl p-4"
-                style={{
-                  background: "#111",
-                  border: `1.5px solid ${ACCENT_BORDER}`,
-                }}
+                className="rounded-xl p-4"
+                style={{ background: "#fff", border: "2px solid #F5A800" }}
               >
                 {[
                   { label: "Makita aku set 4u1", value: "179,90 KM" },
@@ -619,20 +471,22 @@ export default function Page() {
                 ].map((row) => (
                   <div
                     key={row.label}
-                    className="flex justify-between py-1 text-sm"
-                    style={{ color: "rgba(255,255,255,0.5)" }}
+                    className="flex justify-between py-1 text-base"
+                    style={{ color: "#666" }}
                   >
                     <span>{row.label}</span>
                     <span>{row.value}</span>
                   </div>
                 ))}
                 <div
-                  className="mt-3 border-t pt-3"
-                  style={{ borderColor: "rgba(255,255,255,0.08)" }}
+                  className="mt-2 border-t pt-3"
+                  style={{ borderColor: "#eee" }}
                 >
                   <div className="flex items-baseline justify-between">
-                    <span className="fd text-xl text-white">UKUPNO</span>
-                    <span className="fd text-2xl" style={{ color: ACCENT }}>
+                    <span className="fd text-xl" style={{ color: "#1C1200" }}>
+                      UKUPNO
+                    </span>
+                    <span className="fd text-2xl" style={{ color: "#F5A800" }}>
                       {total.toFixed(2)} KM
                     </span>
                   </div>
@@ -642,10 +496,17 @@ export default function Page() {
               <button
                 type="submit"
                 disabled={loading}
-                className="lime-btn w-full rounded-2xl py-5 text-2xl disabled:opacity-60"
+                className="order-btn w-full rounded-xl py-5"
               >
                 {loading ? "ŠALJE SE..." : "NARUČI ODMAH →"}
               </button>
+
+              <p
+                className="text-center text-sm"
+                style={{ color: "rgba(255,255,255,0.35)" }}
+              >
+                Plaćanje tek pri preuzimanju paketa
+              </p>
             </form>
           </section>
 
