@@ -18,49 +18,6 @@ export default function Page() {
     orderRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const features = [
-    "Konobar naručuje na telefonu — bez papira i vikanja",
-    "Šank vidi narudžbu odmah sa zvučnom notifikacijom",
-    "Admin prati promet u realnom vremenu s bilo kojeg uređaja",
-    "Napomene po svakom artiklu — bez grešaka u pripremi",
-    "Naplata jednim klikom — konobar vidi ukupnu cifru po stolu",
-    "Vi podešavate meni, kategorije i cijene — sami, kad hoćete",
-  ];
-
-  const testimonials = [
-    "Od kad koristimo KafićLive, konobar ne trči do šanka svaki put. Sve ide brže. — Emir T., vlasnik kafića, Sarajevo",
-    "Vidim promet u realnom vremenu s telefona. Znao sam tačno koji stol nosi najviše. — Selma K., vlasnik, Tuzla",
-    "Osoblje se naučilo za 15 minuta. Nema komplikacija, radi savršeno. — Adnan M., kafić, Banja Luka",
-    "Narudžbe više ne gube se ni ne zaboravljaju. Gosti su zadovoljniji. — Lejla P., menadžer, Mostar",
-  ];
-
-  const faqs = [
-    {
-      q: "Da li trebam poseban uređaj?",
-      a: "Ne. Radi na svakom pametnom telefonu, tabletu i računaru — bilo koji pretraživač je dovoljan.",
-    },
-    {
-      q: "Koliko stolova može imati kafić?",
-      a: "Neograničeno. Podešavate broj stolova u admin panelu po potrebi.",
-    },
-    {
-      q: "Kako konobar vidi kad je narudžba gotova?",
-      a: "Šank označava status 'Gotovo' i narudžba se pojavljuje kononbaru u naplati — spreman za naplatu.",
-    },
-    {
-      q: "Mogu li mijenjati meni i cijene?",
-      a: "Da, admin može dodavati, mijenjati i brisati artikle i kategorije u sekundi. Promjena je vidljiva odmah.",
-    },
-    {
-      q: "Šta ako nemam internet?",
-      a: "Sistem radi u oblaku i zahtijeva internet vezu — standardni WiFi u kafiću je sasvim dovoljan.",
-    },
-    {
-      q: "Da li ovo zamjenjuje fiskalnu kasu?",
-      a: "Ne. KafićLive je pomoćni alat za efikasnost — ide uz vašu postojeću fiskalnu kasu, ne zamjenjuje je.",
-    },
-  ];
-
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
@@ -108,291 +65,484 @@ export default function Page() {
     setLoading(false);
   }
 
+  const features = [
+    { icon: "📱", title: "Konobar na telefonu", desc: "Odabir stola, artikala i napomene za svaki komad. Narudžba stiže na šank za sekundu. Radi na svakom Android i iPhone uređaju." },
+    { icon: "🖥️", title: "Šank ekran uživo", desc: "Svaka nova narudžba se pojavljuje automatski sa zvučnom notifikacijom. Status: Novo → U pripremi → Gotovo. Bez osvježavanja stranice." },
+    { icon: "📊", title: "Admin dashboard", desc: "Pratite promet po satu, najprodavanije artikle i ranking stolova. Sve u realnom vremenu, s bilo kojeg uređaja." },
+    { icon: "💳", title: "Naplata jednim klikom", desc: "Konobar vidi sve narudžbe za stol, ukupnu cifru i označava plaćeno. Brže nego ikad, bez grešaka u računanju." },
+    { icon: "📝", title: "Napomene po komadu", desc: "Dva cappuccina? Jedan bez šećera, drugi sa mlijekom. Svaki artikal ima svoju napomenu vidljivu odmah na šanku." },
+    { icon: "⚙️", title: "Vaš meni, vaše cijene", desc: "Admin dodaje, mijenja i briše artikle i kategorije u sekundi. Promijenili ste cijenu kafe? Konobar vidi odmah." },
+  ];
+
+  const steps = [
+    { num: "1", title: "Konobar naručuje", desc: "Odabire stol i artikle na telefonu, dodaje napomene i šalje jednim klikom." },
+    { num: "2", title: "Šank vidi odmah", desc: "Narudžba se pojavljuje na monitoru sa zvukom. Nema čekanja, nema papira." },
+    { num: "3", title: "Priprema i isporuka", desc: "Šank označava status. Kad je gotovo — konobar zna da može ponijeti." },
+    { num: "4", title: "Naplata i statistike", desc: "Konobar naplaćuje, vlasnik prati promet u realnom vremenu." },
+  ];
+
+  const testimonials = [
+    "Od kad koristimo KafićLive, konobar ne trči do šanka svaki put. Sve ide brže. — Emir T., Sarajevo",
+    "Vidim promet u realnom vremenu s telefona. Znao sam tačno koji stol nosi najviše. — Selma K., Tuzla",
+    "Osoblje se naučilo za 15 minuta. Nema komplikacija, radi savršeno. — Adnan M., Banja Luka",
+    "Narudžbe više ne gube se ni ne zaboravljaju. Gosti su zadovoljniji. — Lejla P., Mostar",
+  ];
+
+  const faqs = [
+    { q: "Da li trebam poseban uređaj?", a: "Ne. Radi na svakom pametnom telefonu, tabletu i računaru — bilo koji pretraživač je dovoljan." },
+    { q: "Da li ovo zamjenjuje fiskalnu kasu?", a: "Ne. KafićLive je pomoćni alat za efikasnost — ide uz vašu postojeću fiskalnu kasu, ne zamjenjuje je." },
+    { q: "Koliko stolova može imati kafić?", a: "Neograničeno. Vi podešavate broj stolova u admin panelu." },
+    { q: "Mogu li mijenjati meni i cijene?", a: "Da, admin može dodavati, mijenjati i brisati artikle i kategorije u sekundi. Promjena je vidljiva odmah." },
+    { q: "Šta ako nemam iskustva s tehnologijom?", a: "Instaliramo sve mi i obučimo vaše osoblje. Potrebno je svega 15-30 minuta." },
+    { q: "Ima li mjesečnih troškova?", a: "Ne. Jednokratno plaćanje 999 KM — zauvijek vaše, bez skrivenih naknada." },
+  ];
+
+  const priceIncludes = [
+    "Instalacija i podešavanje na vašim uređajima",
+    "Konobar, šank i admin pristup",
+    "Vaš meni — kategorije, artikli, cijene",
+    "Realtime narudžbe između svih uređaja",
+    "Admin dashboard sa statistikama",
+    "6 mjeseci tehničke podrške",
+    "Obuka osoblja (do 2 sata)",
+  ];
+
   return (
-    <div className="min-h-screen bg-slate-100 pb-10 text-black">
-      <div className="mx-auto max-w-md overflow-hidden bg-white shadow-2xl">
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap');
+        :root {
+          --amber: #E8881A;
+          --amber-l: #F5A040;
+          --leaf: #2B7A50;
+          --leaf-l: #3D9A66;
+          --dark: #0A0502;
+          --dark2: #140A03;
+          --dark3: #1E1008;
+          --cream: #F5EDD8;
+          --steam: #9E8672;
+        }
+        .kl-wrap { font-family: 'DM Sans', sans-serif; background: var(--dark); color: white; min-height: 100vh; }
 
-        {/* ── HERO ── */}
-        <section className="relative overflow-hidden bg-gradient-to-b from-stone-950 via-orange-950 to-amber-800 px-4 pb-6 pt-5 text-white">
-          <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-amber-400/20 blur-3xl" />
-          <div className="absolute -left-14 bottom-10 h-44 w-44 rounded-full bg-orange-300/15 blur-3xl" />
+        /* NAV */
+        .kl-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1rem 5%; display: flex; align-items: center; justify-content: space-between; background: rgba(10,5,2,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .kl-logo { display: flex; align-items: center; gap: 0.5rem; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.3rem; text-decoration: none; color: white; }
+        .kl-logo em { font-style: normal; color: var(--amber); }
+        .kl-nav-btn { background: linear-gradient(135deg, var(--leaf), var(--leaf-l)); color: white; padding: 0.6rem 1.4rem; border-radius: 999px; font-weight: 700; font-size: 0.88rem; border: none; cursor: pointer; text-decoration: none; }
 
-          <div className="relative z-10">
-            <div className="rounded-2xl bg-white/10 px-4 py-3 text-center text-sm font-black uppercase tracking-wide text-amber-200 shadow-lg ring-1 ring-white/20">
-              ☕ Digitalni sistem za kafiće • Jednokratno plaćanje
+        /* HERO */
+        .kl-hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 8rem 5% 5rem; }
+        .kl-hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 20% 50%, rgba(232,136,26,0.13) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(43,122,80,0.1) 0%, transparent 50%); }
+        .kl-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%); }
+        .kl-hero-inner { max-width: 680px; text-align: center; position: relative; z-index: 2; }
+        .kl-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(232,136,26,0.1); border: 1px solid rgba(232,136,26,0.25); border-radius: 999px; padding: 0.4rem 1rem; font-size: 0.78rem; font-weight: 700; color: var(--amber); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 1.75rem; }
+        .kl-badge-dot { width: 6px; height: 6px; background: var(--amber); border-radius: 50%; animation: kl-pulse 2s infinite; }
+        .kl-h1 { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1.06; letter-spacing: -0.03em; margin-bottom: 1.4rem; }
+        .kl-h1 em { font-style: normal; color: var(--amber); }
+        .kl-hero-sub { font-size: 1.1rem; color: rgba(255,255,255,0.55); line-height: 1.75; max-width: 500px; margin: 0 auto 2.5rem; }
+        .kl-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .kl-btn-primary { background: linear-gradient(135deg, var(--leaf), var(--leaf-l)); color: white; padding: 0.9rem 2.2rem; border-radius: 14px; font-weight: 700; font-size: 1rem; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
+        .kl-btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(43,122,80,0.4); }
+        .kl-btn-sec { background: rgba(255,255,255,0.07); color: white; padding: 0.9rem 2.2rem; border-radius: 14px; font-weight: 600; font-size: 1rem; border: 1px solid rgba(255,255,255,0.12); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: background 0.2s; }
+        .kl-btn-sec:hover { background: rgba(255,255,255,0.12); }
+        .kl-stats { display: flex; gap: 3rem; justify-content: center; margin-top: 4rem; padding-top: 3rem; border-top: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap; }
+        .kl-stat-num { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 2.2rem; color: var(--amber); }
+        .kl-stat-label { font-size: 0.8rem; color: var(--steam); margin-top: 0.2rem; }
+
+        /* MOCK SCREENS */
+        .kl-screens { padding: 5rem 5%; }
+        .kl-screens-grid { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 1.5rem; align-items: center; max-width: 960px; margin: 3rem auto 0; }
+        .kl-screen { background: #1C0E06; border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; overflow: hidden; }
+        .kl-screen-hd { background: #1A0C05; padding: 0.7rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; }
+        .kl-screen-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em; color: var(--steam); text-transform: uppercase; }
+        .kl-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+        .kl-screen-body { padding: 0.875rem; }
+        /* mini table grid */
+        .kl-tgrid { display: grid; grid-template-columns: repeat(5,1fr); gap: 0.3rem; margin-bottom: 0.6rem; }
+        .kl-tbtn { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.07); border-radius: 6px; padding: 0.35rem 0; font-size: 0.68rem; font-weight: 700; color: var(--steam); text-align: center; }
+        .kl-tbtn.a { background: var(--amber); color: white; border-color: transparent; }
+        .kl-prod { display: flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.5rem; background: rgba(255,255,255,0.04); border-radius: 8px; margin-bottom: 0.3rem; border: 1px solid rgba(255,255,255,0.05); }
+        .kl-prod.ic { background: rgba(232,136,26,0.08); border-color: rgba(232,136,26,0.22); }
+        .kl-pname { font-size: 0.68rem; font-weight: 500; }
+        .kl-pprice { font-size: 0.62rem; color: var(--amber); font-weight: 700; }
+        .kl-qbtn { width: 18px; height: 18px; border-radius: 5px; border: none; font-size: 0.65rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .kl-send { width: 100%; background: linear-gradient(135deg,var(--leaf),var(--leaf-l)); border: none; border-radius: 9px; padding: 0.55rem; color: white; font-weight: 700; font-size: 0.72rem; margin-top: 0.6rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        /* order cards */
+        .kl-ocard { border-radius: 12px; padding: 0.7rem; margin-bottom: 0.5rem; border-left: 3px solid; }
+        .kl-ocard.novo { border-color: #DC2626; background: rgba(220,38,38,0.07); }
+        .kl-ocard.prep { border-color: #D97706; background: rgba(217,119,6,0.07); }
+        .kl-ocard.done { border-color: #16A34A; background: rgba(22,163,74,0.07); }
+        .kl-otable { font-family: 'Outfit',sans-serif; font-weight: 800; font-size: 1rem; }
+        .kl-sbadge { font-size: 0.58rem; font-weight: 800; padding: 0.12rem 0.38rem; border-radius: 4px; letter-spacing: 0.05em; }
+        .sb-novo { background: rgba(220,38,38,0.15); color: #F87171; }
+        .sb-prep { background: rgba(217,119,6,0.15); color: #FBBF24; }
+        .sb-done { background: rgba(22,163,74,0.15); color: #4ADE80; }
+        .kl-oitem { font-size: 0.68rem; color: rgba(255,255,255,0.65); margin-bottom: 0.15rem; }
+        .kl-oitem span { color: var(--amber); font-weight: 700; }
+        .kl-oitem em { color: #FBBF24; font-style: italic; font-size: 0.62rem; }
+        .kl-abtn { width: 100%; border: none; border-radius: 7px; padding: 0.42rem; font-size: 0.68rem; font-weight: 700; margin-top: 0.4rem; cursor: pointer; }
+        .kl-abtn.amber { background: linear-gradient(135deg,var(--amber),var(--amber-l)); color: white; }
+        .kl-abtn.green { background: linear-gradient(135deg,var(--leaf),var(--leaf-l)); color: white; }
+        /* admin stats */
+        .kl-sgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem; margin-bottom: 0.6rem; }
+        .kl-scard { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 0.5rem; }
+        .kl-snum { font-family: 'Outfit',sans-serif; font-weight: 800; font-size: 1.05rem; }
+        .kl-slabel { font-size: 0.58rem; color: var(--steam); margin-top: 0.1rem; }
+        .kl-chart { background: rgba(255,255,255,0.03); border-radius: 8px; padding: 0.5rem; height: 58px; position: relative; overflow: hidden; }
+
+        /* SECTIONS */
+        .kl-section { padding: 5rem 5%; }
+        .kl-section-label { font-size: 0.77rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.875rem; }
+        .kl-section-title { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(1.75rem, 4vw, 2.6rem); line-height: 1.15; margin-bottom: 1rem; }
+        .kl-section-sub { color: rgba(255,255,255,0.45); font-size: 0.95rem; line-height: 1.75; max-width: 480px; }
+
+        /* FEATURES */
+        .kl-feat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.25rem; margin-top: 3rem; }
+        .kl-feat { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 20px; padding: 1.75rem; transition: all 0.25s; }
+        .kl-feat:hover { background: rgba(255,255,255,0.05); border-color: rgba(232,136,26,0.2); transform: translateY(-4px); }
+        .kl-feat-icon { font-size: 1.6rem; margin-bottom: 1rem; }
+        .kl-feat-title { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
+        .kl-feat-desc { font-size: 0.86rem; color: rgba(255,255,255,0.45); line-height: 1.65; }
+
+        /* STEPS */
+        .kl-steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .kl-step { text-align: center; }
+        .kl-step-num { width: 54px; height: 54px; border-radius: 50%; background: #1E1008; border: 2px solid rgba(232,136,26,0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.1rem; font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 1.1rem; color: var(--amber); }
+        .kl-step-title { font-weight: 700; font-size: 0.93rem; margin-bottom: 0.4rem; }
+        .kl-step-desc { font-size: 0.82rem; color: rgba(255,255,255,0.4); line-height: 1.65; }
+
+        /* PRICING */
+        .kl-price-card { max-width: 460px; margin: 3rem auto 0; background: linear-gradient(135deg, rgba(232,136,26,0.08), rgba(43,122,80,0.06)); border: 1px solid rgba(232,136,26,0.25); border-radius: 28px; padding: 2.75rem; }
+        .kl-price-badge { display: inline-block; background: linear-gradient(135deg, var(--amber), var(--amber-l)); color: white; padding: 0.35rem 1rem; border-radius: 999px; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1.5rem; }
+        .kl-price-main { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 3.75rem; line-height: 1; margin-bottom: 0.25rem; }
+        .kl-price-main span { font-size: 1.4rem; color: var(--steam); font-weight: 500; }
+        .kl-price-note { color: var(--steam); font-size: 0.875rem; margin-bottom: 2rem; }
+        .kl-price-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.88rem; color: rgba(255,255,255,0.8); }
+        .kl-price-item:last-child { border-bottom: none; }
+        .kl-check { width: 20px; height: 20px; border-radius: 50%; background: rgba(43,122,80,0.2); border: 1px solid rgba(43,122,80,0.4); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.62rem; color: var(--leaf-l); }
+
+        /* TESTIMONIALS */
+        .kl-testi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; margin-top: 2.5rem; }
+        .kl-testi { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 1.25rem; font-size: 0.875rem; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+        /* FAQ */
+        .kl-faq-grid { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 2.5rem; }
+        .kl-faq { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 1.25rem; }
+        .kl-faq-q { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--cream); }
+        .kl-faq-a { font-size: 0.85rem; color: rgba(255,255,255,0.45); line-height: 1.65; }
+
+        /* FORM */
+        .kl-form-section { padding: 5rem 5%; position: relative; }
+        .kl-form-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(43,122,80,0.06) 0%, transparent 60%); }
+        .kl-form-wrap { max-width: 540px; margin: 0 auto; position: relative; z-index: 1; }
+        .kl-form-card { background: rgba(20,10,3,0.85); border: 1px solid rgba(255,255,255,0.1); border-radius: 28px; padding: 2.5rem; backdrop-filter: blur(20px); }
+        .kl-form-label { display: block; font-size: 0.76rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--steam); margin-bottom: 0.4rem; }
+        .kl-input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 0.85rem 1rem; color: white; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; outline: none; transition: border-color 0.2s, background 0.2s; }
+        .kl-input:focus { border-color: var(--amber); background: rgba(232,136,26,0.06); }
+        .kl-input::placeholder { color: rgba(158,134,114,0.5); }
+        .kl-input option { background: #1A0C05; }
+        .kl-form-group { margin-bottom: 1rem; }
+        .kl-submit { width: 100%; padding: 1rem; border-radius: 14px; border: none; background: linear-gradient(135deg, var(--leaf), var(--leaf-l)); color: white; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; margin-top: 0.5rem; }
+        .kl-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(43,122,80,0.4); }
+        .kl-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+        .kl-promise { text-align: center; margin-top: 0.875rem; font-size: 0.78rem; color: var(--steam); }
+
+        /* FOOTER */
+        .kl-footer { padding: 2.5rem 5%; border-top: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+        .kl-footer-copy { font-size: 0.8rem; color: var(--steam); }
+
+        @keyframes kl-pulse { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);} }
+
+        @media(max-width: 768px) {
+          .kl-screens-grid { grid-template-columns: 1fr; max-width: 320px; }
+          .kl-screens-grid .kl-screen:first-child, .kl-screens-grid .kl-screen:last-child { display: none; }
+          .kl-stats { gap: 1.5rem; }
+        }
+      `}</style>
+
+      <div className="kl-wrap">
+        {/* NAV */}
+        <nav className="kl-nav">
+          <div className="kl-logo">☕ Kafić<em>Live</em></div>
+          <button className="kl-nav-btn" onClick={scrollToOrder}>Zatražite demo →</button>
+        </nav>
+
+        {/* HERO */}
+        <section className="kl-hero">
+          <div className="kl-hero-bg" />
+          <div className="kl-grid" />
+          <div className="kl-hero-inner">
+            <div className="kl-badge">
+              <span className="kl-badge-dot" />
+              Novo rješenje za ugostiteljstvo
+            </div>
+            <h1 className="kl-h1">Vaš kafić,<br /><em>pod kontrolom</em><br />u realnom vremenu.</h1>
+            <p className="kl-hero-sub">Konobar naručuje na telefonu. Šank vidi odmah. Vi pratite promet u svakom trenutku. Bez papira, bez vikanja, bez gužve.</p>
+            <div className="kl-btns">
+              <button className="kl-btn-primary" onClick={scrollToOrder}>📞 Želim demo &rarr;</button>
+              <a className="kl-btn-sec" href="#kako-radi">▶ Kako radi</a>
+            </div>
+            <div className="kl-stats">
+              <div style={{ textAlign: "center" }}>
+                <div className="kl-stat-num">3x</div>
+                <div className="kl-stat-label">brže uzimanje narudžbi</div>
+              </div>
+              <div style={{ textAlign: "center" }}>
+                <div className="kl-stat-num">0</div>
+                <div className="kl-stat-label">grešaka u narudžbama</div>
+              </div>
+              <div style={{ textAlign: "center" }}>
+                <div className="kl-stat-num">24/7</div>
+                <div className="kl-stat-label">uvid u promet</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SCREENS */}
+        <section className="kl-screens">
+          <div style={{ textAlign: "center" }}>
+            <p className="kl-section-label">Tri ekrana, jedna platforma</p>
+            <h2 className="kl-section-title" style={{ textAlign: "center" }}>Svako radi<br />samo svoj posao.</h2>
+          </div>
+          <div className="kl-screens-grid">
+            {/* Konobar */}
+            <div className="kl-screen">
+              <div className="kl-screen-hd">
+                <span style={{ fontSize: "0.8rem" }}>📱</span>
+                <span className="kl-screen-title">Konobar</span>
+                <span className="kl-dot" style={{ background: "#16A34A" }} />
+              </div>
+              <div className="kl-screen-body">
+                <div className="kl-tgrid">
+                  {[1,2,3,4,5].map(n => <div key={n} className={`kl-tbtn${n===3?" a":""}`}>{n}</div>)}
+                </div>
+                <div className="kl-prod ic">
+                  <span style={{ fontSize: "1.1rem" }}>☕</span>
+                  <div style={{ flex: 1 }}><div className="kl-pname">Cappuccino</div><div className="kl-pprice">2,50 KM</div></div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
+                    <button className="kl-qbtn" style={{ background: "rgba(220,38,38,0.2)", color: "#F87171" }}>−</button>
+                    <span style={{ fontSize: "0.8rem", fontWeight: 800, minWidth: 12, textAlign: "center" }}>2</span>
+                    <button className="kl-qbtn" style={{ background: "#2B7A50", color: "white" }}>+</button>
+                  </div>
+                </div>
+                <div className="kl-prod">
+                  <span style={{ fontSize: "1.1rem" }}>🥤</span>
+                  <div style={{ flex: 1 }}><div className="kl-pname">Cola 0.33</div><div className="kl-pprice">2,00 KM</div></div>
+                  <button className="kl-qbtn" style={{ background: "#2B7A50", color: "white" }}>+</button>
+                </div>
+                <div className="kl-prod">
+                  <span style={{ fontSize: "1.1rem" }}>🍺</span>
+                  <div style={{ flex: 1 }}><div className="kl-pname">Pivo 0.5</div><div className="kl-pprice">3,00 KM</div></div>
+                  <button className="kl-qbtn" style={{ background: "#2B7A50", color: "white" }}>+</button>
+                </div>
+                <button className="kl-send"><span>📤 Pošalji</span><span style={{ fontFamily: "Outfit", fontWeight: 800 }}>5,00 KM</span></button>
+              </div>
             </div>
 
-            <h1 className="mt-4 text-center text-3xl font-black leading-tight">
-              Vaš kafić radi brže.<br />Vi zarađujete više.
-            </h1>
-
-            <p className="mt-2 text-center text-sm font-semibold text-amber-100">
-              Konobar naručuje na telefonu. Šank vidi odmah. Vi pratite promet uživo.
-            </p>
-
-            {/* Mock screen */}
-            <div className="mt-4 rounded-[24px] bg-white p-3 shadow-2xl">
-              <div className="rounded-2xl overflow-hidden bg-stone-950">
-                {/* Fake šank screen */}
-                <div className="bg-stone-900 px-3 py-2 flex items-center justify-between border-b border-white/10">
-                  <span className="text-xs font-black text-amber-400">☕ KafićLive · Šank ekran</span>
-                  <span className="text-xs text-green-400 font-bold flex items-center gap-1">
-                    <span className="inline-block w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                    Online
-                  </span>
+            {/* Šank */}
+            <div className="kl-screen">
+              <div className="kl-screen-hd">
+                <span style={{ fontSize: "0.8rem" }}>🖥️</span>
+                <span className="kl-screen-title">Šank ekran · 10:42:17</span>
+                <span className="kl-dot" style={{ background: "#16A34A", animation: "kl-pulse 2s infinite" }} />
+              </div>
+              <div className="kl-screen-body">
+                <div className="kl-ocard novo">
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.35rem" }}>
+                    <span className="kl-otable" style={{ color: "#F87171" }}>Sto 5</span>
+                    <span className="kl-sbadge sb-novo">NOVO</span>
+                  </div>
+                  <div className="kl-oitem"><span>2x</span> Cappuccino <em>— bez šećera</em></div>
+                  <div className="kl-oitem"><span>1x</span> Cola 0.33</div>
+                  <button className="kl-abtn amber">Pokreni ▶</button>
                 </div>
-                <div className="p-3 grid grid-cols-2 gap-2">
-                  <div className="bg-red-900/40 border border-red-500/40 rounded-xl p-2">
-                    <div className="text-[10px] font-black text-red-400 mb-1">NOVO</div>
-                    <div className="text-base font-black text-red-300">Sto 5</div>
-                    <div className="text-[10px] text-white/60 mt-1">2x Cappuccino</div>
-                    <div className="text-[10px] text-amber-300 italic">bez šećera</div>
-                    <div className="mt-2 rounded-lg bg-amber-500 text-center text-[10px] font-black text-white py-1">Pokreni ▶</div>
+                <div className="kl-ocard prep">
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.35rem" }}>
+                    <span className="kl-otable" style={{ color: "#FBBF24" }}>Sto 3</span>
+                    <span className="kl-sbadge sb-prep">U PRIPREMI</span>
                   </div>
-                  <div className="bg-green-900/40 border border-green-500/40 rounded-xl p-2">
-                    <div className="text-[10px] font-black text-green-400 mb-1">GOTOVO</div>
-                    <div className="text-base font-black text-green-300">Sto 2</div>
-                    <div className="text-[10px] text-white/60 mt-1">1x Espresso</div>
-                    <div className="text-[10px] text-white/60">1x Rakija</div>
-                    <div className="mt-2 rounded-lg bg-white/10 text-center text-[10px] font-black text-white/60 py-1">Arhiviraj ✓</div>
-                  </div>
+                  <div className="kl-oitem"><span>1x</span> Espresso</div>
+                  <div className="kl-oitem"><span>1x</span> Voda negazirana</div>
+                  <button className="kl-abtn green">Gotovo ✓</button>
                 </div>
-                <div className="px-3 pb-3">
-                  <div className="rounded-xl bg-white/5 border border-white/10 p-2 flex justify-between items-center">
-                    <span className="text-[10px] text-white/50">Dnevni promet</span>
-                    <span className="text-sm font-black text-amber-400">432,00 KM</span>
+                <div className="kl-ocard done">
+                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <span className="kl-otable" style={{ color: "#4ADE80" }}>Sto 1</span>
+                    <span className="kl-sbadge sb-done">GOTOVO</span>
                   </div>
+                  <div className="kl-oitem" style={{ marginTop: "0.3rem" }}><span>2x</span> Pivo 0.5</div>
                 </div>
               </div>
             </div>
 
-            <button
-              type="button"
-              onClick={scrollToOrder}
-              className="mt-4 w-full rounded-2xl bg-white px-5 py-4 text-base font-black uppercase tracking-wide text-stone-950 shadow-xl"
-            >
-              Zatražite besplatnu prezentaciju →
+            {/* Admin */}
+            <div className="kl-screen">
+              <div className="kl-screen-hd">
+                <span style={{ fontSize: "0.8rem" }}>📊</span>
+                <span className="kl-screen-title">Admin</span>
+                <span className="kl-dot" style={{ background: "#E8881A" }} />
+              </div>
+              <div className="kl-screen-body">
+                <div className="kl-sgrid">
+                  <div className="kl-scard"><div className="kl-snum" style={{ color: "#E8881A" }}>24</div><div className="kl-slabel">Narudžbe danas</div></div>
+                  <div className="kl-scard"><div className="kl-snum" style={{ color: "#3D9A66" }}>432 KM</div><div className="kl-slabel">Dnevni promet</div></div>
+                  <div className="kl-scard"><div className="kl-snum" style={{ color: "#60A5FA" }}>6</div><div className="kl-slabel">Otvoreni stolovi</div></div>
+                  <div className="kl-scard"><div className="kl-snum" style={{ color: "#4ADE80" }}>18</div><div className="kl-slabel">Završene</div></div>
+                </div>
+                <div className="kl-chart">
+                  <svg width="100%" height="100%" viewBox="0 0 200 50" preserveAspectRatio="none">
+                    <polyline points="0,45 30,38 60,30 90,20 120,15 150,10 180,8 200,6" fill="none" stroke="#2B7A50" strokeWidth="2" />
+                    <polyline points="0,45 30,38 60,30 90,20 120,15 150,10 180,8 200,6 200,50 0,50" fill="rgba(43,122,80,0.15)" stroke="none" />
+                  </svg>
+                </div>
+                <div style={{ marginTop: "0.5rem" }}>
+                  {[["🥇 Cappuccino", "12"], ["🥈 Espresso", "9"], ["🥉 Cola 0.33", "7"]].map(([n, v]) => (
+                    <div key={n} style={{ display: "flex", justifyContent: "space-between", padding: "0.28rem 0", borderBottom: "1px solid rgba(255,255,255,0.05)", fontSize: "0.66rem" }}>
+                      <span style={{ color: "rgba(255,255,255,0.45)" }}>{n}</span>
+                      <span style={{ color: "#E8881A", fontWeight: 700 }}>{v}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FEATURES */}
+        <section className="kl-section" id="kako-radi" style={{ background: "linear-gradient(180deg,transparent,rgba(232,136,26,0.04),transparent)" }}>
+          <p className="kl-section-label">Zašto KafićLive</p>
+          <h2 className="kl-section-title">Sve što vam treba.<br />Ništa što vam smeta.</h2>
+          <p className="kl-section-sub">Dizajnirano za kafiće koji žele raditi brže i pametnije — bez skupih POS sistema i komplikovane obuke.</p>
+          <div className="kl-feat-grid">
+            {features.map(f => (
+              <div key={f.title} className="kl-feat">
+                <div className="kl-feat-icon">{f.icon}</div>
+                <div className="kl-feat-title">{f.title}</div>
+                <div className="kl-feat-desc">{f.desc}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* STEPS */}
+        <section className="kl-section">
+          <div style={{ textAlign: "center" }}>
+            <p className="kl-section-label">Proces</p>
+            <h2 className="kl-section-title" style={{ textAlign: "center" }}>Od narudžbe do naplate<br />za manje od minute.</h2>
+          </div>
+          <div className="kl-steps">
+            {steps.map(s => (
+              <div key={s.num} className="kl-step">
+                <div className="kl-step-num">{s.num}</div>
+                <div className="kl-step-title">{s.title}</div>
+                <div className="kl-step-desc">{s.desc}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* TESTIMONIALS */}
+        <section className="kl-section">
+          <p className="kl-section-label">Utisci</p>
+          <h2 className="kl-section-title">Vlasnici kažu.</h2>
+          <div className="kl-testi-grid">
+            {testimonials.map((t, i) => (
+              <div key={i} className="kl-testi">"{t}"</div>
+            ))}
+          </div>
+        </section>
+
+        {/* PRICING */}
+        <section className="kl-section" style={{ textAlign: "center" }}>
+          <p className="kl-section-label">Cijena</p>
+          <h2 className="kl-section-title" style={{ textAlign: "center" }}>Jedna cijena.<br />Zauvijek vaše.</h2>
+          <div className="kl-price-card">
+            <div className="kl-price-badge">Jednokratno</div>
+            <div className="kl-price-main">999 <span>KM</span></div>
+            <div className="kl-price-note">Bez mjesečnih naknada. Bez skrivenih troškova.</div>
+            <div style={{ marginBottom: "2rem" }}>
+              {priceIncludes.map(item => (
+                <div key={item} className="kl-price-item">
+                  <div className="kl-check">✓</div> {item}
+                </div>
+              ))}
+            </div>
+            <button className="kl-btn-primary" style={{ width: "100%", justifyContent: "center", fontSize: "1.05rem", padding: "1rem" }} onClick={scrollToOrder}>
+              Zatražite ponudu →
             </button>
           </div>
         </section>
 
-        <main className="px-4 py-5">
+        {/* FAQ */}
+        <section className="kl-section">
+          <p className="kl-section-label">Pitanja</p>
+          <h2 className="kl-section-title">Najčešća pitanja.</h2>
+          <div className="kl-faq-grid" style={{ maxWidth: 680 }}>
+            {faqs.map(f => (
+              <div key={f.q} className="kl-faq">
+                <div className="kl-faq-q">{f.q}</div>
+                <div className="kl-faq-a">{f.a}</div>
+              </div>
+            ))}
+          </div>
+        </section>
 
-          {/* Problem */}
-          <section className="rounded-3xl bg-stone-950 p-5 text-white shadow-sm">
-            <h2 className="text-xl font-black text-amber-300">
-              ☕ Konobar viče prema šanku. Narudžbe se gube. Vi ne znate šta se dešava.
-            </h2>
-            <p className="mt-3 text-sm leading-6 text-stone-200">
-              Svaki kafić koji radi na papiru ili "napamet" gubi novac svaki dan — kroz greške, 
-              sporiju uslugu i nemogućnost praćenja prometa. KafićLive rješava sve to za 
-              manje od 1.000 KM — jednokratno, zauvijek vaše.
-            </p>
-          </section>
-
-          {/* Features */}
-          <section className="mt-5 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-amber-100">
-            <h2 className="text-xl font-black">✅ Šta dobijate?</h2>
-            <div className="mt-4 space-y-3">
-              {features.map((item) => (
-                <div
-                  key={item}
-                  className="rounded-2xl border border-amber-200 bg-amber-50 p-3 text-sm font-semibold text-stone-800"
-                >
-                  ✅ {item}
+        {/* FORM */}
+        <section className="kl-form-section" ref={orderRef}>
+          <div className="kl-form-wrap">
+            <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
+              <p className="kl-section-label">Kontakt</p>
+              <h2 className="kl-section-title">Ostavite kontakt.<br />Javimo se u roku 24h.</h2>
+              <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.9rem", marginTop: "0.75rem" }}>Besplatna demonstracija. Bez obaveza.</p>
+            </div>
+            <div className="kl-form-card">
+              {sent ? (
+                <div style={{ textAlign: "center", padding: "2rem 1rem" }}>
+                  <div style={{ fontSize: "3.5rem", marginBottom: "1rem" }}>🎉</div>
+                  <div style={{ fontFamily: "Outfit", fontWeight: 800, fontSize: "1.5rem", color: "#3D9A66", marginBottom: "0.75rem" }}>Zahtjev primljen!</div>
+                  <div style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.9rem", lineHeight: 1.7 }}>Javit ćemo vam se u roku 24 sata.<br />Hvala na povjerenju!</div>
                 </div>
-              ))}
-            </div>
-          </section>
-
-          {/* 3 roles */}
-          <section className="mt-5 rounded-3xl border border-amber-200 bg-amber-50 p-5">
-            <h2 className="text-xl font-black mb-4">👥 Tri uloge, jedna platforma</h2>
-            <div className="space-y-3">
-              <div className="rounded-2xl bg-white p-4 shadow-sm">
-                <div className="font-black text-stone-900 mb-1">📱 Konobar</div>
-                <div className="text-sm text-stone-600 leading-6">Bira stol, dodaje artikle s napomenama i šalje narudžbu jednim klikom. Radi na svakom telefonu.</div>
-              </div>
-              <div className="rounded-2xl bg-white p-4 shadow-sm">
-                <div className="font-black text-stone-900 mb-1">🖥️ Šank ekran</div>
-                <div className="text-sm text-stone-600 leading-6">Svaka narudžba se pojavljuje odmah sa zvukom. Status: Novo → U pripremi → Gotovo. Bez osvježavanja.</div>
-              </div>
-              <div className="rounded-2xl bg-white p-4 shadow-sm">
-                <div className="font-black text-stone-900 mb-1">📊 Admin / Vlasnik</div>
-                <div className="text-sm text-stone-600 leading-6">Promet po satu, najprodavaniji artikli, ranking stolova — s telefona, iz auta, od kuće. Uvijek uživo.</div>
-              </div>
-            </div>
-          </section>
-
-          {/* Urgency */}
-          <section className="mt-5 rounded-3xl border border-amber-200 bg-amber-50 p-4 text-center shadow-sm">
-            <div className="text-sm font-black text-stone-950">
-              💡 Ne mijenja fiskalnu kasu — ide uz nju
-            </div>
-            <div className="mt-1 text-xs font-semibold text-stone-700">
-              Nema mjesečnih pretplata. Jednokratno plaćanje, zauvijek vaše.
-            </div>
-          </section>
-
-          {/* Testimonials */}
-          <section className="mt-5 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-amber-100">
-            <h2 className="text-xl font-black">💬 Vlasnici kažu</h2>
-            <div className="mt-4 space-y-3">
-              {testimonials.map((item, index) => (
-                <div
-                  key={index}
-                  className="rounded-2xl border border-stone-200 bg-stone-50 p-4"
-                >
-                  <p className="text-sm leading-6 text-stone-700">"{item}"</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Pricing */}
-          <section className="mt-5 rounded-3xl bg-stone-950 p-5 text-white shadow-sm">
-            <h2 className="text-xl font-black text-amber-300">💰 Cijena</h2>
-            <div className="mt-4 space-y-2">
-              <div className="flex justify-between rounded-2xl bg-white/10 p-3 text-sm">
-                <span>KafićLive sistem</span><span className="font-black">999 KM</span>
-              </div>
-              <div className="flex justify-between rounded-2xl bg-white/10 p-3 text-sm">
-                <span>Instalacija i podešavanje</span><span className="font-black text-green-400">Uključeno</span>
-              </div>
-              <div className="flex justify-between rounded-2xl bg-white/10 p-3 text-sm">
-                <span>Obuka osoblja</span><span className="font-black text-green-400">Uključeno</span>
-              </div>
-              <div className="flex justify-between rounded-2xl bg-white/10 p-3 text-sm">
-                <span>6 mjeseci podrške</span><span className="font-black text-green-400">Uključeno</span>
-              </div>
-              <div className="flex justify-between rounded-2xl bg-white/10 p-3 text-sm">
-                <span>Mjesečna naknada</span><span className="font-black text-green-400">0 KM</span>
-              </div>
-              <div className="mt-3 rounded-2xl border-2 border-amber-400 bg-amber-400/10 p-4">
-                <div className="flex justify-between text-lg font-black">
-                  <span>Ukupno</span><span className="text-amber-300">999 KM</span>
-                </div>
-                <div className="text-xs text-stone-400 mt-1">Jednokratno. Bez skrivenih troškova.</div>
-              </div>
-            </div>
-          </section>
-
-          {/* FAQ */}
-          <section className="mt-5 rounded-3xl border border-amber-200 bg-white p-5 shadow-sm">
-            <h2 className="text-xl font-black">❓ Najčešća pitanja</h2>
-            <div className="mt-4 space-y-3">
-              {faqs.map((item) => (
-                <div key={item.q} className="rounded-2xl border border-amber-100 bg-amber-50 p-4">
-                  <h3 className="text-sm font-black text-amber-900">{item.q}</h3>
-                  <p className="mt-2 text-sm leading-6 text-stone-700">{item.a}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Urgency banner */}
-          <section className="mt-5 rounded-3xl border border-red-200 bg-red-50 p-4 text-center shadow-sm">
-            <div className="text-sm font-black text-red-800">
-              ⏳ Ograničen broj instalacija ovaj mjesec
-            </div>
-            <div className="mt-1 text-xs font-semibold text-stone-700">
-              Ostavite kontakt danas i javimo se u roku 24h.
-            </div>
-          </section>
-
-          {/* ── FORMA ── */}
-          <section
-            ref={orderRef}
-            className="mt-5 rounded-3xl bg-gradient-to-b from-stone-950 to-amber-950 p-5 text-white shadow-2xl"
-          >
-            <div className="mb-3 rounded-2xl bg-amber-400 px-4 py-3 text-center text-sm font-black uppercase tracking-wide text-stone-950 shadow-lg">
-              ☕ KafićLive — sistem za narudžbe
-            </div>
-
-            <h2 className="text-center text-2xl font-black">📋 Zatražite prezentaciju</h2>
-            <p className="mt-2 text-center text-sm text-amber-100">
-              Besplatno. Bez obaveza. Javimo se danas.
-            </p>
-
-            {sent ? (
-              <div className="mt-6 rounded-2xl bg-green-500/20 border border-green-400/40 p-6 text-center">
-                <div className="text-4xl mb-3">🎉</div>
-                <div className="text-xl font-black text-green-300 mb-2">Zahtjev primljen!</div>
-                <div className="text-sm text-stone-300 leading-6">
-                  Javit ćemo vam se u roku 24 sata.<br />Hvala na povjerenju!
-                </div>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="mt-4 space-y-3">
-                <input
-                  name="ime"
-                  autoComplete="off"
-                  placeholder="Ime i prezime"
-                  className="w-full rounded-2xl border-2 border-amber-200 bg-white p-4 text-black outline-none placeholder:text-neutral-500"
-                />
-                <input
-                  name="telefon"
-                  autoComplete="off"
-                  placeholder="Broj telefona"
-                  className="w-full rounded-2xl border-2 border-amber-200 bg-white p-4 text-black outline-none placeholder:text-neutral-500"
-                />
-                <input
-                  name="kafic"
-                  autoComplete="off"
-                  placeholder="Naziv kafića"
-                  className="w-full rounded-2xl border-2 border-amber-200 bg-white p-4 text-black outline-none placeholder:text-neutral-500"
-                />
-                <select
-                  name="grad"
-                  className="w-full rounded-2xl border-2 border-amber-200 bg-white p-4 text-black outline-none"
-                >
-                  <option value="">Odaberite grad...</option>
-                  <option>Sarajevo</option>
-                  <option>Banja Luka</option>
-                  <option>Tuzla</option>
-                  <option>Mostar</option>
-                  <option>Zenica</option>
-                  <option>Bijeljina</option>
-                  <option>Trebinje</option>
-                  <option>Bihać</option>
-                  <option>Drugi grad</option>
-                </select>
-
-                <div className="rounded-2xl border-2 border-amber-300 bg-white/10 p-4">
-                  <div className="flex justify-between text-sm text-amber-100">
-                    <span>KafićLive sistem</span>
-                    <span>999 KM</span>
+              ) : (
+                <form onSubmit={handleSubmit}>
+                  <div className="kl-form-group">
+                    <label className="kl-form-label">Ime i prezime</label>
+                    <input name="ime" className="kl-input" placeholder="Marko Marković" autoComplete="off" />
                   </div>
-                  <div className="flex justify-between text-sm text-green-300 mt-1">
-                    <span>Instalacija + obuka</span>
-                    <span>Gratis</span>
+                  <div className="kl-form-group">
+                    <label className="kl-form-label">Broj telefona</label>
+                    <input name="telefon" className="kl-input" placeholder="+387 61 123 456" autoComplete="off" />
                   </div>
-                  <div className="mt-3 border-t border-white/20 pt-3">
-                    <div className="flex justify-between text-lg font-black">
-                      <span>Ukupno</span>
-                      <span className="text-amber-300">999 KM</span>
-                    </div>
-                    <div className="text-xs text-stone-400 mt-1">Jednokratno. Bez mjesečne pretplate.</div>
+                  <div className="kl-form-group">
+                    <label className="kl-form-label">Naziv kafića</label>
+                    <input name="kafic" className="kl-input" placeholder="npr. Kafić Central" autoComplete="off" />
                   </div>
-                </div>
+                  <div className="kl-form-group">
+                    <label className="kl-form-label">Grad</label>
+                    <select name="grad" className="kl-input">
+                      <option value="">Odaberite grad...</option>
+                      {["Sarajevo","Banja Luka","Tuzla","Mostar","Zenica","Bijeljina","Trebinje","Bihać","Drugi grad"].map(g => (
+                        <option key={g}>{g}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <button type="submit" className="kl-submit" disabled={loading}>
+                    {loading ? "Šalje se..." : "📞 Pošaljite zahtjev — javimo se danas!"}
+                  </button>
+                  <p className="kl-promise">🔒 Vaši podaci su sigurni. Bez spama.</p>
+                </form>
+              )}
+            </div>
+          </div>
+        </section>
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full rounded-2xl bg-amber-400 p-4 text-lg font-black uppercase tracking-wide text-stone-950 shadow-lg disabled:opacity-70"
-                >
-                  {loading ? "Šalje se..." : "Pošalji zahtjev — javimo se danas!"}
-                </button>
-
-                <p className="text-center text-xs text-stone-400">
-                  🔒 Vaši podaci su sigurni. Bez spama.
-                </p>
-              </form>
-            )}
-          </section>
-
-        </main>
+        {/* FOOTER */}
+        <footer className="kl-footer">
+          <div className="kl-logo">☕ Kafić<em>Live</em></div>
+          <div className="kl-footer-copy">© 2025 KafićLive. Sva prava zadržana.</div>
+          <div style={{ fontSize: "0.8rem", color: "var(--steam)" }}>Jednostavno · Brzo · Uvijek na vrijeme.</div>
+        </footer>
       </div>
-    </div>
+    </>
   );
 }
