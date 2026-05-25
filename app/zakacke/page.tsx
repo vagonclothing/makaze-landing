@@ -13,7 +13,6 @@ export default function Page() {
   const [giftPack, setGiftPack] = useState(false);
   const [loading, setLoading]   = useState(false);
   const [success, setSuccess]   = useState(false);
-  const [popup, setPopup]       = useState<{ text: string; name: string } | null>(null);
   const [openFaq, setOpenFaq]   = useState<number | null>(null);
   const orderRef = useRef<HTMLElement | null>(null);
 
@@ -23,31 +22,7 @@ export default function Page() {
   const baseTotal = 34.0;
   const total = useMemo(() => (giftPack ? baseTotal + 5 : baseTotal), [giftPack]);
 
-  /* ── popup notifikacije ── */
-  const popups = [
-    { name: "Elma, Sarajevo",    text: "Postavila mrežu na balkon sama za 10 minuta!" },
-    { name: "Nikola, B. Luka",   text: "Drže čvrsto, čak i kad dune jači vjetar." },
-    { name: "Amila, Tuzla",      text: "Super stvar, sad imamo hlad u dvorištu!" },
-    { name: "Ivan, Mostar",      text: "Montaža bez bušenja, odlično!" },
-    { name: "Lejla, Zenica",     text: "Kupili za baštu, zakačke rade posao odlično." },
-    { name: "Adnan, Brčko",      text: "Po ovoj cijeni nema bolje opcije." },
-    { name: "Milica, Trebinje",  text: "Odlično za mrežu iznad auta!" },
-    { name: "Tarik, Doboj",      text: "Koristim ih na gradilištu – super čvrste." },
-    { name: "Ivana, Konjic",     text: "Praktične, mogu se koristiti više puta." },
-    { name: "Dino, Bihać",       text: "Idealne za terasu, brzo ih skidam kad treba." },
-  ];
 
-  useEffect(() => {
-    let idx = 0;
-    const show = () => {
-      setPopup(popups[idx % popups.length]);
-      idx++;
-      setTimeout(() => setPopup(null), 4000);
-    };
-    const t1 = setTimeout(show, 3000);
-    const iv = setInterval(show, 8000);
-    return () => { clearTimeout(t1); clearInterval(iv); };
-  }, []);
 
   const benefits = [
     { icon: "☀️", text: "UV-otporna plastika – ne puca i ne savija se na suncu" },
@@ -134,27 +109,7 @@ export default function Page() {
           margin: 0 auto;
         }
 
-        /* ── POPUP ── */
-        @keyframes slideUp {
-          from { opacity: 0; transform: translateY(20px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .popup {
-          position: fixed;
-          bottom: 20px; left: 12px; right: 12px;
-          max-width: 360px; margin: 0 auto;
-          z-index: 999;
-          background: #fff;
-          border-left: 4px solid #22c55e;
-          border-radius: 12px;
-          padding: 12px 14px;
-          display: flex; gap: 10px; align-items: center;
-          box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-          animation: slideUp .35s ease both;
-        }
-        .popup-icon { font-size: 22px; flex-shrink: 0; }
-        .popup-text { font-size: 13px; font-weight: 700; color: #1a1a1a; line-height: 1.4; }
-        .popup-name { font-size: 11px; font-weight: 600; color: #666; margin-top: 2px; }
+
 
         /* ── TOP BAR ── */
         .topbar {
@@ -535,17 +490,6 @@ export default function Page() {
       `}</style>
 
       <div className="page">
-
-        {/* ── POPUP ── */}
-        {popup && (
-          <div className="popup">
-            <div className="popup-icon">🛒</div>
-            <div>
-              <div className="popup-text">{popup.text}</div>
-              <div className="popup-name">— {popup.name}</div>
-            </div>
-          </div>
-        )}
 
         {/* ── TOP BAR ── */}
         <div className="topbar">
