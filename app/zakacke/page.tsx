@@ -14,6 +14,7 @@ export default function Page() {
   const [loading, setLoading]   = useState(false);
   const [success, setSuccess]   = useState(false);
   const [popup, setPopup]       = useState<{ text: string; name: string } | null>(null);
+  const [openFaq, setOpenFaq]   = useState<number | null>(null);
   const orderRef = useRef<HTMLElement | null>(null);
 
   const scrollToOrder = () =>
