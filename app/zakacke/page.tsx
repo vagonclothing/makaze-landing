@@ -19,10 +19,8 @@ export default function Page() {
   const scrollToOrder = () =>
     orderRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 
-  const baseTotal = 34.0;
+  const baseTotal = 24.0; // 15 + 9 dostava
   const total = useMemo(() => (giftPack ? baseTotal + 5 : baseTotal), [giftPack]);
-
-
 
   const benefits = [
     { icon: "☀️", text: "UV-otporna plastika – ne puca i ne savija se na suncu" },
@@ -30,7 +28,7 @@ export default function Page() {
     { icon: "♻️", text: "Višekratna upotreba – skini, složi, koristi ponovo" },
     { icon: "💰", text: "10× jeftinije od tende – isto rješenje, manje para" },
     { icon: "🏠", text: "Balkon, terasa, dvorište, gradilište – svugdje radi" },
-    { icon: "📦", text: "50 komada u paketu – dovoljno za veliku površinu" },
+    { icon: "📦", text: "100 komada u paketu – dovoljno za veliku površinu" },
   ];
 
   const testimonials = [
@@ -48,7 +46,7 @@ export default function Page() {
     { q: "Kako se zakačke montiraju?", a: "Jednostavno ih ručno pričvrstite na mrežu i ogradu, stub ili sajlu. Nisu potrebni alati ni bušenje." },
     { q: "Da li su otporne na kišu i sunce?", a: "Da, izrađene su od UV-otporne plastike i otporne su na kišu, sunce i vjetar – za dugotrajnu vanjsku upotrebu." },
     { q: "Koliko puta se mogu koristiti?", a: "Višekratne su – skinite ih, složite i koristite ponovo bez oštećenja." },
-    { q: "Koliko komada dolazi u pakovanju?", a: "50 komada – dovoljno za veću površinu ili više mjesta odjednom." },
+    { q: "Koliko komada dolazi u pakovanju?", a: "100 komada – dovoljno za veću površinu ili više mjesta odjednom." },
     { q: "Kako se plaća?", a: "Plaćanje je pouzećem – platiš kuriru tek kada preuzmeš paket. Nema rizika." },
   ];
 
@@ -59,14 +57,14 @@ export default function Page() {
     const fd   = new FormData(form);
 
     const order = {
-      product_name:  "Zakačke za zaštitnu mrežu od sunca – 50 komada",
+      product_name:  "Zakačke za zaštitnu mrežu od sunca – 100 komada",
       full_name:     String(fd.get("ime") || ""),
       phone:         String(fd.get("telefon") || ""),
       address_place: String(fd.get("adresa") || ""),
       postal_code:   String(fd.get("postanski") || ""),
       gift_pack:     giftPack,
       shipping:      9,
-      product_price: 25.0,
+      product_price: 15.0,
       total:         Number(total.toFixed(2)),
       status:        "novo",
       source:        "zakacke-mreza",
@@ -97,7 +95,6 @@ export default function Page() {
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
         body { background: #f5f5f5; }
 
         .page {
@@ -109,9 +106,6 @@ export default function Page() {
           margin: 0 auto;
         }
 
-
-
-        /* ── TOP BAR ── */
         .topbar {
           background: #16a34a;
           color: #fff;
@@ -122,7 +116,6 @@ export default function Page() {
           letter-spacing: .02em;
         }
 
-        /* ── HERO ── */
         .hero {
           background: #fff;
           padding: 20px 16px 24px;
@@ -182,24 +175,15 @@ export default function Page() {
           border-radius: 8px;
         }
 
-        /* price row */
         .price-row {
           display: flex;
           align-items: center;
           gap: 10px;
           margin-bottom: 14px;
+          flex-wrap: wrap;
         }
-        .price-new {
-          font-size: 36px;
-          font-weight: 900;
-          color: #16a34a;
-        }
-        .price-old {
-          font-size: 18px;
-          font-weight: 700;
-          color: #aaa;
-          text-decoration: line-through;
-        }
+        .price-new { font-size: 36px; font-weight: 900; color: #16a34a; }
+        .price-old { font-size: 18px; font-weight: 700; color: #aaa; text-decoration: line-through; }
         .price-save {
           background: #fef2f2;
           color: #dc2626;
@@ -241,7 +225,6 @@ export default function Page() {
           color: #555;
         }
 
-        /* ── SECTIONS ── */
         .section {
           background: #fff;
           margin-top: 8px;
@@ -254,7 +237,6 @@ export default function Page() {
           margin-bottom: 16px;
         }
 
-        /* ── BEFORE/AFTER ── */
         .ba-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .ba-card { border-radius: 12px; overflow: hidden; position: relative; border: 2px solid #e5e7eb; }
         .ba-card img { width: 100%; display: block; }
@@ -266,7 +248,6 @@ export default function Page() {
         .ba-lbl.before { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
         .ba-lbl.after  { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
 
-        /* ── BENEFITS ── */
         .benefit-list { display: flex; flex-direction: column; gap: 10px; }
         .benefit-item {
           display: flex;
@@ -282,28 +263,12 @@ export default function Page() {
         }
         .benefit-icon { font-size: 20px; flex-shrink: 0; }
 
-        /* ── EXPERT ── */
-        .expert-card {
-          border: 2px solid #e5e7eb;
-          border-radius: 14px;
-          overflow: hidden;
-        }
+        .expert-card { border: 2px solid #e5e7eb; border-radius: 14px; overflow: hidden; }
         .expert-card img { width: 100%; display: block; max-height: 220px; object-fit: cover; object-position: top; }
-        .expert-body {
-          padding: 16px;
-          background: #f9fafb;
-          border-top: 3px solid #16a34a;
-        }
-        .expert-quote {
-          font-size: 14px;
-          color: #333;
-          line-height: 1.7;
-          font-style: italic;
-          margin-bottom: 10px;
-        }
+        .expert-body { padding: 16px; background: #f9fafb; border-top: 3px solid #16a34a; }
+        .expert-quote { font-size: 14px; color: #333; line-height: 1.7; font-style: italic; margin-bottom: 10px; }
         .expert-name { font-size: 13px; font-weight: 800; color: #16a34a; }
 
-        /* ── TESTIMONIALS ── */
         .t-list { display: flex; flex-direction: column; gap: 10px; }
         .t-card {
           background: #f9fafb;
@@ -316,7 +281,6 @@ export default function Page() {
         .t-text { font-size: 13px; color: #333; line-height: 1.65; }
         .t-author { font-size: 12px; font-weight: 800; color: #16a34a; margin-top: 8px; }
 
-        /* ── URGENCY ── */
         .urgency {
           background: #fef2f2;
           border: 2px solid #fecaca;
@@ -328,7 +292,6 @@ export default function Page() {
         .urgency-title { font-size: 16px; font-weight: 900; color: #dc2626; margin-bottom: 4px; }
         .urgency-sub { font-size: 13px; font-weight: 600; color: #555; }
 
-        /* ── FAQ ── */
         .faq-item {
           border: 1px solid #e5e7eb;
           border-radius: 12px;
@@ -361,17 +324,13 @@ export default function Page() {
         }
         .faq-item.open .faq-a { max-height: 200px; padding: 0 16px 15px; }
 
-        /* ── ORDER FORM ── */
         .form-section {
           background: #fff;
           margin-top: 8px;
           padding: 24px 16px 32px;
           border-top: 4px solid #dc2626;
         }
-        .form-header {
-          text-align: center;
-          margin-bottom: 20px;
-        }
+        .form-header { text-align: center; margin-bottom: 20px; }
         .form-header-badge {
           display: inline-block;
           background: #dc2626;
@@ -459,25 +418,14 @@ export default function Page() {
         .submit-btn:hover:not(:disabled) { background: #b91c1c; transform: translateY(-1px); }
         .submit-btn:disabled { opacity: .65; cursor: not-allowed; }
 
-        .form-note {
-          text-align: center;
-          font-size: 12px;
-          font-weight: 600;
-          color: #888;
-          margin-top: 10px;
-        }
+        .form-note { text-align: center; font-size: 12px; font-weight: 600; color: #888; margin-top: 10px; }
 
-        /* ── SUCCESS ── */
         @keyframes scaleIn { from { transform: scale(.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .success-wrap {
-          text-align: center; padding: 40px 16px;
-          animation: scaleIn .4s ease both;
-        }
+        .success-wrap { text-align: center; padding: 40px 16px; animation: scaleIn .4s ease both; }
         .success-icon { font-size: 64px; margin-bottom: 16px; }
         .success-title { font-size: 26px; font-weight: 900; color: #16a34a; margin-bottom: 8px; }
         .success-sub { font-size: 15px; font-weight: 600; color: #555; line-height: 1.6; }
 
-        /* ── FOOTER ── */
         .footer {
           background: #f5f5f5;
           padding: 20px 16px;
@@ -491,14 +439,12 @@ export default function Page() {
 
       <div className="page">
 
-        {/* ── TOP BAR ── */}
         <div className="topbar">
           🚚 Besplatna dostava na narudžbe iznad 50 KM · Plaćanje pouzećem
         </div>
 
-        {/* ── HERO ── */}
         <section className="hero">
-          <div className="hero-badge">⏳ AKCIJA – Uštedi 14,90 KM!</div>
+          <div className="hero-badge">⏳ AKCIJA – Uštedi 24,90 KM!</div>
 
           <h1>Zakačke za zaštitnu mrežu od sunca</h1>
           <p className="hero-sub">
@@ -506,15 +452,18 @@ export default function Page() {
           </p>
 
           <div className="hero-img">
-            <span className="hero-img-badge">-37% POPUST</span>
-            <span className="hero-img-price">25,00 KM</span>
-            <img src="https://i.imgur.com/elbYwKT.jpeg" alt="Zakačke za zaštitnu mrežu" />
+            <span className="hero-img-badge">-62% POPUST</span>
+            <span className="hero-img-price">15,00 KM</span>
+            <img
+              src="https://klikomkupi.com/cdn/shop/files/dd37d215-1e3a-4812-b5a2-5222b0b2f0d7.jpg?v=1737664208"
+              alt="Zakačke za zaštitnu mrežu"
+            />
           </div>
 
           <div className="price-row">
-            <span className="price-new">25,00 KM</span>
+            <span className="price-new">15,00 KM</span>
             <span className="price-old">39,90 KM</span>
-            <span className="price-save">Uštedi 14,90 KM</span>
+            <span className="price-save">Uštedi 24,90 KM</span>
           </div>
 
           <button className="cta-btn" onClick={scrollToOrder}>
@@ -528,7 +477,6 @@ export default function Page() {
           </div>
         </section>
 
-        {/* ── PRIJE / POSLIJE ── */}
         <section className="section">
           <div className="section-title">📸 Kako izgleda u praksi</div>
           <div className="ba-wrap">
@@ -543,7 +491,6 @@ export default function Page() {
           </div>
         </section>
 
-        {/* ── BENEFITI ── */}
         <section className="section">
           <div className="section-title">✅ Zašto su ove zakačke odlične</div>
           <div className="benefit-list">
@@ -556,7 +503,6 @@ export default function Page() {
           </div>
         </section>
 
-        {/* ── EXPERT ── */}
         <section className="section">
           <div className="section-title">☕ Vlasnik kafića preporučuje</div>
           <div className="expert-card">
@@ -570,7 +516,6 @@ export default function Page() {
           </div>
         </section>
 
-        {/* ── TESTIMONIALS ── */}
         <section className="section">
           <div className="section-title">💬 Šta kažu kupci</div>
           <div className="t-list">
@@ -584,13 +529,11 @@ export default function Page() {
           </div>
         </section>
 
-        {/* ── URGENCY ── */}
         <div className="urgency">
           <div className="urgency-title">⏳ Ograničene zalihe!</div>
-          <div className="urgency-sub">Akcijska cijena 25,00 KM vrijedi dok ima zaliha. Naruči danas.</div>
+          <div className="urgency-sub">Akcijska cijena 15,00 KM vrijedi dok ima zaliha. Naruči danas.</div>
         </div>
 
-        {/* ── FAQ ── */}
         <section className="section">
           <div className="section-title">❓ Često postavljana pitanja</div>
           {faqs.map((item, i) => (
@@ -605,7 +548,6 @@ export default function Page() {
           ))}
         </section>
 
-        {/* ── ORDER FORM ── */}
         <section ref={orderRef} className="form-section">
           {success ? (
             <div className="success-wrap">
@@ -639,7 +581,7 @@ export default function Page() {
                 </label>
 
                 <div className="summary-box">
-                  <div className="summary-row"><span>Zakačke 50 komada</span><span>25,00 KM</span></div>
+                  <div className="summary-row"><span>Zakačke 100 komada</span><span>15,00 KM</span></div>
                   <div className="summary-row"><span>Dostava</span><span>9,00 KM</span></div>
                   {giftPack && (
                     <div className="summary-row" style={{ color: "#16a34a", fontWeight: 700 }}>
