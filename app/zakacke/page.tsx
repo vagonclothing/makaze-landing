@@ -446,7 +446,7 @@ export default function Page() {
         <section className="hero">
           <div className="hero-badge">⏳ AKCIJA – Uštedi 24,90 KM!</div>
 
-          <h1>Zakačke za zaštitnu mrežu od sunca</h1>
+          <h1>Zakačke za zaštitnu mrežu od sunca 100 KOMADA</h1>
           <p className="hero-sub">
             Postavi vlastitu zaštitu od sunca bez majstora i skupih tendi — brzo, jednostavno, za manje od pola sata.
           </p>
