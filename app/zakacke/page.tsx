@@ -582,7 +582,7 @@ export default function Page() {
 
                 <div className="summary-box">
                   <div className="summary-row"><span>Zakačke 100 komada</span><span>15,00 KM</span></div>
-                  <div className="summary-row"><span>Dostava</span><span>9,00 KM</span></div>
+                  <div className="summary-row"><span>Dostava</span><span>10,00 KM</span></div>
                   {giftPack && (
                     <div className="summary-row" style={{ color: "#16a34a", fontWeight: 700 }}>
                       <span>Poklon pakovanje</span><span>5,00 KM</span>
