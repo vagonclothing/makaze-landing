@@ -23,28 +23,28 @@ export default function Page() {
   const total = useMemo(() => (giftPack ? baseTotal + 5 : baseTotal), [giftPack]);
 
   const benefits = [
-    { icon: "🔋", text: "2 baterije u kompletu – radiš bez pauze, jedna se puni dok koristiš drugu" },
-    { icon: "🪵", text: "Precizna obrada drveta – žljebovi, profili i utori bez napora" },
-    { icon: "🔌", text: "Bez kabla – sloboda kretanja na gradilištu, radionici i terenu" },
+    { icon: "🌱", text: "Rahli i obrađuje zemlju za sjetvu – bez lopate i fizičkog napora" },
+    { icon: "🔋", text: "2 baterije u kompletu – radiš dugo bez pauze, jedna se puni dok koristiš drugu" },
+    { icon: "🔌", text: "Bez kabla – sloboda kretanja po vrtu, bašti i njivi" },
     { icon: "⚡", text: "Brzi punjač u kompletu – baterija puna za kratko vrijeme" },
-    { icon: "💼", text: "Tvrdi kofer – alat uvijek zaštićen i spreman za transport" },
+    { icon: "💼", text: "Tvrdi kofer – alat uvijek zaštićen i spreman za sljedeću sezonu" },
     { icon: "🛡️", text: "3 godine garancije – Makita standard kvalitete" },
   ];
 
   const testimonials = [
-    { text: "Koristim je u radionici svaki dan. Dvije baterije su genijalna stvar – nema čekanja, uvijek imam napunjenu.", author: "Dragan P.", city: "Banja Luka" },
-    { text: "Postavljao sam laminat po cijelom stanu i freza je odradila posao savršeno. Precizna i laka za rukovanje.", author: "Emir H.", city: "Sarajevo" },
-    { text: "Konačno alat bez kabla koji stvarno ima snage. Freza reže kao po maslu, a kofer je solidan.", author: "Nikola J.", city: "Mostar" },
-    { text: "Kupio za vikendicu. Radio sam svu drvenu obradu sam, bez majstora. Vrijedi svaku marku.", author: "Zoran M.", city: "Tuzla" },
-    { text: "3 godine garancije je ono što me odlučilo. Pravi Makita alat, ne kopija.", author: "Adis K.", city: "Zenica" },
-    { text: "Kofer je jak i praktičan. Alat je uvijek siguran kada ga nosim na posao.", author: "Branko S.", city: "Bihać" },
+    { text: "Koristim je svake godine u bašti. Dvije baterije su odlična stvar – obrađujem veće površine bez stajanja.", author: "Dragan P.", city: "Banja Luka" },
+    { text: "Rahli zemlju za sadnju kao ništa. Žena i ja sami obrađujemo vrt, više nam ne treba traktor za male površine.", author: "Emir H.", city: "Sarajevo" },
+    { text: "Konačno alat bez kabla koji ima snage. Zemlja se rahli brzo i lako, a kofer je solidan.", author: "Nikola J.", city: "Mostar" },
+    { text: "Kupio za vikendicu i baštu. Sam obrađujem sve, bez najma traktora. Vrijedi svaku marku.", author: "Zoran M.", city: "Tuzla" },
+    { text: "3 godine garancije je ono što me odlučilo. Pravi Makita alat, radi odlično u teškoj zemlji.", author: "Adis K.", city: "Zenica" },
+    { text: "Kofer je jak i praktičan. Alat leži u ostavi cijelu zimu i uvijek je spreman u proljeće.", author: "Branko S.", city: "Bihać" },
   ];
 
   const faqs = [
-    { q: "Šta je sve u kompletu?", a: "Aku ručna freza, 2 baterije Li-Ion, brzi punjač i tvrdi kofer za transport i čuvanje alata." },
-    { q: "Za šta se koristi ručna freza?", a: "Za izradu žljebova, profila, utora i oblikovanje rubova na drvetu. Idealna za stolare, majstore i hobiste." },
+    { q: "Šta je sve u kompletu?", a: "Aku freza za zemlju, 2 baterije Li-Ion, brzi punjač i tvrdi kofer za transport i čuvanje alata." },
+    { q: "Za šta se koristi aku freza za zemlju?", a: "Za rahljenje, okopavanje i pripremu zemlje za sjetvu i sadnju u bašti, vrtu ili na manjoj njivi. Idealna za proljetnu i jesensku obradu." },
     { q: "Koliko traju baterije?", a: "Sa dvije baterije u kompletu uvijek imaš napunjenu rezervu. Brzi punjač vraća kapacitet za kratko vrijeme." },
-    { q: "Kakva je garancija?", a: "Na freza i sve u kompletu dolazi 3 godine garancije – Makita standard kvalitete." },
+    { q: "Kakva je garancija?", a: "Na freze i sve u kompletu dolazi 3 godine garancije – Makita standard kvalitete." },
     { q: "Kako se plaća?", a: "Plaćanje je pouzećem – platiš kuriru tek kada preuzmeš paket na svojoj adresi. Nema rizika." },
   ];
 
@@ -55,7 +55,7 @@ export default function Page() {
     const fd   = new FormData(form);
 
     const order = {
-      product_name:  "Makita aku ručna freza – 2 baterije, punjač, kofer, 3 god. garancija",
+      product_name:  "Makita aku freza za zemlju – 2 baterije, punjač, kofer, 3 god. garancija",
       full_name:     String(fd.get("ime") || ""),
       phone:         String(fd.get("telefon") || ""),
       address_place: String(fd.get("adresa") || ""),
@@ -479,9 +479,9 @@ export default function Page() {
         <section className="hero">
           <div className="hero-badge">🔋 2 baterije + punjač + kofer u kompletu!</div>
 
-          <h1>Makita aku ručna freza</h1>
+          <h1>Makita aku freza za zemlju</h1>
           <p className="hero-sub">
-            Profesionalna obrada drveta bez kabla — žljebovi, profili i utori gdje god trebaš, sa dvije baterije i brzim punjačem u tvrdom koferu.
+            Obradi baštu i vrt bez lopate i fizičkog napora — rahli zemlju za sjetvu gdje god trebaš, sa dvije baterije i brzim punjačem u tvrdom koferu.
           </p>
 
           <div className="hero-img">
@@ -527,7 +527,7 @@ export default function Page() {
         </div>
 
         <section className="section">
-          <div className="section-title">✅ Zašto ova freza</div>
+          <div className="section-title">✅ Zašto ova freza za zemlju</div>
           <div className="benefit-list">
             {benefits.map((b) => (
               <div className="benefit-item" key={b.text}>
@@ -543,9 +543,9 @@ export default function Page() {
           <div className="expert-card">
             <div className="expert-body" style={{ borderTop: "none", borderLeft: "4px solid #16a34a" }}>
               <p className="expert-quote">
-                "Aku freza je alat koji svaki stolar i majstor treba imati. Bez kabla imaš slobodu kretanja, a sa dvije baterije nema stajanja. Makita kvalitet — nema šta reći."
+                "Aku freza za zemlju je alat koji svaki vlasnik bašte ili vikendice treba imati. Bez kabla imaš slobodu kretanja po cijelom vrtu, a sa dvije baterije nema stajanja. Zemlja se rahli brzo i lako — kao da imaš mini traktor u ruci."
               </p>
-              <div className="expert-name">— Miroslav T., stolar s 20 godina iskustva</div>
+              <div className="expert-name">— Miroslav T., agrikulturni tehničar</div>
             </div>
           </div>
         </section>
