@@ -19,7 +19,7 @@ export default function Page() {
   const scrollToOrder = () =>
     orderRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 
-  const baseTotal = 24.0; // 15 + 9 dostava
+  const baseTotal = 25.0; // 15 + 10 dostava
   const total = useMemo(() => (giftPack ? baseTotal + 5 : baseTotal), [giftPack]);
 
   const benefits = [
@@ -63,7 +63,7 @@ export default function Page() {
       address_place: String(fd.get("adresa") || ""),
       postal_code:   String(fd.get("postanski") || ""),
       gift_pack:     giftPack,
-      shipping:      9,
+      shipping:      10,
       product_price: 15.0,
       total:         Number(total.toFixed(2)),
       status:        "novo",
@@ -446,7 +446,7 @@ export default function Page() {
         <section className="hero">
           <div className="hero-badge">⏳ AKCIJA – Uštedi 24,90 KM!</div>
 
-          <h1>Zakačke za zaštitnu mrežu od sunca 100 KOMADA</h1>
+          <h1>Zakačke za zaštitnu mrežu od sunca</h1>
           <p className="hero-sub">
             Postavi vlastitu zaštitu od sunca bez majstora i skupih tendi — brzo, jednostavno, za manje od pola sata.
           </p>
@@ -582,7 +582,7 @@ export default function Page() {
 
                 <div className="summary-box">
                   <div className="summary-row"><span>Zakačke 100 komada</span><span>15,00 KM</span></div>
-                  <div className="summary-row"><span>Dostava</span><span>10,00 KM</span></div>
+                  <div className="summary-row"><span>Dostava</span><span>9,00 KM</span></div>
                   {giftPack && (
                     <div className="summary-row" style={{ color: "#16a34a", fontWeight: 700 }}>
                       <span>Poklon pakovanje</span><span>5,00 KM</span>
