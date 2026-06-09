@@ -12,13 +12,14 @@ declare global {
 export default function Page() {
   const [giftPack, setGiftPack] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const orderRef = useRef<HTMLElement | null>(null);
 
   const scrollToOrder = () => {
     orderRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const baseTotal = 27.9;
+  const baseTotal = 24.9; // 14.90 + 10 dostava
   const total = useMemo(() => (giftPack ? baseTotal + 5 : baseTotal), [giftPack]);
 
   const benefits = [
@@ -50,26 +51,11 @@ export default function Page() {
   ];
 
   const faqs = [
-    {
-      q: "Kako se koristi?",
-      a: "Samo ga otvorite kao običan kišobran i postavite sa unutrašnje strane vjetrobranskog stakla.",
-    },
-    {
-      q: "Da li odgovara mom autu?",
-      a: "Univerzalna je veličina i odgovara većini automobila, SUV vozila i kombija.",
-    },
-    {
-      q: "Da li stvarno smanjuje temperaturu?",
-      a: "Da. Reflektirajući materijal odbija sunce i pomaže da kabina ostane osjetno hladnija.",
-    },
-    {
-      q: "Koliko prostora zauzima?",
-      a: "Vrlo malo. Kada se sklopi, izgleda kao običan kišobran i stane u vrata, pretinac ili ispod sjedišta.",
-    },
-    {
-      q: "Kako se plaća?",
-      a: "Plaćanje je pouzećem, tek kada preuzmete paket.",
-    },
+    { q: "Kako se koristi?", a: "Samo ga otvorite kao običan kišobran i postavite sa unutrašnje strane vjetrobranskog stakla." },
+    { q: "Da li odgovara mom autu?", a: "Univerzalna je veličina i odgovara većini automobila, SUV vozila i kombija." },
+    { q: "Da li stvarno smanjuje temperaturu?", a: "Da. Reflektirajući materijal odbija sunce i pomaže da kabina ostane osjetno hladnija." },
+    { q: "Koliko prostora zauzima?", a: "Vrlo malo. Kada se sklopi, izgleda kao običan kišobran i stane u vrata, pretinac ili ispod sjedišta." },
+    { q: "Kako se plaća?", a: "Plaćanje je pouzećem, tek kada preuzmete paket." },
   ];
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -87,7 +73,7 @@ export default function Page() {
       postal_code: String(formData.get("postanski") || ""),
       gift_pack: giftPack,
       shipping: 10,
-      product_price: 17.9,
+      product_price: 14.9,
       total: Number(total.toFixed(2)),
       status: "novo",
       source: "auto-kisobran",
@@ -115,10 +101,10 @@ export default function Page() {
       });
     }
 
-    alert("Narudžba uspješno poslana!");
     form.reset();
     setGiftPack(false);
     setLoading(false);
+    setSuccess(true);
   }
 
   return (
@@ -142,36 +128,23 @@ export default function Page() {
             </p>
 
             <div className="mt-4 rounded-[30px] bg-white p-3 shadow-2xl">
-              <img
-                src="https://i.imgur.com/CcVTxn2.png"
-                alt="Auto kišobran"
-                className="w-full rounded-2xl object-cover"
-              />
+              <img src="https://i.imgur.com/CcVTxn2.png" alt="Auto kišobran" className="w-full rounded-2xl object-cover" />
             </div>
 
             <div className="mt-4 grid grid-cols-2 gap-3">
               <div className="rounded-2xl bg-white/10 p-3 text-center shadow-lg ring-1 ring-white/20">
-                <div className="text-[11px] font-black uppercase tracking-wide text-sky-200">
-                  Redovno
-                </div>
+                <div className="text-[11px] font-black uppercase tracking-wide text-sky-200">Redovno</div>
                 <div className="mt-1 text-xl font-black line-through">30,00 KM</div>
                 <div className="text-xs font-semibold text-sky-100">za 1 komad</div>
               </div>
-
               <div className="rounded-2xl bg-cyan-300 p-3 text-center text-slate-950 shadow-lg">
-                <div className="text-[11px] font-black uppercase tracking-wide">
-                  Akcija
-                </div>
-                <div className="mt-1 text-2xl font-black">17,90 KM</div>
+                <div className="text-[11px] font-black uppercase tracking-wide">Akcija</div>
+                <div className="mt-1 text-2xl font-black">14,90 KM</div>
                 <div className="text-xs font-black">1+1 GRATIS</div>
               </div>
             </div>
 
-            <button
-              type="button"
-              onClick={scrollToOrder}
-              className="mt-4 w-full rounded-2xl bg-white px-5 py-4 text-base font-black uppercase tracking-wide text-slate-950 shadow-xl"
-            >
+            <button type="button" onClick={scrollToOrder} className="mt-4 w-full rounded-2xl bg-white px-5 py-4 text-base font-black uppercase tracking-wide text-slate-950 shadow-xl">
               Naruči 2 komada
             </button>
           </div>
@@ -179,13 +152,9 @@ export default function Page() {
 
         <main className="px-4 py-5">
           <section className="rounded-3xl bg-slate-950 p-5 text-white shadow-sm">
-            <h2 className="text-xl font-black text-cyan-300">
-              ☀️ Sunce ti svaki dan uništava auto
-            </h2>
+            <h2 className="text-xl font-black text-cyan-300">☀️ Sunce ti svaki dan uništava auto</h2>
             <p className="mt-3 text-sm leading-6 text-slate-200">
-              Vreli volan, užarena sjedišta, izblijedjela plastika i pregrijan ekran nisu samo
-              nerviranje – to vremenom oštećuje enterijer. Ovaj auto kišobran pravi zaštitnu barijeru
-              odmah iza vjetrobranskog stakla.
+              Vreli volan, užarena sjedišta, izblijedjela plastika i pregrijan ekran nisu samo nerviranje – to vremenom oštećuje enterijer. Ovaj auto kišobran pravi zaštitnu barijeru odmah iza vjetrobranskog stakla.
             </p>
           </section>
 
@@ -193,10 +162,7 @@ export default function Page() {
             <h2 className="text-xl font-black">✅ Šta dobijaš s njim?</h2>
             <div className="mt-4 space-y-3">
               {benefits.map((item) => (
-                <div
-                  key={item}
-                  className="rounded-2xl border border-sky-200 bg-sky-50 p-3 text-sm font-semibold text-slate-800"
-                >
+                <div key={item} className="rounded-2xl border border-sky-200 bg-sky-50 p-3 text-sm font-semibold text-slate-800">
                   ✅ {item}
                 </div>
               ))}
@@ -204,37 +170,22 @@ export default function Page() {
           </section>
 
           <section className="mt-5 rounded-3xl bg-white p-4 shadow-sm ring-1 ring-sky-100">
-            <img
-              src="https://i.imgur.com/BvXafcv.png"
-              alt="Prije i poslije"
-              className="w-full rounded-2xl object-cover"
-            />
+            <img src="https://i.imgur.com/BvXafcv.png" alt="Prije i poslije" className="w-full rounded-2xl object-cover" />
           </section>
 
           <section className="mt-5 rounded-3xl border border-cyan-200 bg-cyan-50 p-4 text-center shadow-sm">
-            <div className="text-sm font-black text-slate-950">
-              🎁 1+1 GRATIS – praktično za dva auta
-            </div>
-            <div className="mt-1 text-xs font-semibold text-slate-700">
-              Jedan ostavi sebi, drugi za suprugu, roditelje ili drugi auto.
-            </div>
+            <div className="text-sm font-black text-slate-950">🎁 1+1 GRATIS – praktično za dva auta</div>
+            <div className="mt-1 text-xs font-semibold text-slate-700">Jedan ostavi sebi, drugi za suprugu, roditelje ili drugi auto.</div>
           </section>
 
           <section className="mt-5 rounded-3xl bg-white p-4 shadow-sm ring-1 ring-sky-100">
-            <img
-              src="https://i.imgur.com/sCb6XaT.jpeg"
-              alt="Automehaničar"
-              className="w-full rounded-2xl object-cover"
-            />
+            <img src="https://i.imgur.com/sCb6XaT.jpeg" alt="Automehaničar" className="w-full rounded-2xl object-cover" />
             <div className="mt-4 rounded-2xl bg-slate-50 p-4">
               <h2 className="text-lg font-black">🧑‍🔧 Savjet automehaničara</h2>
               <p className="mt-2 text-sm leading-6 text-slate-700">
-                “Najveća šteta od sunca vidi se na plastici, sjedištima i elektronici. Ovakva zaštita
-                je jednostavna, jeftina i produžava život enterijera. Najbolje je što se postavi za par sekundi.”
+                "Najveća šteta od sunca vidi se na plastici, sjedištima i elektronici. Ovakva zaštita je jednostavna, jeftina i produžava život enterijera. Najbolje je što se postavi za par sekundi."
               </p>
-              <p className="mt-2 text-sm font-black text-sky-700">
-                — Marko Petrović, automehaničar
-              </p>
+              <p className="mt-2 text-sm font-black text-sky-700">— Marko Petrović, automehaničar</p>
             </div>
           </section>
 
@@ -242,11 +193,8 @@ export default function Page() {
             <h2 className="text-xl font-black">💬 Vozači kažu</h2>
             <div className="mt-4 space-y-3">
               {testimonials.map((item, index) => (
-                <div
-                  key={index}
-                  className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
-                >
-                  <p className="text-sm leading-6 text-slate-700">“{item}”</p>
+                <div key={index} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                  <p className="text-sm leading-6 text-slate-700">"{item}"</p>
                 </div>
               ))}
             </div>
@@ -256,23 +204,14 @@ export default function Page() {
             <h2 className="text-xl font-black">📦 Detalji proizvoda</h2>
             <div className="mt-4 space-y-2">
               {details.map((item) => (
-                <div
-                  key={item}
-                  className="rounded-2xl bg-white p-3 text-sm font-semibold text-slate-800 shadow-sm"
-                >
-                  ✔ {item}
-                </div>
+                <div key={item} className="rounded-2xl bg-white p-3 text-sm font-semibold text-slate-800 shadow-sm">✔ {item}</div>
               ))}
             </div>
           </section>
 
           <section className="mt-5 rounded-3xl border border-red-200 bg-red-50 p-4 text-center shadow-sm">
-            <div className="text-sm font-black text-red-800">
-              ⏳ Akcija traje dok ima zaliha
-            </div>
-            <div className="mt-1 text-xs font-semibold text-slate-700">
-              1+1 GRATIS za 17,90 KM je trenutna ponuda.
-            </div>
+            <div className="text-sm font-black text-red-800">⏳ Akcija traje dok ima zaliha</div>
+            <div className="mt-1 text-xs font-semibold text-slate-700">1+1 GRATIS za 14,90 KM je trenutna ponuda.</div>
           </section>
 
           <section className="mt-5 rounded-3xl border border-sky-200 bg-white p-5 shadow-sm">
@@ -287,89 +226,50 @@ export default function Page() {
             </div>
           </section>
 
-          <section
-            ref={orderRef}
-            className="mt-5 rounded-3xl bg-gradient-to-b from-slate-950 to-blue-950 p-5 text-white shadow-2xl"
-          >
+          <section ref={orderRef} className="mt-5 rounded-3xl bg-gradient-to-b from-slate-950 to-blue-950 p-5 text-white shadow-2xl">
             <div className="mb-3 rounded-2xl bg-cyan-300 px-4 py-3 text-center text-sm font-black uppercase tracking-wide text-slate-950 shadow-lg">
               🚘 Auto kišobran 1+1 gratis
             </div>
-
             <h2 className="text-center text-2xl font-black">📋 Naruči odmah</h2>
-            <p className="mt-2 text-center text-sm text-sky-100">
-              Plaćanje prilikom preuzimanja
-            </p>
+            <p className="mt-2 text-center text-sm text-sky-100">Plaćanje prilikom preuzimanja</p>
 
-            <form onSubmit={handleSubmit} className="mt-4 space-y-3">
-              <input
-                name="ime"
-                autoComplete="off"
-                placeholder="Ime i prezime"
-                className="w-full rounded-2xl border-2 border-cyan-200 bg-white p-4 text-black outline-none placeholder:text-neutral-500"
-              />
-              <input
-                name="telefon"
-                autoComplete="off"
-                placeholder="Broj telefona"
-                className="w-full rounded-2xl border-2 border-cyan-200 bg-white p-4 text-black outline-none placeholder:text-neutral-500"
-              />
-              <input
-                name="adresa"
-                autoComplete="off"
-                placeholder="Adresa i mjesto"
-                className="w-full rounded-2xl border-2 border-cyan-200 bg-white p-4 text-black outline-none placeholder:text-neutral-500"
-              />
-              <input
-                name="postanski"
-                autoComplete="off"
-                placeholder="Poštanski broj"
-                className="w-full rounded-2xl border-2 border-cyan-200 bg-white p-4 text-black outline-none placeholder:text-neutral-500"
-              />
-
-              <label className="flex gap-3 rounded-2xl border border-cyan-200 bg-cyan-50 p-3 text-black">
-                <input
-                  type="checkbox"
-                  checked={giftPack}
-                  onChange={(e) => setGiftPack(e.target.checked)}
-                  className="mt-1"
-                />
-                <div>
-                  <div className="font-bold">Želim poklon paket</div>
-                  <div className="text-xs">+5,00 KM</div>
-                </div>
-              </label>
-
-              <div className="rounded-2xl border-2 border-cyan-300 bg-white p-4 text-black">
-                <div className="flex justify-between text-sm">
-                  <span>Auto kišobran 1+1 gratis</span>
-                  <span>17,90 KM</span>
-                </div>
-                <div className="mt-1 flex justify-between text-sm">
-                  <span>Dostava</span>
-                  <span>10,00 KM</span>
-                </div>
-                {giftPack && (
-                  <div className="mt-1 flex justify-between text-sm text-sky-700">
-                    <span>Poklon paket</span>
-                    <span>5,00 KM</span>
-                  </div>
-                )}
-                <div className="mt-3 border-t pt-3">
-                  <div className="flex justify-between text-lg font-black">
-                    <span>Ukupno</span>
-                    <span>{total.toFixed(2)} KM</span>
-                  </div>
-                </div>
+            {success ? (
+              <div className="mt-6 rounded-2xl bg-white/10 p-6 text-center">
+                <div className="text-5xl mb-3">✅</div>
+                <div className="text-xl font-black text-cyan-300">Narudžba primljena!</div>
+                <p className="mt-2 text-sm text-sky-100">Hvala! Naš tim će te uskoro nazvati radi potvrde.</p>
               </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="mt-4 space-y-3">
+                <input name="ime" autoComplete="off" placeholder="Ime i prezime" className="w-full rounded-2xl border-2 border-cyan-200 bg-white p-4 text-black outline-none placeholder:text-neutral-500" />
+                <input name="telefon" autoComplete="off" placeholder="Broj telefona" className="w-full rounded-2xl border-2 border-cyan-200 bg-white p-4 text-black outline-none placeholder:text-neutral-500" />
+                <input name="adresa" autoComplete="off" placeholder="Adresa i mjesto" className="w-full rounded-2xl border-2 border-cyan-200 bg-white p-4 text-black outline-none placeholder:text-neutral-500" />
+                <input name="postanski" autoComplete="off" placeholder="Poštanski broj" className="w-full rounded-2xl border-2 border-cyan-200 bg-white p-4 text-black outline-none placeholder:text-neutral-500" />
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full rounded-2xl bg-cyan-300 p-4 text-lg font-black uppercase tracking-wide text-slate-950 shadow-lg disabled:opacity-70"
-              >
-                {loading ? "Šalje se..." : "Naruči odmah"}
-              </button>
-            </form>
+                <label className="flex gap-3 rounded-2xl border border-cyan-200 bg-cyan-50 p-3 text-black">
+                  <input type="checkbox" checked={giftPack} onChange={(e) => setGiftPack(e.target.checked)} className="mt-1" />
+                  <div>
+                    <div className="font-bold">Želim poklon paket</div>
+                    <div className="text-xs">+5,00 KM</div>
+                  </div>
+                </label>
+
+                <div className="rounded-2xl border-2 border-cyan-300 bg-white p-4 text-black">
+                  <div className="flex justify-between text-sm"><span>Auto kišobran 1+1 gratis</span><span>14,90 KM</span></div>
+                  <div className="mt-1 flex justify-between text-sm"><span>Dostava</span><span>10,00 KM</span></div>
+                  {giftPack && (
+                    <div className="mt-1 flex justify-between text-sm text-sky-700"><span>Poklon paket</span><span>5,00 KM</span></div>
+                  )}
+                  <div className="mt-3 border-t pt-3">
+                    <div className="flex justify-between text-lg font-black"><span>Ukupno</span><span>{total.toFixed(2)} KM</span></div>
+                  </div>
+                </div>
+
+                <button type="submit" disabled={loading} className="w-full rounded-2xl bg-cyan-300 p-4 text-lg font-black uppercase tracking-wide text-slate-950 shadow-lg disabled:opacity-70">
+                  {loading ? "Šalje se..." : "Naruči odmah"}
+                </button>
+              </form>
+            )}
           </section>
         </main>
       </div>
