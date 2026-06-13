@@ -75,11 +75,12 @@ export default function DashboardPage() {
     return () => clearInterval(interval);
   }, [fetchData]);
 
-  // Filtriraj po periodu
+  // Filtriraj po periodu — koristi confirmed_at (kada je potvrđena)
   const since = startOf(tab);
-  const periodOrders = orders.filter(
-    (o) => new Date(o.created_at) >= since
-  );
+  const periodOrders = orders.filter((o) => {
+    const dateToCheck = o.confirmed_at || o.created_at;
+    return new Date(dateToCheck) >= since;
+  });
 
   // Potvrđene narudžbe za zaradu
   const potvrdjene = periodOrders.filter(
