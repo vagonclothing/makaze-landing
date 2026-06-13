@@ -45,6 +45,7 @@ export default function DashboardPage() {
   const [margins, setMargins]       = useState<Margin[]>([]);
   const [tab, setTab]               = useState("Danas");
   const [showMargins, setShowMargins] = useState(false);
+  const [showOdgodjene, setShowOdgodjene] = useState(false);
   const [loading, setLoading]       = useState(true);
   const [lastRefresh, setLastRefresh] = useState(new Date());
 
@@ -104,6 +105,19 @@ export default function DashboardPage() {
   potvrdjene.forEach((o) => {
     articleMap[o.product_name] = (articleMap[o.product_name] || 0) + 1;
   });
+
+  // Artikli odgođenih
+  const odgodjenoMap: Record<string, { count: number; promet: number; zarada: number; source: string }> = {};
+  odgodjene.forEach((o) => {
+    if (!odgodjenoMap[o.product_name]) {
+      odgodjenoMap[o.product_name] = { count: 0, promet: 0, zarada: 0, source: o.source };
+    }
+    odgodjenoMap[o.product_name].count += 1;
+    odgodjenoMap[o.product_name].promet += o.product_price || (o.total - (o.shipping || 10));
+    odgodjenoMap[o.product_name].zarada += getZarada(o.source);
+  });
+  const izgubljenPromet = odgodjene.reduce((s, o) => s + (o.product_price || (o.total - (o.shipping || 10))), 0);
+  const izgubljenZarada = odgodjene.reduce((s, o) => s + getZarada(o.source), 0);
 
   // Novi sources koji nemaju maržu
   const allSources = [...new Set(orders.map((o) => o.source).filter(Boolean))];
@@ -365,12 +379,68 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              <div className="rounded-2xl bg-red-50 p-4 shadow-sm border border-red-100">
+              <button
+                onClick={() => setShowOdgodjene(!showOdgodjene)}
+                className="rounded-2xl bg-red-50 p-4 shadow-sm border border-red-100 text-left w-full transition hover:border-red-300"
+              >
                 <div className="text-xs font-bold uppercase tracking-wide text-red-400">Odgođene</div>
                 <div className="mt-1 text-3xl font-black text-red-500">{odgodjene.length}</div>
-                <div className="text-xs font-semibold text-red-400">narudžbi</div>
-              </div>
+                <div className="text-xs font-semibold text-red-400">
+                  {showOdgodjene ? "▲ zatvori" : "▼ prikaži detalje"}
+                </div>
+              </button>
             </div>
+
+            {/* ── ODGOĐENE DETALJI ── */}
+            {showOdgodjene && (
+              <div className="mx-4 mb-1 rounded-2xl border-2 border-red-200 bg-red-50 p-4">
+                <div className="mb-3 font-black text-sm text-red-700">⏸ Odgođene narudžbe — detalji</div>
+
+                {/* Ukupni gubici */}
+                <div className="mb-3 grid grid-cols-2 gap-2">
+                  <div className="rounded-xl bg-white p-3 border border-red-100">
+                    <div className="text-xs font-bold text-red-400 uppercase tracking-wide">Izgubljen promet</div>
+                    <div className="text-xl font-black text-red-500 mt-0.5">{izgubljenPromet.toFixed(2)} KM</div>
+                  </div>
+                  <div className="rounded-xl bg-white p-3 border border-red-100">
+                    <div className="text-xs font-bold text-red-400 uppercase tracking-wide">Izgubljena zarada</div>
+                    <div className="text-xl font-black text-red-500 mt-0.5">{izgubljenZarada.toFixed(2)} KM</div>
+                  </div>
+                </div>
+
+                {/* Po artiklu */}
+                {Object.keys(odgodjenoMap).length === 0 ? (
+                  <div className="text-center text-sm text-red-400 py-2">Nema odgođenih narudžbi.</div>
+                ) : (
+                  <div className="space-y-2">
+                    {Object.entries(odgodjenoMap)
+                      .sort((a, b) => b[1].count - a[1].count)
+                      .map(([name, data]) => (
+                        <div key={name} className="rounded-xl bg-white p-3 border border-red-100">
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="min-w-0">
+                              <div className="truncate text-sm font-bold text-black">{name}</div>
+                            </div>
+                            <span className="shrink-0 rounded-full bg-red-100 px-2.5 py-1 text-xs font-black text-red-600">
+                              {data.count}×
+                            </span>
+                          </div>
+                          <div className="mt-2 flex gap-3">
+                            <div>
+                              <div className="text-xs text-gray-400">Promet</div>
+                              <div className="text-sm font-black text-red-500">−{data.promet.toFixed(2)} KM</div>
+                            </div>
+                            <div>
+                              <div className="text-xs text-gray-400">Zarada</div>
+                              <div className="text-sm font-black text-red-500">−{data.zarada.toFixed(2)} KM</div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* ── ARTIKLI ── */}
             {Object.keys(articleMap).length > 0 && (
