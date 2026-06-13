@@ -46,6 +46,7 @@ export default function DashboardPage() {
   const [tab, setTab]               = useState("Danas");
   const [showMargins, setShowMargins] = useState(false);
   const [showOdgodjene, setShowOdgodjene] = useState(false);
+  const [showZarada, setShowZarada] = useState(false);
   const [loading, setLoading]       = useState(true);
   const [lastRefresh, setLastRefresh] = useState(new Date());
 
@@ -104,6 +105,17 @@ export default function DashboardPage() {
   const articleMap: Record<string, number> = {};
   potvrdjene.forEach((o) => {
     articleMap[o.product_name] = (articleMap[o.product_name] || 0) + 1;
+  });
+
+  // Zarada po artiklu (potvrđene)
+  const zaradaMap: Record<string, { count: number; zarada: number; source: string }> = {};
+  potvrdjene.forEach((o) => {
+    const z = getZarada(o.source);
+    if (!zaradaMap[o.product_name]) {
+      zaradaMap[o.product_name] = { count: 0, zarada: 0, source: o.source };
+    }
+    zaradaMap[o.product_name].count += 1;
+    zaradaMap[o.product_name].zarada += z;
   });
 
   // Artikli odgođenih
@@ -365,11 +377,59 @@ export default function DashboardPage() {
                 <div className="text-xs font-semibold text-gray-400">KM · bez dostave</div>
               </div>
 
-              <div className="rounded-2xl bg-green-50 p-4 shadow-sm border-2 border-green-200">
+              <button
+                onClick={() => setShowZarada(!showZarada)}
+                className="rounded-2xl bg-green-50 p-4 shadow-sm border-2 border-green-200 text-left w-full transition hover:border-green-400"
+              >
                 <div className="text-xs font-bold uppercase tracking-wide text-green-600">Zarada</div>
                 <div className="mt-1 text-3xl font-black text-green-600">{ukupnoZarada.toFixed(2)}</div>
-                <div className="text-xs font-semibold text-green-500">KM neto</div>
+                <div className="text-xs font-semibold text-green-500">
+                  {showZarada ? "▲ zatvori" : "▼ po artiklu"}
+                </div>
+              </button>
+            </div>
+
+            {/* ── ZARADA PO ARTIKLU ── */}
+            {showZarada && (
+              <div className="mx-4 mb-1 rounded-2xl border-2 border-green-200 bg-green-50 p-4">
+                <div className="mb-3 font-black text-sm text-green-700">💰 Zarada po artiklu</div>
+                {Object.keys(zaradaMap).length === 0 ? (
+                  <div className="text-center text-sm text-green-400 py-2">Nema potvrđenih narudžbi.</div>
+                ) : (
+                  <div className="space-y-2">
+                    {Object.entries(zaradaMap)
+                      .sort((a, b) => b[1].zarada - a[1].zarada)
+                      .map(([name, data]) => (
+                        <div key={name} className="rounded-xl bg-white p-3 border border-green-100">
+                          <div className="flex items-center justify-between gap-2">
+                            <div className="min-w-0">
+                              <div className="truncate text-sm font-bold text-black">{name}</div>
+                              <div className="text-xs text-gray-400 mt-0.5">
+                                {data.count}× · {(data.zarada / data.count).toFixed(2)} KM/kom
+                              </div>
+                            </div>
+                            <div className="text-right shrink-0">
+                              <div className="text-base font-black text-green-600">
+                                +{data.zarada.toFixed(2)} KM
+                              </div>
+                              <div className="text-xs font-bold text-green-400">{data.count} kom</div>
+                            </div>
+                          </div>
+                          {/* Progress bar relativno na max zaradu */}
+                          <div className="mt-2 h-1.5 w-full rounded-full bg-green-100">
+                            <div
+                              className="h-1.5 rounded-full bg-green-400"
+                              style={{
+                                width: `${(data.zarada / Math.max(...Object.values(zaradaMap).map(d => d.zarada))) * 100}%`
+                              }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                )}
               </div>
+            )}
 
               <div className="rounded-2xl bg-white p-4 shadow-sm border border-gray-100">
                 <div className="text-xs font-bold uppercase tracking-wide text-gray-400">Potvrđene</div>
