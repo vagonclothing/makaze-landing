@@ -39,14 +39,20 @@ export default function OrdersPage() {
 
   async function updateStatus(id: string, status: string) {
     setUpdating(id);
+
+    const updateData: Record<string, any> = { status };
+    if (status === "potvrdjena") {
+      updateData.confirmed_at = new Date().toISOString();
+    }
+
     const { error } = await supabase
       .from("orders")
-      .update({ status })
+      .update(updateData)
       .eq("id", id);
 
     if (!error) {
       setOrders((prev) =>
-        prev.map((o) => (o.id === id ? { ...o, status } : o))
+        prev.map((o) => (o.id === id ? { ...o, status, ...updateData } : o))
       );
     }
     setUpdating(null);
