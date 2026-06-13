@@ -94,9 +94,7 @@ export default function DashboardPage() {
     return m ? m.zarada : 0;
   }
 
-  const ukupnoPromet = potvrdjene.reduce(
-    (s, o) => s + (o.product_price || o.total - (o.shipping || 10)), 0
-  );
+  const ukupnoPromet = potvrdjene.reduce((s, o) => s + (o.total - 10), 0);
   const ukupnoZarada = potvrdjene.reduce(
     (s, o) => s + getZarada(o.source), 0
   );
@@ -125,10 +123,10 @@ export default function DashboardPage() {
       odgodjenoMap[o.product_name] = { count: 0, promet: 0, zarada: 0, source: o.source };
     }
     odgodjenoMap[o.product_name].count += 1;
-    odgodjenoMap[o.product_name].promet += o.product_price || (o.total - (o.shipping || 10));
+    odgodjenoMap[o.product_name].promet += (o.total - 10);
     odgodjenoMap[o.product_name].zarada += getZarada(o.source);
   });
-  const izgubljenPromet = odgodjene.reduce((s, o) => s + (o.product_price || (o.total - (o.shipping || 10))), 0);
+  const izgubljenPromet = odgodjene.reduce((s, o) => s + (o.total - 10), 0);
   const izgubljenZarada = odgodjene.reduce((s, o) => s + getZarada(o.source), 0);
 
   // Novi sources koji nemaju maržu
@@ -415,7 +413,6 @@ export default function DashboardPage() {
                               <div className="text-xs font-bold text-green-400">{data.count} kom</div>
                             </div>
                           </div>
-                          {/* Progress bar relativno na max zaradu */}
                           <div className="mt-2 h-1.5 w-full rounded-full bg-green-100">
                             <div
                               className="h-1.5 rounded-full bg-green-400"
@@ -431,6 +428,8 @@ export default function DashboardPage() {
               </div>
             )}
 
+            {/* ── KPI KARTICE 2. RED ── */}
+            <div className="grid grid-cols-2 gap-3 px-4 pb-4">
               <div className="rounded-2xl bg-white p-4 shadow-sm border border-gray-100">
                 <div className="text-xs font-bold uppercase tracking-wide text-gray-400">Potvrđene</div>
                 <div className="mt-1 text-3xl font-black text-black">{potvrdjene.length}</div>
