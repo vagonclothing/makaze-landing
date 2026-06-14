@@ -13,6 +13,7 @@ type Order = {
   shipping: number;
   status: string;
   created_at: string;
+  confirmed_at: string | null;
   gift_pack: boolean;
 };
 
