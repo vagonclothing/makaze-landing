@@ -17,7 +17,7 @@ const proizvodi = [
   },
   {
     naziv: "Makita aku set 4u1",
-    cijena: "179,90 KM",
+    cijena: "165,00 KM",
     slika: "https://i.imgur.com/zq6UeUi.jpeg",
     url: "/mak-4u1",
     badge: "3 god. garancija",
@@ -38,9 +38,9 @@ const proizvodi = [
   },
   {
     naziv: "Mini projektor",
-    cijena: "47,90 KM",
+    cijena: "39,90 KM",
     slika: "https://i.imgur.com/2wCiHNE.jpeg",
-    url: "/mini-projektor",
+    url: "/projektor",
     badge: "SP 2026",
   },
   {
