@@ -14,6 +14,9 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Makaze Landing",
   description: "Landing stranica",
+  other: {
+    "facebook-domain-verification": "ngo6lyhcjmz0cryt7jc7cgx2hkxc1q",
+  },
 };
 
 export default function RootLayout({ children }) {
