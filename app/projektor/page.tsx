@@ -704,8 +704,8 @@ export default function Page() {
           )}
         </section>
 
-        <div className="footer">
-          © 2025 · Sva prava zadržana · Plaćanje pouzećem
+        <div className="footer" style={{ textAlign: "center", padding: "16px", fontSize: "12px", color: "#aaa" }}>
+          © 2025 TV-SHOP · <a href="/privatnost" style={{ color: "#aaa" }}>Privatnost</a> · <a href="/impressum" style={{ color: "#aaa" }}>Impressum</a> · <a href="/uslovi" style={{ color: "#aaa" }}>Uslovi</a>
         </div>
 
       </div>
