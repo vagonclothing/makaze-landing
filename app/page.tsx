@@ -1,385 +1,371 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { supabase } from "../lib/supabase";
+const proizvodi = [
+  {
+    naziv: "Auto kišobran 1+1 GRATIS",
+    cijena: "14,90 KM",
+    slika: "https://i.imgur.com/CcVTxn2.png",
+    url: "/auto-kisobran",
+    badge: "1+1 GRATIS",
+  },
+  {
+    naziv: "Zakačke za zaštitnu mrežu 100kom",
+    cijena: "15,00 KM",
+    slika: "https://klikomkupi.com/cdn/shop/files/dd37d215-1e3a-4812-b5a2-5222b0b2f0d7.jpg?v=1737664208",
+    url: "/zakacke",
+    badge: "AKCIJA",
+  },
+  {
+    naziv: "Makita aku set 4u1",
+    cijena: "179,90 KM",
+    slika: "https://i.imgur.com/zq6UeUi.jpeg",
+    url: "/mak-4u1",
+    badge: "3 god. garancija",
+  },
+  {
+    naziv: "Milwaukee aku set 4u1",
+    cijena: "199,90 KM",
+    slika: "https://i.imgur.com/nLNcYqP.jpeg",
+    url: "/milwaukee-4u1",
+    badge: "3 god. garancija",
+  },
+  {
+    naziv: "DeWalt aku set 3u1",
+    cijena: "129,90 KM",
+    slika: "https://i.imgur.com/y7u1FHV.png",
+    url: "/dewalt-3u1",
+    badge: "3 god. garancija",
+  },
+  {
+    naziv: "Mini projektor",
+    cijena: "47,90 KM",
+    slika: "https://i.imgur.com/2wCiHNE.jpeg",
+    url: "/mini-projektor",
+    badge: "SP 2026",
+  },
+  {
+    naziv: "Električna muhalica 1+1",
+    cijena: "29,90 KM",
+    slika: "https://i.imgur.com/Zv2qWmd.png",
+    url: "/elektricna-muhalica",
+    badge: "1+1 GRATIS",
+  },
+  {
+    naziv: "Makita aku freza za zemlju",
+    cijena: "69,90 KM",
+    slika: "https://i.imgur.com/gi8Q06R.png",
+    url: "/makita-freza",
+    badge: "3 god. garancija",
+  },
+  {
+    naziv: "Aku trimer 4 rotora",
+    cijena: "117,00 KM",
+    slika: "https://i.imgur.com/YTfFjJp.jpeg",
+    url: "/aku-trimer",
+    badge: "4 rotora",
+  },
+];
 
-export default function Page() {
-  const [giftPack, setGiftPack] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const baseTotal = 69.8;
-  const total = useMemo(() => (giftPack ? baseTotal + 5 : baseTotal), [giftPack]);
-
-  const features = [
-    "Brzo presijecanje grana",
-    "Precizan i čist rez",
-    "Rad jednom rukom",
-    "Minimalan napor",
-    "Štedi vrijeme i snagu",
-  ];
-
-  const packageItems = [
-    "Aku makaze",
-    "2 punjive baterije",
-    "Punjač",
-    "Čvrsti transportni kofer",
-    "Uputstvo za korištenje",
-    "3 godine garancije",
-  ];
-
-  const testimonials = [
-    "Razlika je ogromna. Ruka se ne umara i posao ide duplo brže.",
-    "Dva akumulatora su spas – nema pauze.",
-    "Vrijede svake marke.",
-  ];
-
-  const audience = [
-    "Vlasnike kuća i vikendica",
-    "Voćare i vinogradare",
-    "Starije osobe kojima su ručne makaze teške",
-    "Sve koji žele profesionalan rezultat bez komplikacija",
-  ];
-
-  const faqs = [
-    {
-      q: "Koliko traje baterija?",
-      a: "Jedna baterija traje dovoljno za duži rad, a druga je odmah spremna za zamjenu.",
-    },
-    {
-      q: "Da li može rezati deblje grane?",
-      a: "Da, bez problema reže većinu grana u dvorištu, voćnjaku i vinogradu.",
-    },
-    {
-      q: "Da li sve dolazi u paketu?",
-      a: "Da. Dobijate komplet: makaze, 2 baterije, punjač, kofer i uputstvo.",
-    },
-    {
-      q: "Da li je teško za korištenje?",
-      a: "Ne. Makaze su jednostavne za rukovanje i rade se jednom rukom, bez velikog napora.",
-    },
-    {
-      q: "Da li dobijam garanciju?",
-      a: "Da, uz proizvod dobijate garanciju u trajanju od 3 godine.",
-    },
-  ];
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setLoading(true);
-
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    const order = {
-      product_name: "Makita aku makaze",
-      full_name: String(formData.get("ime") || ""),
-      phone: String(formData.get("telefon") || ""),
-      address_place: String(formData.get("adresa") || ""),
-      postal_code: String(formData.get("postanski") || ""),
-      gift_pack: giftPack,
-      shipping: 9.9,
-      product_price: 59.9,
-      total: Number(total.toFixed(2)),
-      status: "novo",
-      source: "makaze-landing",
-    };
-
-    if (!order.full_name || !order.phone || !order.address_place || !order.postal_code) {
-      alert("Molimo popunite sva polja.");
-      setLoading(false);
-      return;
-    }
-
-    const { error } = await supabase.from("orders").insert(order);
-
-    if (error) {
-      alert("Greška pri slanju narudžbe. Pokušajte ponovo.");
-      setLoading(false);
-      return;
-    }
-
-    alert("Narudžba uspješno poslana!");
-    form.reset();
-    setGiftPack(false);
-    setLoading(false);
-  }
-
+export default function KatalogPage() {
   return (
-    <div className="min-h-screen bg-neutral-100 pb-24">
-      <div className="mx-auto max-w-md bg-white shadow-2xl">
-        <section className="bg-gradient-to-b from-green-800 via-green-700 to-green-600 px-4 pb-5 pt-4 text-white">
-          <div className="mb-3 flex justify-center">
-            <img
-              src="https://i.imgur.com/zBco9y4.png"
-              alt="Logo"
-              className="h-10 w-auto object-contain"
-            />
-          </div>
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
-          <div className="rounded-2xl bg-white/10 px-3 py-2 text-center text-xs font-bold uppercase tracking-[0.2em] text-green-50">
-            Ograničena količina
-          </div>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #f5f5f5; }
 
-          <h1 className="mt-4 text-center text-2xl font-black leading-tight">
-            ⚡ PROFESIONALNE MAKITA AKU MAKAZE
-          </h1>
+        .wrap {
+          font-family: 'Nunito', sans-serif;
+          background: #f5f5f5;
+          min-height: 100vh;
+          color: #1a1a1a;
+        }
 
-          <p className="mt-2 text-center text-sm font-semibold text-green-50">
-            2 baterije + kofer + 3 godine garancije
-          </p>
+        /* ── HEADER ── */
+        .header {
+          background: #111;
+          padding: 0 20px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          height: 60px;
+          position: sticky;
+          top: 0;
+          z-index: 100;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+        }
+        .logo {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          text-decoration: none;
+        }
+        .logo-icon {
+          width: 36px;
+          height: 36px;
+          background: #dc2626;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 18px;
+        }
+        .logo-text {
+          font-size: 20px;
+          font-weight: 900;
+          color: #fff;
+          letter-spacing: .04em;
+        }
+        .logo-text span { color: #dc2626; }
+        .header-sub {
+          font-size: 11px;
+          font-weight: 600;
+          color: rgba(255,255,255,0.4);
+        }
 
-          <div className="mt-3 rounded-2xl bg-yellow-400 px-4 py-3 text-center text-sm font-black uppercase tracking-wide text-black shadow-lg">
-            ✅ GARANCIJA 3 GODINE
-          </div>
+        /* ── HERO BANNER ── */
+        .hero-banner {
+          background: linear-gradient(135deg, #111, #1f1f1f);
+          padding: 28px 20px;
+          text-align: center;
+          border-bottom: 3px solid #dc2626;
+        }
+        .hero-title {
+          font-size: 22px;
+          font-weight: 900;
+          color: #fff;
+          margin-bottom: 6px;
+        }
+        .hero-sub {
+          font-size: 13px;
+          color: rgba(255,255,255,0.5);
+          font-weight: 600;
+        }
+        .hero-tags {
+          display: flex;
+          gap: 8px;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin-top: 14px;
+        }
+        .hero-tag {
+          background: rgba(220,38,38,0.15);
+          border: 1px solid rgba(220,38,38,0.3);
+          color: #f87171;
+          font-size: 11px;
+          font-weight: 800;
+          padding: 4px 12px;
+          border-radius: 50px;
+        }
 
-          <div className="mt-4 rounded-3xl bg-white p-3 shadow-2xl">
-            <img
-              src="https://i.imgur.com/EDwEKHT.png"
-              alt="Makita aku makaze"
-              className="w-full rounded-2xl object-cover"
-            />
-          </div>
+        /* ── GRID ── */
+        .grid-section {
+          max-width: 960px;
+          margin: 0 auto;
+          padding: 24px 16px 40px;
+        }
+        .section-label {
+          font-size: 13px;
+          font-weight: 800;
+          color: #888;
+          text-transform: uppercase;
+          letter-spacing: .06em;
+          margin-bottom: 16px;
+        }
+        .grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 14px;
+        }
 
-          <p className="mt-4 text-center text-sm leading-6 text-green-50">
-            Ne propustite priliku da nabavite alat koji štedi vrijeme, novac i ruke.
-          </p>
+        @media (min-width: 600px) {
+          .grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (min-width: 900px) {
+          .grid { grid-template-columns: repeat(4, 1fr); }
+        }
 
-          <div className="mt-4 grid grid-cols-2 gap-3">
-            <div className="rounded-2xl bg-red-600 p-3 text-center shadow-lg">
-              <div className="text-[11px] font-bold uppercase tracking-wide text-red-100">
-                Redovna cijena
-              </div>
-              <div className="mt-1 text-xl font-black line-through">119,00 KM</div>
+        /* ── KARTICA ── */
+        .card {
+          background: #fff;
+          border-radius: 16px;
+          overflow: hidden;
+          border: 1.5px solid #e5e7eb;
+          cursor: pointer;
+          text-decoration: none;
+          color: inherit;
+          display: block;
+          transition: transform .2s, box-shadow .2s, border-color .2s;
+        }
+        .card:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+          border-color: #dc2626;
+        }
+        .card-img-wrap {
+          position: relative;
+          width: 100%;
+          padding-top: 100%;
+          background: #f9fafb;
+          overflow: hidden;
+        }
+        .card-img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform .3s;
+        }
+        .card:hover .card-img { transform: scale(1.05); }
+        .card-badge {
+          position: absolute;
+          top: 8px;
+          left: 8px;
+          background: #dc2626;
+          color: #fff;
+          font-size: 10px;
+          font-weight: 900;
+          padding: 3px 8px;
+          border-radius: 6px;
+          letter-spacing: .04em;
+          text-transform: uppercase;
+        }
+        .card-body {
+          padding: 12px;
+        }
+        .card-naziv {
+          font-size: 13px;
+          font-weight: 800;
+          color: #111;
+          line-height: 1.35;
+          min-height: 36px;
+        }
+        .card-footer {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 10px;
+        }
+        .card-cijena {
+          font-size: 16px;
+          font-weight: 900;
+          color: #16a34a;
+        }
+        .card-cta {
+          background: #dc2626;
+          color: #fff;
+          font-size: 11px;
+          font-weight: 800;
+          padding: 5px 12px;
+          border-radius: 8px;
+          letter-spacing: .03em;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+          background: #111;
+          padding: 24px 20px;
+          text-align: center;
+        }
+        .footer-logo {
+          font-size: 18px;
+          font-weight: 900;
+          color: #fff;
+          margin-bottom: 10px;
+        }
+        .footer-logo span { color: #dc2626; }
+        .footer-links {
+          display: flex;
+          gap: 16px;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin-bottom: 12px;
+        }
+        .footer-link {
+          color: rgba(255,255,255,0.45);
+          font-size: 12px;
+          font-weight: 600;
+          text-decoration: none;
+        }
+        .footer-link:hover { color: #fff; }
+        .footer-copy {
+          font-size: 11px;
+          color: rgba(255,255,255,0.25);
+          font-weight: 600;
+        }
+      `}</style>
+
+      <div className="wrap">
+
+        {/* ── HEADER ── */}
+        <header className="header">
+          <a href="/" className="logo">
+            <div className="logo-icon">📺</div>
+            <div>
+              <div className="logo-text">TV<span>-</span>SHOP</div>
+              <div className="header-sub">tvshopbh.com</div>
             </div>
-
-            <div className="rounded-2xl bg-yellow-400 p-3 text-center text-black shadow-lg ring-2 ring-white/40">
-              <div className="text-[11px] font-bold uppercase tracking-wide">Danas</div>
-              <div className="mt-1 text-2xl font-black">59,90 KM</div>
-            </div>
-          </div>
-
-          <a
-            href="#narudzba"
-            className="mt-4 block rounded-2xl bg-yellow-400 px-5 py-4 text-center text-base font-black uppercase tracking-wide text-black shadow-xl"
-          >
-            Naruči odmah
           </a>
-        </section>
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#16a34a" }} />
+            <span style={{ color: "rgba(255,255,255,0.5)", fontSize: 12, fontWeight: 700 }}>
+              Plaćanje pouzećem
+            </span>
+          </div>
+        </header>
 
-        <main className="px-4 py-5">
-          <section className="rounded-3xl border border-red-200 bg-red-50 p-4">
-            <h2 className="text-base font-black text-red-700">
-              ❌ Prestanite se mučiti sa ručnim makazama
-            </h2>
-            <p className="mt-2 text-sm leading-6 text-neutral-700">
-              Ako imate voćke, vinovu lozu ili živu ogradu — znate koliko rezanje zna biti
-              naporno. Bol u ruci, spora obrada i neravni rezovi. Vrijeme je da to riješite.
-            </p>
-          </section>
+        {/* ── HERO ── */}
+        <div className="hero-banner">
+          <div className="hero-title">🛒 Sve na jednom mjestu</div>
+          <div className="hero-sub">Kvalitetni proizvodi · Dostava 2–4 dana · Plaćanje pouzećem</div>
+          <div className="hero-tags">
+            <span className="hero-tag">✅ Plaćanje pouzećem</span>
+            <span className="hero-tag">🚚 Dostava po BiH</span>
+            <span className="hero-tag">🔄 Povrat moguć</span>
+            <span className="hero-tag">📞 Potvrda pozivom</span>
+          </div>
+        </div>
 
-          <section className="mt-5 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-green-100">
-            <h2 className="text-xl font-black">✅ Jedan stisak – savršen rez</h2>
-            <p className="mt-2 text-sm leading-6 text-neutral-700">
-              Ove aku makaze imaju snažan motor koji omogućava brz i čist rez uz minimalan
-              napor. Posao koji traje sat vremena, sada završavate za 15–20 minuta.
-            </p>
-
-            <div className="mt-4 space-y-3">
-              {features.map((feature) => (
-                <div
-                  key={feature}
-                  className="rounded-2xl border border-green-200 bg-green-50 p-3 text-sm font-semibold text-neutral-800"
-                >
-                  ✅ {feature}
+        {/* ── GRID PROIZVODA ── */}
+        <div className="grid-section">
+          <div className="section-label">🏷️ Svi proizvodi ({proizvodi.length})</div>
+          <div className="grid">
+            {proizvodi.map((p) => (
+              <a key={p.url} href={p.url} className="card">
+                <div className="card-img-wrap">
+                  <img
+                    src={p.slika}
+                    alt={p.naziv}
+                    className="card-img"
+                  />
+                  {p.badge && <span className="card-badge">{p.badge}</span>}
                 </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="mt-5 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-green-100">
-            <h2 className="text-xl font-black">🔋 2 baterije = rad bez prekida</h2>
-            <p className="mt-3 text-sm leading-6 text-neutral-700">
-              Dok jednu koristite, druga je spremna. Nema čekanja, nema zastoja, nema gubljenja
-              vremena. Idealno za veće dvorište i ozbiljan rad.
-            </p>
-
-            <div className="mt-4 grid grid-cols-3 gap-2 text-center">
-              <div className="rounded-2xl bg-green-50 p-3">
-                <div className="text-lg font-black text-green-700">⚡</div>
-                <div className="mt-1 text-xs font-bold uppercase text-neutral-700">
-                  Dugotrajna baterija
-                </div>
-              </div>
-              <div className="rounded-2xl bg-green-50 p-3">
-                <div className="text-lg font-black text-green-700">🔄</div>
-                <div className="mt-1 text-xs font-bold uppercase text-neutral-700">
-                  Brza zamjena
-                </div>
-              </div>
-              <div className="rounded-2xl bg-green-50 p-3">
-                <div className="text-lg font-black text-green-700">⏱</div>
-                <div className="mt-1 text-xs font-bold uppercase text-neutral-700">
-                  Nema čekanja
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section className="mt-5 rounded-3xl border border-green-200 bg-green-50 p-5">
-            <h2 className="text-xl font-black">📦 Dobijate komplet spreman za rad</h2>
-            <div className="mt-4 space-y-2">
-              {packageItems.map((item) => (
-                <div
-                  key={item}
-                  className="rounded-2xl bg-white p-3 text-sm font-semibold text-neutral-800 shadow-sm"
-                >
-                  ✔ {item}
-                </div>
-              ))}
-            </div>
-            <p className="mt-4 text-sm font-semibold text-neutral-700">
-              Bez dodatnih troškova. Bez skrivenih iznenađenja.
-            </p>
-          </section>
-
-          <section className="mt-5 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-green-100">
-            <h2 className="text-xl font-black">👨‍🌾 Šta kažu korisnici?</h2>
-            <div className="mt-4 space-y-3">
-              {testimonials.map((item, index) => (
-                <div
-                  key={index}
-                  className="rounded-2xl border border-neutral-200 bg-neutral-50 p-4"
-                >
-                  <p className="text-sm leading-6 text-neutral-700">“{item}”</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="mt-5 rounded-3xl bg-white p-4 shadow-sm ring-1 ring-green-100">
-            <img
-              src="https://i.imgur.com/Lxmh7Dh.png"
-              alt="Zadovoljan korisnik makaza"
-              className="w-full rounded-2xl object-cover"
-            />
-          </section>
-
-          <section className="mt-5 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-green-100">
-            <h2 className="text-xl font-black">🎯 Za koga su ove makaze?</h2>
-            <div className="mt-4 space-y-3">
-              {audience.map((item) => (
-                <div
-                  key={item}
-                  className="rounded-2xl bg-green-50 p-3 text-sm font-semibold text-neutral-800"
-                >
-                  ✅ {item}
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="mt-5 rounded-3xl border border-yellow-300 bg-yellow-100 p-4 text-center shadow-sm">
-            <div className="text-sm font-black text-neutral-900">⚠ Zalihe su ograničene</div>
-            <div className="mt-1 text-xs font-semibold text-neutral-700">
-              Zbog velike potražnje količine su ograničene. Ne čekajte da ostanete bez svog
-              primjerka.
-            </div>
-          </section>
-
-          <section className="mt-5 rounded-3xl border border-green-200 bg-white p-5 shadow-sm">
-            <h2 className="text-xl font-black">❓ Najčešća pitanja</h2>
-            <div className="mt-4 space-y-3">
-              {faqs.map((item) => (
-                <div key={item.q} className="rounded-2xl border border-green-100 bg-green-50 p-4">
-                  <h3 className="text-sm font-black text-green-800">{item.q}</h3>
-                  <p className="mt-2 text-sm leading-6 text-neutral-700">{item.a}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section
-            id="narudzba"
-            className="mt-5 rounded-3xl bg-gradient-to-b from-green-700 to-green-600 p-5 text-white shadow-2xl"
-          >
-            <h2 className="text-center text-2xl font-black">📋 Naruči odmah</h2>
-            <p className="mt-2 text-center text-sm text-green-100">
-              Brza dostava na kućnu adresu • 3 godine garancije
-            </p>
-
-            <form onSubmit={handleSubmit} className="mt-4 space-y-3">
-              <input
-                name="ime"
-                placeholder="Ime i prezime"
-                className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500 focus:border-green-500"
-              />
-              <input
-                name="telefon"
-                placeholder="Broj telefona"
-                className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500 focus:border-green-500"
-              />
-              <input
-                name="adresa"
-                placeholder="Adresa i mjesto"
-                className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500 focus:border-green-500"
-              />
-              <input
-                name="postanski"
-                placeholder="Poštanski broj"
-                className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 text-black outline-none placeholder:text-neutral-500 focus:border-green-500"
-              />
-
-              <label className="flex gap-3 rounded-2xl border border-yellow-300 bg-yellow-100 p-3 text-black">
-                <input
-                  type="checkbox"
-                  checked={giftPack}
-                  onChange={(e) => setGiftPack(e.target.checked)}
-                  className="mt-1"
-                />
-                <div>
-                  <div className="font-bold">Želim poklon paket</div>
-                  <div className="text-xs">+5,00 KM (vrijednost do 50,00 KM)</div>
-                </div>
-              </label>
-
-              <div className="rounded-2xl border-2 border-green-500 bg-white p-4 text-black">
-                <div className="flex justify-between text-sm">
-                  <span>Makita aku makaze</span>
-                  <span>59,90 KM</span>
-                </div>
-                <div className="mt-1 flex justify-between text-sm">
-                  <span>Dostava</span>
-                  <span>9,90 KM</span>
-                </div>
-                {giftPack && (
-                  <div className="mt-1 flex justify-between text-sm text-green-700">
-                    <span>Poklon paket</span>
-                    <span>5,00 KM</span>
-                  </div>
-                )}
-                <div className="mt-3 border-t pt-3">
-                  <div className="flex justify-between text-lg font-black">
-                    <span>Ukupno</span>
-                    <span>{total.toFixed(2)} KM</span>
+                <div className="card-body">
+                  <div className="card-naziv">{p.naziv}</div>
+                  <div className="card-footer">
+                    <span className="card-cijena">{p.cijena}</span>
+                    <span className="card-cta">Naruči →</span>
                   </div>
                 </div>
-              </div>
+              </a>
+            ))}
+          </div>
+        </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full rounded-2xl bg-yellow-400 p-4 text-lg font-black uppercase tracking-wide text-black shadow-lg disabled:opacity-70"
-              >
-                {loading ? "Šalje se..." : "Naruči odmah"}
-              </button>
-            </form>
-          </section>
-        </main>
-      </div>
+        {/* ── FOOTER ── */}
+        <footer className="footer">
+          <div className="footer-logo">TV<span>-</span>SHOP</div>
+          <div className="footer-links">
+            <a href="/privatnost" className="footer-link">Politika privatnosti</a>
+            <a href="/impressum" className="footer-link">Impressum</a>
+            <a href="/uslovi" className="footer-link">Uslovi korištenja</a>
+          </div>
+          <div className="footer-copy">© 2025 TV-SHOP · tvshopbh.com · Sva prava zadržana</div>
+        </footer>
 
-      <div className="fixed bottom-0 left-0 right-0 z-50 bg-yellow-400 p-4 text-center text-lg font-black text-black shadow-[0_-8px_25px_rgba(0,0,0,0.15)]">
-        NARUČI ODMAH - {total.toFixed(2)} KM
       </div>
-    </div>
+    </>
   );
 }
