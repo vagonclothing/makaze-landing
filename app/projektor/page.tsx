@@ -19,7 +19,7 @@ export default function Page() {
   const scrollToOrder = () =>
     orderRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 
-  const baseTotal = 57.9; // 47.90 + 10 dostava
+  const baseTotal = 49.9; // 39.90 + 10 dostava
   const total = useMemo(() => (giftPack ? baseTotal + 5 : baseTotal), [giftPack]);
 
   const benefits = [
@@ -62,7 +62,7 @@ export default function Page() {
       postal_code:   String(fd.get("postanski") || ""),
       gift_pack:     giftPack,
       shipping:      10,
-      product_price: 47.9,
+      product_price: 39.9,
       total:         Number(total.toFixed(2)),
       status:        "novo",
       source:        "mini-projektor",
@@ -530,12 +530,12 @@ export default function Page() {
 
           <div className="hero-img">
             <span className="hero-img-badge">⚽ SP 2026</span>
-            <span className="hero-img-price">47,90 KM</span>
+            <span className="hero-img-price">39,90 KM</span>
             <img src="https://i.imgur.com/2wCiHNE.jpeg" alt="Mini projektor" />
           </div>
 
           <div className="price-row">
-            <span className="price-new">47,90 KM</span>
+            <span className="price-new">39,90 KM</span>
             <span className="price-sub-tag">🎁 Dostava na adresu</span>
           </div>
 
@@ -680,7 +680,7 @@ export default function Page() {
                 </label>
 
                 <div className="summary-box">
-                  <div className="summary-row"><span>Mini projektor</span><span>47,90 KM</span></div>
+                  <div className="summary-row"><span>Mini projektor</span><span>39,90 KM</span></div>
                   <div className="summary-row"><span>Dostava</span><span>10,00 KM</span></div>
                   {giftPack && (
                     <div className="summary-row" style={{ color: "#16a34a", fontWeight: 700 }}>
