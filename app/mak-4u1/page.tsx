@@ -18,7 +18,7 @@ export default function Page() {
     orderRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const baseTotal = 175;
+  const baseTotal = 169.9;
   const total = useMemo(() => (giftPack ? baseTotal + 5 : baseTotal), [giftPack]);
 
   const features = [
@@ -97,7 +97,7 @@ export default function Page() {
       postal_code: String(formData.get("postanski") || ""),
       gift_pack: giftPack,
       shipping: 10,
-      product_price: 165,
+      product_price: 159.9,
       total: Number(total.toFixed(2)),
       status: "novo",
       source: "makita-set",
@@ -157,7 +157,7 @@ export default function Page() {
 
           <div className="mt-4 rounded-3xl bg-white p-3 shadow-2xl">
             <img
-              src="httphttps://i.imgur.com/2GC4hdy.jpegs://i.imgur.com/Rt922x2.png"
+              src="https://i.imgur.com/2GC4hdy.jpeg"
               alt="Makita 4u1 set"
               className="w-full rounded-2xl object-cover"
             />
@@ -173,7 +173,7 @@ export default function Page() {
 
             <div className="rounded-2xl bg-yellow-400 p-3 text-center text-black shadow-lg ring-2 ring-white/40">
               <div className="text-[11px] font-bold uppercase tracking-wide">Akcija</div>
-              <div className="mt-1 text-2xl font-black">165,00 KM</div>
+              <div className="mt-1 text-2xl font-black">159,90 KM</div>
             </div>
           </div>
 
@@ -366,7 +366,7 @@ export default function Page() {
               <div className="rounded-2xl border-2 border-green-500 bg-white p-4 text-black">
                 <div className="flex justify-between text-sm">
                   <span>Set 4u1</span>
-                  <span>165,00 KM</span>
+                  <span>159,90 KM</span>
                 </div>
                 <div className="mt-1 flex justify-between text-sm">
                   <span>Poštarina</span>
