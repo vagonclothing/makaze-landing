@@ -18,7 +18,7 @@ export default function Page() {
     orderRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const baseTotal = 69.9;
+  const baseTotal = 59.9;
   const total = useMemo(() => (giftPack ? baseTotal + 5 : baseTotal), [giftPack]);
 
   const benefits = [
@@ -80,7 +80,7 @@ export default function Page() {
       postal_code: String(formData.get("postanski") || ""),
       gift_pack: giftPack,
       shipping: 10,
-      product_price: 59.9,
+      product_price: 49.9,
       total: Number(total.toFixed(2)),
       status: "novo",
       source: "trimer",
@@ -146,7 +146,7 @@ export default function Page() {
 
             <div className="rounded-2xl bg-yellow-400 p-3 text-center text-black shadow-lg ring-2 ring-white/40">
               <div className="text-[11px] font-bold uppercase tracking-wide">Akcija</div>
-              <div className="mt-1 text-2xl font-black">59,90 KM</div>
+              <div className="mt-1 text-2xl font-black">49,90 KM</div>
             </div>
           </div>
 
@@ -263,7 +263,7 @@ export default function Page() {
               <div className="rounded-2xl border-2 border-green-500 bg-white p-4 text-black">
                 <div className="flex justify-between text-sm">
                   <span>Makita Aku Trimer set</span>
-                  <span>59,90 KM</span>
+                  <span>49,90 KM</span>
                 </div>
                 <div className="mt-1 flex justify-between text-sm">
                   <span>Dostava</span>
