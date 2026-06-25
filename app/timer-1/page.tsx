@@ -135,7 +135,7 @@ export default function Page() {
           </p>
 
           <div className="mt-4 rounded-3xl bg-white p-3 shadow-2xl">
-            <img src="https://i.imgur.com/AQ7TANg.jpeg" alt="Makita aku trimer set" className="w-full rounded-2xl object-cover" />
+            <img src="https://i.imgur.com/oxlz1kf.jpeg" alt="Makita aku trimer set" className="w-full rounded-2xl object-cover" />
           </div>
 
           <div className="mt-4 grid grid-cols-2 gap-3">
