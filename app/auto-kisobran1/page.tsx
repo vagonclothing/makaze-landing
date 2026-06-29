@@ -19,7 +19,7 @@ export default function Page() {
     orderRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const baseTotal = 24.9; // 14.90 + 10 dostava
+  const baseTotal = 23.9; // 13.90 + 10 dostava
   const total = useMemo(() => (giftPack ? baseTotal + 5 : baseTotal), [giftPack]);
 
   const benefits = [
@@ -73,7 +73,7 @@ export default function Page() {
       postal_code: String(formData.get("postanski") || ""),
       gift_pack: giftPack,
       shipping: 10,
-      product_price: 14.9,
+      product_price: 13.9,
       total: Number(total.toFixed(2)),
       status: "novo",
       source: "auto-kisobran",
@@ -139,7 +139,7 @@ export default function Page() {
               </div>
               <div className="rounded-2xl bg-cyan-300 p-3 text-center text-slate-950 shadow-lg">
                 <div className="text-[11px] font-black uppercase tracking-wide">Akcija</div>
-                <div className="mt-1 text-2xl font-black">14,90 KM</div>
+                <div className="mt-1 text-2xl font-black">13,90 KM</div>
                 <div className="text-xs font-black">1+1 GRATIS</div>
               </div>
             </div>
@@ -211,7 +211,7 @@ export default function Page() {
 
           <section className="mt-5 rounded-3xl border border-red-200 bg-red-50 p-4 text-center shadow-sm">
             <div className="text-sm font-black text-red-800">⏳ Akcija traje dok ima zaliha</div>
-            <div className="mt-1 text-xs font-semibold text-slate-700">1+1 GRATIS za 14,90 KM je trenutna ponuda.</div>
+            <div className="mt-1 text-xs font-semibold text-slate-700">1+1 GRATIS za 13,90 KM je trenutna ponuda.</div>
           </section>
 
           <section className="mt-5 rounded-3xl border border-sky-200 bg-white p-5 shadow-sm">
@@ -255,7 +255,7 @@ export default function Page() {
                 </label>
 
                 <div className="rounded-2xl border-2 border-cyan-300 bg-white p-4 text-black">
-                  <div className="flex justify-between text-sm"><span>Auto kišobran 1+1 gratis</span><span>14,90 KM</span></div>
+                  <div className="flex justify-between text-sm"><span>Auto kišobran 1+1 gratis</span><span>13,90 KM</span></div>
                   <div className="mt-1 flex justify-between text-sm"><span>Dostava</span><span>10,00 KM</span></div>
                   {giftPack && (
                     <div className="mt-1 flex justify-between text-sm text-sky-700"><span>Poklon paket</span><span>5,00 KM</span></div>
