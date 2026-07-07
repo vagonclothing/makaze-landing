@@ -18,7 +18,7 @@ export default function Page() {
     orderRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const baseTotal = 169.9;
+  const baseTotal = 195;
   const total = useMemo(() => (giftPack ? baseTotal + 5 : baseTotal), [giftPack]);
 
   const features = [
@@ -27,7 +27,7 @@ export default function Page() {
     "Brusilica",
     "SDS hilti bušilica",
     "4 jake baterije",
-    "1 brzi punjač",
+    "4 brza punjača",
     "Čvrsti kofer",
   ];
 
@@ -54,7 +54,7 @@ export default function Page() {
     "Brusilica",
     "SDS hilti bušilica",
     "4 punjive baterije",
-    "Brzi punjač",
+    "4 brza punjača",
     "Tvrdi plastični kofer",
     "3 godine garancije",
   ];
@@ -62,7 +62,7 @@ export default function Page() {
   const faqs = [
     {
       q: "Šta dolazi u paketu?",
-      a: "Dobijate 4 alata: udarni odvijač, brusilicu, aku bušilicu i SDS hilti, plus 4 baterije, brzi punjač i čvrsti kofer.",
+      a: "Dobijate 4 alata: udarni odvijač, brusilicu, aku bušilicu i SDS hilti, plus 4 baterije, 4 brza punjača i čvrsti kofer.",
     },
     {
       q: "Je li original Makita?",
@@ -97,7 +97,7 @@ export default function Page() {
       postal_code: String(formData.get("postanski") || ""),
       gift_pack: giftPack,
       shipping: 10,
-      product_price: 159.9,
+      product_price: 185,
       total: Number(total.toFixed(2)),
       status: "novo",
       source: "makita-set",
@@ -152,7 +152,7 @@ export default function Page() {
           </h1>
 
           <p className="mt-2 text-center text-sm font-semibold text-green-50">
-            4 moćna uređaja + 4 baterije + brzi punjač – sve u jednom čvrstom koferu
+            4 moćna uređaja + 4 baterije + 4 punjača – sve u jednom čvrstom koferu
           </p>
 
           <div className="mt-4 rounded-3xl bg-white p-3 shadow-2xl">
@@ -173,7 +173,7 @@ export default function Page() {
 
             <div className="rounded-2xl bg-yellow-400 p-3 text-center text-black shadow-lg ring-2 ring-white/40">
               <div className="text-[11px] font-bold uppercase tracking-wide">Akcija</div>
-              <div className="mt-1 text-2xl font-black">159,90 KM</div>
+              <div className="mt-1 text-2xl font-black">185,00 KM</div>
             </div>
           </div>
 
@@ -366,7 +366,7 @@ export default function Page() {
               <div className="rounded-2xl border-2 border-green-500 bg-white p-4 text-black">
                 <div className="flex justify-between text-sm">
                   <span>Set 4u1</span>
-                  <span>159,90 KM</span>
+                  <span>185,00 KM</span>
                 </div>
                 <div className="mt-1 flex justify-between text-sm">
                   <span>Poštarina</span>
