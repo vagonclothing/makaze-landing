@@ -157,7 +157,7 @@ export default function Page() {
 
           <div className="mt-4 rounded-3xl bg-white p-3 shadow-2xl">
             <img
-              src="https://i.imgur.com/2GC4hdy.jpeg"
+              src="https://i.imgur.com/6ozbB1o.jpeg"
               alt="Makita 4u1 set"
               className="w-full rounded-2xl object-cover"
             />
