@@ -317,8 +317,8 @@ export default function Page() {
                 <label className={`gift-label${giftPack ? " checked" : ""}`}>
                   <input type="checkbox" checked={giftPack} onChange={(e) => setGiftPack(e.target.checked)} />
                   <div>
-                    <div className="gift-lbl-title">🎁 Poklon pakovanje</div>
-                    <div className="gift-lbl-sub">(U vrijednosti od 5 do 50 KM) + 5,00 KM</div>
+                    <div className="gift-lbl-title">🎁 Želim poklon paket</div>
+                    <div className="gift-lbl-sub">+5,00 KM (vrijednost do 50,00 KM)</div>
                   </div>
                 </label>
                 <div className="summary-box">
