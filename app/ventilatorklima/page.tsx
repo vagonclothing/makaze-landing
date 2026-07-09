@@ -23,11 +23,11 @@ export default function Page() {
   const total = useMemo(() => (giftPack ? baseTotal + 5 : baseTotal), [giftPack]);
 
   const benefits = [
-    { icon: "❄️", text: "Hladi kao klima, troši kao ventilator – višestruko manji račun za struju" },
+    { icon: "❄️", text: "Snažno rashlađivanje prostora – troši višestruko manje od klime" },
     { icon: "🎮", text: "Daljinski upravljač – mijenjaj brzinu i mod bez ustajanja s kauča" },
     { icon: "📏", text: "Visina 80 cm – idealan za dnevnu sobu, spavaću ili kancelariju" },
     { icon: "🚚", text: "Prenosiv – lako ga premjestiš iz sobe u sobu, nema montaže" },
-    { icon: "💧", text: "Rashlađivanje vodom – dodaj vodu ili led za još hladniji zrak" },
+    { icon: "🌀", text: "Više brzina rada – od laganog povjetarca do jakog strujanja" },
     { icon: "🌙", text: "Tihi rad – možeš spavati dok radi, ne smeta ni djeci" },
   ];
 
@@ -41,7 +41,7 @@ export default function Page() {
   const testimonials = [
     { text: "Stan mi je pod kirijom i ne smijem ugrađivati klimu. Ovo je savršena zamjena, hladi odlično.", author: "Amila K.", city: "Sarajevo" },
     { text: "Daljinski je prava stvar. Ležim na kauču i mijenjam brzine bez ustajanja. Preporučujem.", author: "Dragan M.", city: "Banja Luka" },
-    { text: "Dodao sam led u spremnik i puše skroz hladno. Djeca ga obožavaju u ovim vrućinama.", author: "Emir H.", city: "Tuzla" },
+    { text: "Puše jako i osvježi cijelu sobu za par minuta. Djeca ga obožavaju u ovim vrućinama.", author: "Emir H.", city: "Tuzla" },
     { text: "Račun za struju je duplo manji nego kad sam koristio klimu. A hladi sasvim dovoljno.", author: "Nikola P.", city: "Mostar" },
     { text: "Tih je, ne budi me noću. Premjestim ga iz dnevne u spavaću za 10 sekundi.", author: "Lejla S.", city: "Zenica" },
     { text: "Kupio za kancelariju. Kolege stalno pitaju gdje sam ga našao. Odličan uređaj za te pare.", author: "Ivan B.", city: "Bihać" },
@@ -49,8 +49,8 @@ export default function Page() {
 
   const faqs = [
     { q: "Kolika je visina uređaja?", a: "Uređaj je visok 80 cm — idealna visina za hlađenje prostora dok sjediš ili ležiš." },
-    { q: "Da li stvarno hladi ili samo puše?", a: "Uređaj rashlađuje zrak pomoću vode — u spremnik možeš dodati hladnu vodu ili led za još jači efekat hlađenja." },
-    { q: "Koliko troši struje?", a: "Višestruko manje od klasične klime. Radi na principu ventilatora s vodenim hlađenjem, što ga čini vrlo ekonomičnim." },
+    { q: "Da li stvarno osvježava prostoriju?", a: "Da. Snažan uspravni ventilator stvara strujanje zraka koje osvježava cijelu prostoriju — puno efikasnije od malih stonih ventilatora." },
+    { q: "Koliko troši struje?", a: "Višestruko manje od klasične klime. Ekonomičan je za svakodnevno korištenje, čak i cijelu noć." },
     { q: "Šta sve mogu daljinskim?", a: "Daljinskim mijenjaš brzine ventilatora, modove rada i tajmer — bez ustajanja." },
     { q: "Treba li montaža?", a: "Ne. Uređaj je prenosiv — raspakuješ, uključiš u struju i radi. Lako ga premjestiš iz sobe u sobu." },
     { q: "Kako se plaća?", a: "Plaćanje je pouzećem – platiš kuriru tek kada preuzmeš paket. Nema rizika." },
@@ -193,7 +193,7 @@ export default function Page() {
           <div className="hero-badge">❄️ Hladi kao klima, troši kao ventilator</div>
           <h1>Klima ventilator sa daljinskim</h1>
           <p className="hero-sub">
-            Prenosivi rashladni uređaj visine 80 cm — rashlađuje vodom, upravljaš daljinskim, premjestiš ga gdje god trebaš. Bez montaže, bez bušenja, bez velikih računa.
+            Prenosivi uspravni ventilator visine 80 cm — snažno strujanje zraka, upravljaš daljinskim, premjestiš ga gdje god trebaš. Bez montaže, bez bušenja, bez velikih računa.
           </p>
 
           <div className="hero-img">
@@ -214,9 +214,9 @@ export default function Page() {
               <div className="spec-lbl">Upravljanje</div>
             </div>
             <div className="spec-item">
-              <div className="spec-icon">💧</div>
-              <div className="spec-val">Voda + led</div>
-              <div className="spec-lbl">Hlađenje</div>
+              <div className="spec-icon">🌀</div>
+              <div className="spec-val">Više brzina</div>
+              <div className="spec-lbl">Rada</div>
             </div>
           </div>
 
