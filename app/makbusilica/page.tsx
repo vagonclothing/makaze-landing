@@ -212,7 +212,7 @@ export default function Page() {
           <div className="hero-img">
             <span className="hero-img-badge">MAKITA</span>
             <span className="hero-img-price">34,90 KM</span>
-            <img src="https://i.imgur.com/1OiJ3rN.jpeg" alt="Makita aku udarna bušilica sa nastavcima" />
+            <img src="https://i.imgur.com/1WFkooE.jpeg" alt="Makita aku udarna bušilica sa nastavcima" />
           </div>
 
           <div className="kit-box">
