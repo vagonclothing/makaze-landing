@@ -117,6 +117,18 @@ export default function Page() {
       return;
     }
 
+    fetch("/api/notify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        product_name: order.product_name,
+        full_name: order.full_name,
+        phone: order.phone,
+        address_place: order.address_place,
+        total: order.total,
+      }),
+    }).catch(() => {}); // ne blokiraj ako notifikacija ne uspije
+
     if (typeof window !== "undefined" && window.fbq) {
       window.fbq("track", "Lead", {
         content_name: order.product_name,

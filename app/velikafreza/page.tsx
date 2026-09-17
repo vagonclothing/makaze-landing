@@ -81,6 +81,18 @@ export default function Page() {
     const { error } = await supabase.from("orders").insert(order);
     if (error) { alert("Greška pri slanju. Pokušajte ponovo."); setLoading(false); return; }
 
+    fetch("/api/notify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        product_name: order.product_name,
+        full_name: order.full_name,
+        phone: order.phone,
+        address_place: order.address_place,
+        total: order.total,
+      }),
+    }).catch(() => {}); // ne blokiraj ako notifikacija ne uspije
+
     if (window.fbq) {
       window.fbq("track", "Lead", { content_name: order.product_name, value: order.total, currency: "BAM" });
     }
