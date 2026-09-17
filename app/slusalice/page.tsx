@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { supabase } from "../../lib/supabase";
+import { useSearchParams } from "next/navigation";
 
 declare global {
   interface Window {
@@ -9,7 +10,13 @@ declare global {
   }
 }
 
-export default function Page() {
+function PageContent() {
+  const searchParams = useSearchParams();
+  const utmSource = searchParams.get("utm_source") || null;
+  const utmCampaign = searchParams.get("utm_campaign") || null;
+  const utmContent = searchParams.get("utm_content") || null;
+  const adId = searchParams.get("ad_id") || null;
+
   const [giftPack, setGiftPack] = useState(false);
   const [loading, setLoading] = useState(false);
   const [pageReady, setPageReady] = useState(false);
@@ -136,6 +143,10 @@ export default function Page() {
       total: Number(total.toFixed(2)),
       status: "novo",
       source: "airpods-4",
+      utm_source: utmSource,
+      utm_campaign: utmCampaign,
+      utm_content: utmContent,
+      ad_id: adId,
     };
 
     if (!order.full_name || !order.phone || !order.address_place || !order.postal_code) {
@@ -452,5 +463,13 @@ export default function Page() {
         </main>
       </div>
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={null}>
+      <PageContent />
+    </Suspense>
   );
 }

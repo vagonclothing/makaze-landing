@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { Suspense, useRef, useState } from "react";
 import { supabase } from "../../lib/supabase";
+import { useSearchParams } from "next/navigation";
 
 declare global {
   interface Window {
@@ -9,7 +10,13 @@ declare global {
   }
 }
 
-export default function Page() {
+function PageContent() {
+  const searchParams = useSearchParams();
+  const utmSource = searchParams.get("utm_source") || null;
+  const utmCampaign = searchParams.get("utm_campaign") || null;
+  const utmContent = searchParams.get("utm_content") || null;
+  const adId = searchParams.get("ad_id") || null;
+
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const orderRef = useRef<HTMLElement | null>(null);
@@ -35,6 +42,10 @@ export default function Page() {
       total: 0,
       status: "novo",
       source: "kafic-live",
+      utm_source: utmSource,
+      utm_campaign: utmCampaign,
+      utm_content: utmContent,
+      ad_id: adId,
     };
     if (!order.full_name || !order.phone || !order.address_place || !order.postal_code) {
       alert("Molimo popunite sva polja.");
@@ -626,5 +637,13 @@ export default function Page() {
         </footer>
       </div>
     </>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={null}>
+      <PageContent />
+    </Suspense>
   );
 }
