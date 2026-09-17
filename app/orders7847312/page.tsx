@@ -139,6 +139,26 @@ export default function OrdersPage() {
                 {o.source && (
                   <div className="text-sm text-gray-500">🔗 {o.source}</div>
                 )}
+                {(o.utm_campaign || o.ad_id) && (
+                  <div className="mt-2 rounded-lg bg-blue-50 border border-blue-200 px-3 py-2">
+                    <div className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-1">
+                      📣 Facebook oglas
+                    </div>
+                    {o.utm_campaign && (
+                      <div className="text-xs text-blue-900">
+                        <span className="font-semibold">Kampanja:</span> {o.utm_campaign}
+                      </div>
+                    )}
+                    {o.utm_content && (
+                      <div className="text-xs text-blue-900">
+                        <span className="font-semibold">Oglas:</span> {o.utm_content}
+                      </div>
+                    )}
+                    {o.ad_id && (
+                      <div className="text-xs text-blue-500 mt-0.5">ID: {o.ad_id}</div>
+                    )}
+                  </div>
+                )}
 
                 <div className="mt-2 font-bold text-black">💰 {o.total} KM</div>
 

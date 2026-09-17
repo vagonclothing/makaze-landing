@@ -15,6 +15,10 @@ type Order = {
   created_at: string;
   confirmed_at: string | null;
   gift_pack: boolean;
+  utm_campaign?: string | null;
+  utm_content?: string | null;
+  utm_source?: string | null;
+  ad_id?: string | null;
 };
 
 type Margin = {
@@ -48,6 +52,7 @@ export default function DashboardPage() {
   const [showMargins, setShowMargins] = useState(false);
   const [showOdgodjene, setShowOdgodjene] = useState(false);
   const [showZarada, setShowZarada] = useState(false);
+  const [showKampanje, setShowKampanje] = useState(false);
   const [loading, setLoading]       = useState(true);
   const [lastRefresh, setLastRefresh] = useState(new Date());
 
@@ -116,6 +121,16 @@ export default function DashboardPage() {
     }
     zaradaMap[o.product_name].count += 1;
     zaradaMap[o.product_name].zarada += z;
+  });
+
+  // Zarada po kampanji (potvrđene)
+  const kampanjaMap: Record<string, { count: number; promet: number; zarada: number }> = {};
+  potvrdjene.forEach((o) => {
+    const key = o.utm_campaign || "Bez kampanje (organski/direktno)";
+    if (!kampanjaMap[key]) kampanjaMap[key] = { count: 0, promet: 0, zarada: 0 };
+    kampanjaMap[key].count += 1;
+    kampanjaMap[key].promet += (o.total - 10);
+    kampanjaMap[key].zarada += getZarada(o.source);
   });
 
   // Artikli odgođenih
@@ -539,6 +554,39 @@ export default function DashboardPage() {
                 </div>
               </div>
             )}
+
+            {/* ── PO KAMPANJI ── */}
+            <div className="mx-4 mt-3 rounded-2xl bg-white p-4 shadow-sm border border-gray-100">
+              <button onClick={() => setShowKampanje(!showKampanje)} className="w-full flex items-center justify-between">
+                <span className="font-black text-sm text-black">📣 Po kampanji ({tab.toLowerCase()})</span>
+                <span className="text-xs font-bold text-gray-400">{showKampanje ? "▲" : "▼"}</span>
+              </button>
+              {showKampanje && (
+                <div className="mt-3 space-y-2">
+                  {Object.entries(kampanjaMap)
+                    .sort((a, b) => b[1].zarada - a[1].zarada)
+                    .map(([naziv, d]) => (
+                      <div key={naziv} className="rounded-xl bg-gray-50 p-3 border border-gray-100">
+                        <div className="text-sm font-bold text-black">{naziv}</div>
+                        <div className="mt-1.5 flex gap-4">
+                          <div>
+                            <div className="text-xs text-gray-400">Narudžbi</div>
+                            <div className="text-sm font-black text-black">{d.count}</div>
+                          </div>
+                          <div>
+                            <div className="text-xs text-gray-400">Promet</div>
+                            <div className="text-sm font-black text-black">{d.promet.toFixed(2)} KM</div>
+                          </div>
+                          <div>
+                            <div className="text-xs text-gray-400">Zarada</div>
+                            <div className="text-sm font-black text-green-600">+{d.zarada.toFixed(2)} KM</div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              )}
+            </div>
 
             {/* ── NARUDŽBE LISTA ── */}
             <div className="mx-4 mt-3">
