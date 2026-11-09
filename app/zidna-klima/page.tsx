@@ -25,7 +25,7 @@ function PageContent() {
     orderRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const baseTotal = 99.9;
+  const baseTotal = 59.9;
   const total = useMemo(() => (giftPack ? baseTotal + 5 : baseTotal), [giftPack]);
 
   const benefits = [
@@ -123,7 +123,7 @@ function PageContent() {
       postal_code: String(formData.get("postanski") || ""),
       gift_pack: giftPack,
       shipping: 10,
-      product_price: 89.9,
+      product_price: 49.9,
       total: Number(total.toFixed(2)),
       status: "novo",
       source: "zidna-klima",
@@ -207,7 +207,7 @@ function PageContent() {
 
             <div className="rounded-2xl bg-yellow-400 p-3 text-center text-black shadow-lg ring-2 ring-white/40">
               <div className="text-[11px] font-bold uppercase tracking-wide">Akcija</div>
-              <div className="mt-1 text-2xl font-black">89,90 KM</div>
+              <div className="mt-1 text-2xl font-black">49,90 KM</div>
             </div>
           </div>
 
@@ -328,7 +328,7 @@ function PageContent() {
 
           <section className="mt-5 rounded-3xl border border-yellow-300 bg-yellow-100 p-4 text-center shadow-sm">
             <div className="text-sm font-black text-neutral-900">
-              ⚡ AKCIJA 89,90 KM • PLAĆANJE POUZEĆEM
+              ⚡ AKCIJA 49,90 KM • PLAĆANJE POUZEĆEM
             </div>
             <div className="mt-1 text-xs font-semibold text-neutral-700">
               Svaki uređaj se testira prije slanja. Dostava 1–3 radna dana.
@@ -402,7 +402,7 @@ function PageContent() {
               <div className="rounded-2xl border-2 border-white bg-white p-4 text-black">
                 <div className="flex justify-between text-sm">
                   <span>Zidna klima 2u1</span>
-                  <span>89,90 KM</span>
+                  <span>49,90 KM</span>
                 </div>
                 <div className="mt-1 flex justify-between text-sm">
                   <span>Dostava</span>
