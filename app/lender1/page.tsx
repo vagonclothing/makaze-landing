@@ -44,7 +44,7 @@ function PageContent() {
     { br: "02", n: "Slika i cijena odmah", t: "Kupac mora vidjeti šta kupuje i koliko košta bez skrolanja. Skrivena cijena je najbrži način da izgubiš posjetioca." },
     { br: "03", n: "Zašto baš taj proizvod", t: "Konkretne prednosti napisane jezikom kupca — ne lista tehničkih podataka koju niko ne čita." },
     { br: "04", n: "Povjerenje", t: "Plaćanje pouzećem, rok dostave, mogućnost povrata. Sve ono što skida strah da je prevara." },
-    { br: "05", n: "Razlog da naruči sad", t: "Ograničena zaliha, akcijska cijena, gratis dostava. Bez toga kupac kaže „razmislit ću" i nikad se ne vrati." },
+    { br: "05", n: "Razlog da naruči sad", t: "Ograničena zaliha, akcijska cijena, gratis dostava. Bez toga kupac kaže „razmislit ću“ i nikad se ne vrati." },
     { br: "06", n: "Kratka forma", t: "Ime, telefon, adresa — ništa više. Svako dodatno polje obara broj narudžbi." },
     { br: "07", n: "Pixel koji radi", t: "Postavljen kako treba, da Facebook zna ko je naručio i kome dalje da gura tvoj oglas." },
   ];
