@@ -104,7 +104,7 @@ function PageContent() {
       usluge:       odabrane.join(", "),
       poruka:       String(fd.get("poruka") || ""),
       status:       "novo",
-      source:       "craftdigital",
+      source:       "vektor",
       utm_source:   utmSource,
       utm_campaign: utmCampaign,
       utm_content:  utmContent,
@@ -133,7 +133,7 @@ function PageContent() {
     }).catch(() => {});
 
     if (window.fbq) {
-      window.fbq("track", "Lead", { content_name: "CraftDigital upit", currency: "BAM" });
+      window.fbq("track", "Lead", { content_name: "Vektor upit", currency: "BAM" });
     }
 
     form.reset();
@@ -172,7 +172,7 @@ function PageContent() {
           display: flex; align-items: center; justify-content: center;
           font-size: 16px; font-weight: 800; color: #070b14;
         }
-        .logo-txt { font-size: 16px; font-weight: 700; color: #fff; }
+        .logo-txt { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: .06em; }
         .logo-txt span { color: #38bdf8; }
         .hdr-btn {
           background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3);
@@ -477,7 +477,7 @@ function PageContent() {
           padding: 26px 18px 30px; text-align: center;
           border-top: 1px solid rgba(255,255,255,0.06);
         }
-        .f-logo { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 9px; }
+        .f-logo { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 9px; letter-spacing: .08em; }
         .f-logo span { color: #38bdf8; }
         .f-t { font-size: 12.5px; color: #475569; line-height: 1.7; }
       `}</style>
@@ -487,8 +487,8 @@ function PageContent() {
         {/* HEADER */}
         <header className="hdr">
           <div className="logo">
-            <div className="logo-mark disp">C</div>
-            <div className="logo-txt disp">Craft<span>Digital</span></div>
+            <div className="logo-mark disp">V</div>
+            <div className="logo-txt disp">VEKTOR<span>.</span></div>
           </div>
           <button className="hdr-btn" onClick={scrollToForm}>Zatraži ponudu</button>
         </header>
@@ -907,7 +907,7 @@ function PageContent() {
         </section>
 
         <footer className="footer">
-          <div className="f-logo disp">Craft<span>Digital</span></div>
+          <div className="f-logo disp">VEKTOR<span>.</span></div>
           <p className="f-t">
             Web stranice · Webshopovi · Poslovni sistemi po mjeri<br />
             Bosna i Hercegovina
